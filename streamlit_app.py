@@ -11,10 +11,10 @@ import pandas as pd
 
 st.write( "Welcome to QS!" )
 
-val = st.number_input("Enter Premium amount($)", min_value =0, max_value = 10000)
+val = st.number_input("Enter Premium amount", min_value =0, max_value = 10000)
 st.write("Premium amount is:", val )
 
-val1 = st.slider("Pick a premium amount($)",min_value=0, max_value = 10000, 1000 )
+val1 = st.slider("Pick a premium amount",min_value=0, max_value = 10000, 1000 )
 st.write("Premium amount is:", val1 )
 
 elem = st.selectbox("Choose scenario", {"ScenarioUp", "ScenarioDown"})
