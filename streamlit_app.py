@@ -10,7 +10,7 @@ import streamlit as st
 import pandas as pd
 
 def displayText():
-  print("sample text")
+  return("sample text")
   
 txt = displayText()
 st.write( txt )
