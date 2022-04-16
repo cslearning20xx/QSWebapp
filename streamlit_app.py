@@ -9,7 +9,7 @@ Created on Thu Apr 22 08:41:28 2021
 import streamlit as st
 import pandas as pd
 
-st.write( "Welcome! Please write some code to execute )
+st.write( "Welcome! Please write some code to execute" )
 
 
 
