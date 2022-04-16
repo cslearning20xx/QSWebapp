@@ -8,6 +8,7 @@ Created on Thu Apr 22 08:41:28 2021
 
 import streamlit as st
 import pandas as pd
+from importlib.metadata import version
 
 def displayText():
   return("sample text")
@@ -15,6 +16,10 @@ def displayText():
 txt = displayText()
 st.write( txt )
 st.write( "Welcome to QS!" )
+
+
+st.write(version('streamlit'))
+
 
 val = st.sidebar.number_input("Enter Premium amount", min_value =0, max_value=10000)
 st.write("Entered Premium amount is:", val )
