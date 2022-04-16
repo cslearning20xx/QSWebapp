@@ -18,7 +18,7 @@ st.write( "Welcome to QS!" )
 
 with st.sidebar.form(key='my_form'):
 	premium = st.number_input("Enter Premium amount", min_value =0, max_value=10000)  
-	elem = st.sidebar.selectbox("Choose scenario", {"ScenarioUp", "ScenarioDown"})
+	elem = st.selectbox("Choose scenario", {"ScenarioUp", "ScenarioDown"})
 	submit_button = st.form_submit_button(label='Submit')
 
 st.write("Premium is:", premium )
