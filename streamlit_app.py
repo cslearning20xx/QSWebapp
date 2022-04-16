@@ -8,9 +8,12 @@ Created on Thu Apr 22 08:41:28 2021
 
 import streamlit as st
 import pandas as pd
-from libfunc import *
 
-st.write( displayText())
+def displayText():
+  print("sample text")
+  
+txt = displayText()
+st.write( txt )
 st.write( "Welcome to QS!" )
 
 val = st.sidebar.number_input("Enter Premium amount", min_value =0, max_value=10000)
