@@ -22,7 +22,7 @@ with st.sidebar.form(key='my_form'):
 
 	
 st.write("Premium is:", premium )
-st.write("Selected scenario is:", elem )
+#st.write("Selected scenario is:", elem )
 #val1 = st.sidebar.slider("Pick a premium amount",min_value=0, max_value=10000, value=1000 )
 #st.write("Selected Premium amount is:", val1 )
 #elem = st.selectbox("Choose scenario", {"ScenarioUp", "ScenarioDown"})
