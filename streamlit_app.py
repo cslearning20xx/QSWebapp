@@ -34,7 +34,7 @@ with col1:
     with st.form('Form1'):
         premiumchange1 = st.slider('change in premium', min_value = 0.0, max_value = 10.0, value = 1.0, step = 0.01 )
         investmentreturn1 = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 3.0, step = 0.01 )
-	marketgrowth1 = st.slider('market growth', min_value = -20.0, max_value = 50.0, value - 5.0, step = 0.01 )	
+	marketgrowth1 = st.slider('market growth', min_value = -20.0, max_value = 50.0, value - 5.0, step = 0.01 )
         submitted1 = st.form_submit_button('Submit Scenario 1')
 	
 with col2:
