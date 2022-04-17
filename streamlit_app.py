@@ -32,7 +32,7 @@ col1, col2 = st.sidebar.columns(2)
 
 with col1:
     with st.form('Form1'):
-	premiumpercchange = st.slider("% change in premium", min_value=0.0, max_value=10.0, value=3.0, step=1.,format="%.2f")     
+	premiumpercchange = st.slider("% change in premium", min_value=0.0, max_value=10.0, value=3.0, step=0.01 )
         st.slider(label='Select intensity', min_value=0, max_value=100, key=4)
         submitted1 = st.form_submit_button('Submit 1')
 
