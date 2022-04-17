@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
  
-txt = displayText()
-st.write( txt )
 st.write( "Welcome to QS!" )
 
 with st.sidebar.form(key='my_form'):
