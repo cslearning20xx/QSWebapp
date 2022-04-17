@@ -22,7 +22,7 @@ with col1:
         investmentreturn1 = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 3.0, step = 0.01 )
         submitted1 = st.form_submit_button('Submit Scenario1')
 
-with col1:
+with col2:
     with st.form('Form2'):
         premiumchange2 = st.slider('change in premium', min_value = 0.0, max_value = 10.0, value = 1.0, step = 0.01 )
         investmentreturn2 = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 3.0, step = 0.01 )
