@@ -30,6 +30,6 @@ with col2:
 
 
 if submitted1:
-	print("you filled scenario 1")
+	st.write("you filled scenario 1")
 if submitted2:
-	print("you filled scenario 2")
+	st.write("you filled scenario 2")
