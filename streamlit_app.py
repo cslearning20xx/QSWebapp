@@ -75,7 +75,7 @@ if submitted1:
 	st.write(PnLScenarioUp)
 if submitted2:
 	ScenarioDown = {"PremiumChangePercentage": premiumchange2, "MarketGrowth": marketgrowth2, "ReturnRate": investmentreturn2 }
-	ScenarioDown = {**Baseline, **ScenarioUp}
-	PnLScenarioDown = PnLEstimateforScenario( ScenarioDown)	
+	ScenarioDown = {**Baseline, **ScenarioDown}
+	PnLScenarioDown = PnLEstimateforScenario(ScenarioDown)	
 	st.write(PnLScenarioDown)
 	
