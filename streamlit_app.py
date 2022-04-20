@@ -18,6 +18,7 @@ col1, col2 = st.sidebar.columns(2)
 
 with col1:
     with st.form('Form1'):
+	st.title("Hypothetical Up Scenario")
         marketgrowth1 = st.slider('market growth', min_value = 0.0, max_value = 20.0, value = 2.0, step = 0.01 )
         premiumchange1 = st.slider('change in premium', min_value = 0.0, max_value = 10.0, value = -1.0, step = 0.01 )
         investmentreturn1 = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
@@ -25,6 +26,7 @@ with col1:
 
 with col2:
     with st.form('Form2'):
+	st.title("Hypothetical Down Scenario")
         marketgrowth2 = st.slider('market growth', min_value = 0.0, max_value = 20.0, value = 2.0, step = 0.01 )
         premiumchange2 = st.slider('change in premium', min_value = 0.0, max_value = 10.0, value = 1.0, step = 0.01 )
         investmentreturn2 = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 2.0, step = 0.01 )
