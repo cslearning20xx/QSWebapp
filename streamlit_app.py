@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import math
+import numpy as np
+
 
 st.write( "Welcome to QS!" )
 
@@ -56,7 +57,7 @@ def PnLEstimateforScenario(Scenario):
     
     Expenses = 0.25 * TotalPremium
     InvestmentAmount = TotalPremium - ClaimReserve - Expenses    
-    InvestmentIncome = InvestmentAmount * math.exp(Scenario["ReturnRate"]) - InvestmentAmount
+    InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
     return PnL
