@@ -37,7 +37,7 @@ def PnLEstimateforScenario(Scenario):
     MarketSize = Scenario["MarketSize"] * (1+ Scenario["MarketGrowth"])    
     NumPolicyHolders = MarketSize * Scenario["MarketShare"] 
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage'] )    
-    DemandChange = getDemandChangeForPremiumChange(Scenario['PremiumChangePercentage'])
+    DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Elasticity']
     NewNumPolicyHolders = ( 1- DemandChange) * NumPolicyHolders
     
     TotalPremium = NewPremium * NewNumPolicyHolders
