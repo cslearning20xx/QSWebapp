@@ -22,7 +22,7 @@ with col1:
         marketgrowth1 = st.slider('market growth', min_value = 0.0, max_value = 20.0, value = 2.0, step = 0.01 )
         premiumchange1 = st.slider('change in premium', min_value = 0.0, max_value = 10.0, value = -1.0, step = 0.01 )
         investmentreturn1 = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
-        submitted1 = st.form_submit_button('Submit Scenario1')
+        submitted1 = st.form_submit_button('Submit Up Scenario')
 
 with col2:
     with st.form('Form2'):
@@ -30,7 +30,7 @@ with col2:
         marketgrowth2 = st.slider('market growth', min_value = 0.0, max_value = 20.0, value = 2.0, step = 0.01 )
         premiumchange2 = st.slider('change in premium', min_value = 0.0, max_value = 10.0, value = 1.0, step = 0.01 )
         investmentreturn2 = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 2.0, step = 0.01 )
-        submitted2 = st.form_submit_button("Submit Scenario2")
+        submitted2 = st.form_submit_button("Submit Down Scenario")
 
 def PnLEstimateforScenario(Scenario):
      
@@ -54,9 +54,26 @@ def PnLEstimateforScenario(Scenario):
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
     return PnL
-	
+
+Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, "MarketGrowth": 0.0,
+            "ReturnRate": investmentreturn,             
+            "Elasticity": priceelasticity,  "ClaimProbability": claimprobability
+            "PremiumChangePercentage": 0.0,
+            }
+
+ScenarioUp = {"PremiumChangePercentage": premiumchange1, "MarketGrowth": marketgrowth1, "ReturnRate": investmentreturn1 }
+ScenarioDown = {"PremiumChangePercentage": premiumchange2, "MarketGrowth": marketgrowth2, "ReturnRate": investmentreturn2 }
+
+Scenario = {}
+Scenario['Baseline'] = Baseline
+Scenario['ScenarioUp'] = {**Baseline, **ScenarioUp}
+Scenario['ScenarioDown'] = {**Baseline, **ScenarioDown}
+
+
 if submitted1:
-	st.write("you filled scenario 1")
+	PnLScenarioUp = PnLEstimateforScenario( ScenarioUp)
+	st.write(PnLScenarioUp)
 if submitted2:
-	st.write("you filled scenario 2")
+	PnLScenarioDown = PnLEstimateforScenario( ScenarioDown)
+	st.write(PnLScenarioDown)
 	
