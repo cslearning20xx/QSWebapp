@@ -4,6 +4,7 @@ import pandas as pd
 st.write( "Welcome to QS!" )
 
 with st.sidebar.form(key='BaselineInputs'):
+    st.title("Baseline Inputs")
     premium = st.number_input("Enter Premium amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Enter Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
