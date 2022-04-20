@@ -43,7 +43,12 @@ def PnLEstimateforScenario(Scenario):
     TotalPremium = NewPremium * NewNumPolicyHolders
     NumClaims = NewNumPolicyHolders * Scenario["ClaimProbability"]
     TotalClaimAmount = NumClaims * Scenario['AvgClaimSize']
-    
+	
+    CL = [1.4259, 1.0426, 1.0270, 1.0137, 1.0115, 1.0075]
+    CumulativeClaimRatios = [1]
+    for i in range(1, len(CL)):
+        CumulativeClaimRatios.append(CumulativeClaimRatios[i-1]*CL[i])
+	
     # this is really reverse engineering, probably there is a better way to do
     ClaimInitial = round(TotalClaimAmount/CumulativeClaimRatios[-1],0)
     ClaimReserve = round(TotalClaimAmount - ClaimInitial, 0)
