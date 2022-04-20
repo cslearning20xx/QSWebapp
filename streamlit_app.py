@@ -7,9 +7,10 @@ with st.sidebar.form(key='BaselineInputs'):
     premium = st.number_input("Enter Premium amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Enter Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
-    marketshare = st.slider('market share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 ) 	
-    claimprobability = st.slider('market share', min_value = 0.0, max_value = 10.0, value = 1.6, step = 0.01 ) 	
-    investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )    
+    marketshare = st.slider('market share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
+    claimprobability = st.slider('market share', min_value = 0.0, max_value = 10.0, value = 1.6, step = 0.01 )
+    investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
+    priceelasticity = st.number_input("Price Elasticity", value = -0.6 )
     submitted = st.form_submit_button("Submit")
 '''	
 col1, col2 = st.sidebar.columns(2)
