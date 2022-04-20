@@ -58,7 +58,7 @@ def PnLEstimateforScenario(Scenario):
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, "MarketGrowth": 0.0,
             "ReturnRate": investmentreturn,             
             "Elasticity": priceelasticity,  "ClaimProbability": claimprobability,
-            "PremiumChangePercentage": 0.0, "MarketGrowth", 0.0
+            "PremiumChangePercentage": 0.0, "MarketGrowth": 0.0
             }
 
 if submitted1:
