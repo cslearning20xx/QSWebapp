@@ -69,12 +69,12 @@ Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": mark
             }
 
 if submitted1:
-	ScenarioUp = {"PremiumChangePercentage": premiumchange1, "MarketGrowth": marketgrowth1, "ReturnRate": investmentreturn1 }
+	ScenarioUp = {"PremiumChangePercentage": premiumchange1/100.0, "MarketGrowth": marketgrowth1/100.0, "ReturnRate": investmentreturn1 }
 	ScenarioUp = {**Baseline, **ScenarioUp}
 	PnLScenarioUp = PnLEstimateforScenario( ScenarioUp)
 	st.write(PnLScenarioUp)
 if submitted2:
-	ScenarioDown = {"PremiumChangePercentage": premiumchange2, "MarketGrowth": marketgrowth2, "ReturnRate": investmentreturn2 }
+	ScenarioDown = {"PremiumChangePercentage": premiumchange2/100.0, "MarketGrowth": marketgrowth2/100.0, "ReturnRate": investmentreturn2 }
 	ScenarioDown = {**Baseline, **ScenarioDown}
 	PnLScenarioDown = PnLEstimateforScenario(ScenarioDown)	
 	st.write(PnLScenarioDown)
