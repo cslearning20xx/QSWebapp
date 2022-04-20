@@ -10,9 +10,9 @@ with st.sidebar.form(key='BaselineInputs'):
     marketshare = st.slider('market share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 ) 	
     claimprobability = st.slider('market share', min_value = 0.0, max_value = 10.0, value = 1.6, step = 0.01 ) 	
     investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
-    priceeslasticity = st.number_input("price Elasticity", min_value=-5, max_value=5, value=-0.6, step =0.01)
+    priceeslasticity = st.number_input("Price Elasticity", min_value=-5, max_value=5, value=-0.6, step =0.01)
     submitted = st.form_submit_button("Submit")
-	
+'''	
 col1, col2 = st.sidebar.columns(2)
 
 with col1:
@@ -56,3 +56,4 @@ if submitted1:
 	st.write("you filled scenario 1")
 if submitted2:
 	st.write("you filled scenario 2")
+'''	
