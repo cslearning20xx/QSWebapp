@@ -12,11 +12,7 @@ with st.sidebar.form(key='my_form'):
     investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
     priceeslasticity = st.number_input("price Elasticity", min_value=-5, max_value=5, value=-0.6, step =0.01)
     submit_button = st.form_submit_button(label='Submit')
-
-st.write("Premium is:", premium )
-#elem = st.selectbox("Choose scenario", {"ScenarioUp", "ScenarioDown"})
-#st.selectbox('Select flavor', ['Vanilla', 'Chocolate'], key=1)
-
+	
 col1, col2 = st.sidebar.columns(2)
 
 with col1:
