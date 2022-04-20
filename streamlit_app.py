@@ -63,18 +63,18 @@ def PnLEstimateforScenario(Scenario):
     return PnL
 
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, "MarketGrowth": 0.0,
-            "ReturnRate": investmentreturn,             
-            "Elasticity": priceelasticity,  "ClaimProbability": claimprobability,
+            "ReturnRate": investmentreturn/100,             
+            "Elasticity": priceelasticity,  "ClaimProbability": claimprobability/100,
             "PremiumChangePercentage": 0.0, "MarketGrowth": 0.0
             }
 
 if submitted1:
-	ScenarioUp = {"PremiumChangePercentage": premiumchange1/100.0, "MarketGrowth": marketgrowth1/100.0, "ReturnRate": investmentreturn1 }
+	ScenarioUp = {"PremiumChangePercentage": premiumchange1/100.0, "MarketGrowth": marketgrowth1/100.0, "ReturnRate": investmentreturn1/100 }
 	ScenarioUp = {**Baseline, **ScenarioUp}
 	PnLScenarioUp = PnLEstimateforScenario( ScenarioUp)
 	st.write(PnLScenarioUp)
 if submitted2:
-	ScenarioDown = {"PremiumChangePercentage": premiumchange2/100.0, "MarketGrowth": marketgrowth2/100.0, "ReturnRate": investmentreturn2 }
+	ScenarioDown = {"PremiumChangePercentage": premiumchange2/100.0, "MarketGrowth": marketgrowth2/100.0, "ReturnRate": investmentreturn2/100 }
 	ScenarioDown = {**Baseline, **ScenarioDown}
 	PnLScenarioDown = PnLEstimateforScenario(ScenarioDown)	
 	st.write(PnLScenarioDown)
