@@ -12,7 +12,7 @@ with st.sidebar.form(key='BaselineInputs'):
     investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
     priceelasticity = st.number_input("Price Elasticity", value = -0.6 )
     submitted = st.form_submit_button("Submit")
-'''	
+	
 col1, col2 = st.sidebar.columns(2)
 
 with col1:
@@ -56,4 +56,4 @@ if submitted1:
 	st.write("you filled scenario 1")
 if submitted2:
 	st.write("you filled scenario 2")
-'''	
+	
