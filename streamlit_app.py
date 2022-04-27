@@ -11,7 +11,6 @@ with st.sidebar.form(key='BaselineInputs'):
     avgclaimsize = st.number_input("Enter Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
     marketshare = st.slider('market share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
-    claimprobability = st.slider('market share', min_value = 0.0, max_value = 10.0, value = 1.6, step = 0.01 )
     investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )    
     submitted = st.form_submit_button("Submit")
 	
@@ -20,7 +19,7 @@ def PnLEstimateforScenario(Scenario):
     NumPolicyHolders = MarketSize * Scenario["MarketShare"] 
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )    
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
-    NewNumPolicyHolders = ( 1- DemandChange) * NumPolicyHolders
+    NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
     
     TotalPremium = NewPremium * NewNumPolicyHolders
     NumClaims = NewNumPolicyHolders * Scenario["ClaimProbability"]
@@ -44,7 +43,7 @@ def PnLEstimateforScenario(Scenario):
 
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
-            "ClaimProbability": claimprobability/100,
+            "ClaimProbability": 1.6/100.0,
             "PremiumChangePercentage": 0.0, "MarketGrowth": 0.0
             }
 
