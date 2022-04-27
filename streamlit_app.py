@@ -55,6 +55,6 @@ if submitted:
 		Scenario = Scenarios[key]
 		Scenario = {**Baseline, **Scenario}
 		PnL = PnLEstimateforScenario( Scenario)
-		st.write('${:,.2f}'.format(PnL))
+		st.write( key + ":" +'${:,.0f}'.format(PnL))
 	
 	
