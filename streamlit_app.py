@@ -45,7 +45,7 @@ def PnLEstimateforScenario(Scenario):
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": 1.6/100.0,
-            "PremiumChangePercentage": 0.0, "MarketGrowth": 0.02, "OperatingExpenses", operatingexpenses/100
+            "PremiumChangePercentage": 0.0, "MarketGrowth": 0.02, "OperatingExpenses": operatingexpenses/100
             }
 
 Scenarios = { "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gearing": 2.5 }, 
