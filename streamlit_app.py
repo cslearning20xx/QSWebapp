@@ -15,7 +15,7 @@ with st.sidebar.form(key='BaselineInputs'):
     submitted = st.form_submit_button("Submit")
 	
 def PnLEstimateforScenario(Scenario):     
-    MarketSize = Scenario["MarketSize"] * (1+ Scenario["MarketGrowth"])    
+    MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])    
     NumPolicyHolders = MarketSize * Scenario["MarketShare"] 
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )    
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
@@ -44,7 +44,7 @@ def PnLEstimateforScenario(Scenario):
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": 1.6/100.0,
-            "PremiumChangePercentage": 0.0, "MarketGrowth": 0.0
+            "PremiumChangePercentage": 0.0, "MarketGrowth": 0.02
             }
 
 Scenarios = { "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gearing": 2.5 }, 
@@ -54,10 +54,12 @@ Scenarios = { "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gea
 	    }
 
 if submitted:
-	for key in Scenarios:
-		Scenario = Scenarios[key]
-		Scenario = {**Baseline, **Scenario}
-		PnL = PnLEstimateforScenario( Scenario)
-		st.write( key + ": " +'${:,.0f}'.format(PnL))
+	for key in Scenarios:		
+		for i in range(5):
+			Scenario = Scenarios[key]		
+			Scenario = {**Baseline, **Scenario}
+			Scenario.update({"TimeHorizon" : i })
+			PnL = PnLEstimateforScenario( Scenario)
+			st.write( key + " Year " + i + " : " +'${:,.0f}'.format(PnL))
 	
 	
