@@ -11,6 +11,7 @@ with st.sidebar.form(key='BaselineInputs'):
     avgclaimsize = st.number_input("Enter Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
     marketshare = st.slider('market share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
+    operatingexpenses = st.slider('Operating expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
     investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )    
     submitted = st.form_submit_button("Submit")
 	
@@ -34,7 +35,7 @@ def PnLEstimateforScenario(Scenario):
     ClaimInitial = round(TotalClaimAmount/CumulativeClaimRatios[-1],0)
     ClaimReserve = round(TotalClaimAmount - ClaimInitial, 0)
     
-    Expenses = 0.25 * TotalPremium
+    Expenses = Scenario["OperatingExpenses"] * TotalPremium
     InvestmentAmount = TotalPremium - ClaimReserve - Expenses    
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
@@ -44,7 +45,7 @@ def PnLEstimateforScenario(Scenario):
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": 1.6/100.0,
-            "PremiumChangePercentage": 0.0, "MarketGrowth": 0.02
+            "PremiumChangePercentage": 0.0, "MarketGrowth": 0.02, "OperatingExpenses", operatingexpenses/100
             }
 
 Scenarios = { "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gearing": 2.5 }, 
