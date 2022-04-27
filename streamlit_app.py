@@ -48,14 +48,14 @@ Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": mark
             "PremiumChangePercentage": 0.0, "MarketGrowth": 0.0
             }
 
+Scenarios = { "ScenarioUpHigh": {"PremiumChangePercentage": 3, "Gearing": 2.5 }, 
+	      "ScenarioUpLow": {"PremiumChangePercentage": 3, "Gearing": 2.0 }, 
+	    }
 if submitted:
-	ScenarioUpHigh = {"PremiumChangePercentage": 3, "Gearing": 2.5 }
-	ScenarioUpHigh = {**Baseline, **ScenarioUp}
-	PnLScenarioUp = PnLEstimateforScenario( ScenarioUpHigh)
-	st.write(PnLScenarioUp)
+	for key in Scenarios:
+		Scenario = Scenarios[key]
+		Scenario = {**Baseline, **Scenario}
+		PnL = PnLEstimateforScenario( Scenario)
+		st.write(PnL)
 	
-	ScenarioUpLow = {"PremiumChangePercentage": 3, "Gearing": 2.0 }
-	ScenarioUpLow = {**Baseline, **ScenarioUpLow}
-	PnLScenarioUp = PnLEstimateforScenario( ScenarioUpLow)
-	st.write(PnLScenarioUp)
 	
