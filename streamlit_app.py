@@ -67,9 +67,9 @@ if submitted:
 			st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
 	
-	
+PnLScenarios.update({"Year": ["Year1","Year2","Year3","Year4","Year5",]})
 df = pd.DataFrame.from_dict(PnLScenarios)
-st.write("yay")
+df.set_index('Year', inplace=True)  
 st.line_chart(df)
-st.write("yay1")
+
 	
