@@ -54,13 +54,21 @@ Scenarios = { "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gea
 	      "Premium Lower Gearing Low": {"PremiumChangePercentage": -3, "Gearing": 1.0 }, 
 	    }
 
+PnLScenarios = {}
 if submitted:
 	for key in Scenarios:		
+		PnLScenarios.update({Key:[]})
 		for i in range(5):
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
 			PnL = PnLEstimateforScenario( Scenario)
+			PnLScenarios[Key].append(PnL)
 			st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 	
+	
+df = pd.DataFrame.from_dict(PnLScenarios)
+st.write("yay")
+st.line_chart(df)
+st.write("yay1")
 	
