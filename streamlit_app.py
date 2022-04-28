@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import altair as alt
 
 st.write( "Welcome to QS!" )
 
@@ -40,7 +40,7 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
-    return PnL
+    return PnL/1e6
 
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
@@ -70,6 +70,14 @@ if submitted:
 PnLScenarios.update({"Year": ["Year1","Year2","Year3","Year4","Year5",]})
 df = pd.DataFrame.from_dict(PnLScenarios)
 df.set_index('Year', inplace=True)  
-st.line_chart(df)
-
+#st.line_chart(df)
 	
+line_chart = alt.Chart(df).mark_line().encode(
+    alt.X('x', title='Year'),
+    alt.Y('y', title='Profit( $mn)'),
+    color='category:N'
+).properties(
+    title='Development of mean overall Profit'
+)
+
+st.altair_chart(line_chart)
