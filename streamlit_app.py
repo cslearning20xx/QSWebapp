@@ -13,7 +13,7 @@ with st.sidebar.form(key='BaselineInputs'):
     marketshare = st.slider('market share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
     operatingexpenses = st.slider('Operating expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
     investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
-    marketgrowth = st.slider('MarketGrowth (CAGR)', min_value = -10.0, max_value = 2.0, value = 5.0, step = 0.01 )
+    marketgrowth = st.slider('MarketGrowth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
     submitted = st.form_submit_button("Submit")
 	
 def PnLEstimateforScenario(Scenario):     
