@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import altair as alt
+import matplotlib.pyplot as plt
 
 st.write( "Welcome to QS!" )
 
@@ -72,12 +72,8 @@ df = pd.DataFrame.from_dict(PnLScenarios)
 df.set_index('Year', inplace=True)  
 #st.line_chart(df)
 	
-line_chart = alt.Chart(df).mark_line().encode(
-    alt.X('x', title='Year'),
-    alt.Y('y', title='Profit( $mn)'),
-    color='category:N'
-).properties(
-    title='Development of mean overall Profit'
-)
+arr = np.random.normal(1, 1, size=100)
+fig, ax = plt.subplots()
+ax.hist(arr, bins=20)
 
-st.altair_chart(line_chart)
+st.pyplot(fig)
