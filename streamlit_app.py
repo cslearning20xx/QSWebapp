@@ -56,15 +56,16 @@ Scenarios = { "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gea
 
 PnLScenarios = {}
 if submitted:
-	for key in Scenarios:		
-		PnLScenarios.update({Key:[]})
+	for key in Scenarios:			
+		PnLYearly = []
 		for i in range(5):
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
 			PnL = PnLEstimateforScenario( Scenario)
-			PnLScenarios[Key].append(PnL)
+			PnLYearly.append(PnL)
 			st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
+		PnLScenarios.update({Key:PnLList})
 	
 	
 df = pd.DataFrame.from_dict(PnLScenarios)
