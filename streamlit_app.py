@@ -71,9 +71,10 @@ PnLScenarios.update({"Year": ["Year1","Year2","Year3","Year4","Year5",]})
 df = pd.DataFrame.from_dict(PnLScenarios)
 df.set_index('Year', inplace=True)  
 #st.line_chart(df)
-	
-arr = np.random.normal(1, 1, size=100)
-fig, ax = plt.subplots()
-ax.hist(arr, bins=20)
+
+fig, axs = plt.subplots(figsize=(12, 4))
+df.plot.line( ax = axs)
+axs.set_ylabel("Mean Profit")
+axs.set_xlabel("Year")	
 
 st.pyplot(fig)
