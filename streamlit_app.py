@@ -65,7 +65,7 @@ if submitted:
 			PnL = PnLEstimateforScenario( Scenario)
 			PnLYearly.append(PnL)
 			st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
-		PnLScenarios.update({Key:PnLList})
+		PnLScenarios.update({key:PnLList})
 	
 	
 df = pd.DataFrame.from_dict(PnLScenarios)
