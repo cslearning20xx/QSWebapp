@@ -81,6 +81,6 @@ if submitted:
 	df.set_index('Year', inplace=True)  
 
 	fig, axs = plt.subplots(figsize=(20, 8))
-	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o' )
+	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(predictiontimeline) )
 
 	st.pyplot(fig)
