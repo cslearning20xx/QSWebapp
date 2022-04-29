@@ -22,6 +22,7 @@ def PnLEstimateforScenario(Scenario):
     MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])    
     NumPolicyHolders = MarketSize * Scenario["MarketShare"] 
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )    
+    st.write(NewPremium)
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
     
@@ -63,7 +64,7 @@ PnLScenarios = {}
 if submitted:
 	for key in Scenarios:			
 		PnLYearly = []
-		for i in range(5):
+		for i in range(1):
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
