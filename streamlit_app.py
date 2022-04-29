@@ -19,9 +19,8 @@ with st.sidebar.form(key='BaselineInputs'):
     submitted = st.form_submit_button("Submit")
 	
 def PnLEstimateforScenario(Scenario):    
-    MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])    
-    st.write( Scenario["MarketGrowth"], Scenario["TimeHorizon"], np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"]), MarketSize )
-    NumPolicyHolders = MarketSize * Scenario["MarketShare"] 
+    MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])        
+    NumPolicyHolders = MarketSize * Scenario["MarketShare"]
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )        
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
