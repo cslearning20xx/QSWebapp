@@ -18,7 +18,9 @@ with st.sidebar.form(key='BaselineInputs'):
     higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
     lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
     predictiontimeline = st.number_input("Prediction Timeline(years)", value=5)
+    #not used currently in calculation
     Fraudloss = st.slider('Fraud loss', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
+    #not used currently in calculation
     Competitivepricing = st.slider('Competitive Pricing', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
     submitted = st.form_submit_button("Submit")
 	
