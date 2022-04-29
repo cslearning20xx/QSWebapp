@@ -43,7 +43,7 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
-    return PnL/(TotalPremium/1e3)
+    return PnL/1e6
 
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
@@ -77,7 +77,7 @@ if submitted:
 	df.set_index('Year', inplace=True)  
 
 	fig, axs = plt.subplots(figsize=(20, 8))
-	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Per thousand of GWP", title ="Development of Mean Overall Profit", marker='o' )
+	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o' )
 	#axs.set_title( "Development of Mean Overall Profit")
 	#axs.set_ylabel("Per thousand of GWP($m)")
 	#axs.set_xlabel("Year")	
