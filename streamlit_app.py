@@ -21,7 +21,7 @@ with st.sidebar.form(key='BaselineInputs'):
 def PnLEstimateforScenario(Scenario):     
     MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])    
     NumPolicyHolders = MarketSize * Scenario["MarketShare"] 
-    st.write(NewPolicyHolders)
+    st.write(NumPolicyHolders)
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )        
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
