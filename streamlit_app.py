@@ -18,8 +18,9 @@ with st.sidebar.form(key='BaselineInputs'):
     lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
     submitted = st.form_submit_button("Submit")
 	
-def PnLEstimateforScenario(Scenario):     
+def PnLEstimateforScenario(Scenario):    
     MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])    
+    st.write(  Scenario["MarketSize"], MarketSize, Scenario["MarketGrowth"] )
     NumPolicyHolders = MarketSize * Scenario["MarketShare"] 
     st.write(NumPolicyHolders)
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )        
