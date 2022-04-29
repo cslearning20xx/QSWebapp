@@ -14,6 +14,8 @@ with st.sidebar.form(key='BaselineInputs'):
     operatingexpenses = st.slider('Operating expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
     investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
     marketgrowth = st.slider('MarketGrowth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
+    higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
+    lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
     submitted = st.form_submit_button("Submit")
 	
 def PnLEstimateforScenario(Scenario):     
@@ -49,10 +51,12 @@ Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": mark
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100
             }
 
-Scenarios = { "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gearing": 2.5 }, 
-	      "Premium Higher Gearing Low": {"PremiumChangePercentage": 3, "Gearing": 2.0 }, 
-	      "Premium Lower Gearing High": {"PremiumChangePercentage": -3, "Gearing": 1.0 }, 
-	      "Premium Lower Gearing Low": {"PremiumChangePercentage": -3, "Gearing": 1.0 }, 
+Scenarios = { 
+	      "Baseline": {"PremiumChangePercentage": 0, "Gearing": 0 }, 
+	      "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gearing": higherpremiumgearingrange[0] }, 
+	      "Premium Higher Gearing Low": {"PremiumChangePercentage": 3, "Gearing": higherpremiumgearingrange[1] }, 
+	      "Premium Lower Gearing High": {"PremiumChangePercentage": -3, "Gearing": lowerpremiumgearingrange[0] }, 
+	      "Premium Lower Gearing Low": {"PremiumChangePercentage": -3, "Gearing": lowerpremiumgearingrange[1] }, 
 	    }
 
 PnLScenarios = {}
