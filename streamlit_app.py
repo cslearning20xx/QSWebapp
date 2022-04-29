@@ -43,7 +43,7 @@ def PnLEstimateforScenario(Scenario):
     if InvestmentAmount > 0:
     	InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     else:
-	InvestmentIncome = 0
+        InvestmentIncome = 0
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
     return PnL/1e6
