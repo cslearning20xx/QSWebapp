@@ -64,7 +64,7 @@ PnLScenarios = {}
 if submitted:
 	for key in Scenarios:			
 		PnLYearly = []
-		for i in range(1):
+		for i in range(5):
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
