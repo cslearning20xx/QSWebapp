@@ -16,6 +16,7 @@ with st.sidebar.form(key='BaselineInputs'):
     marketgrowth = st.slider('MarketGrowth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
     higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
     lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
+    predictiontimeline = st.number_input("Prediction Timeline(years)", value=5)
     submitted = st.form_submit_button("Submit")
 	
 def PnLEstimateforScenario(Scenario):    
@@ -66,7 +67,7 @@ PnLScenarios = {}
 if submitted:
 	for key in Scenarios:			
 		PnLYearly = []
-		for i in range(5):
+		for i in range(predictiontimeline):
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
