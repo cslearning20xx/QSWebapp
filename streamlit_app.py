@@ -82,8 +82,5 @@ if submitted:
 
 	fig, axs = plt.subplots(figsize=(20, 8))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o' )
-	#axs.set_title( "Development of Mean Overall Profit")
-	#axs.set_ylabel("Per thousand of GWP($m)")
-	#axs.set_xlabel("Year")	
 
 	st.pyplot(fig)
