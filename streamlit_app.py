@@ -79,7 +79,7 @@ if submitted:
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
 			result = PnLEstimateforScenario( Scenario)
-			ScenarioResult.update({i+1, resullt})
+			ScenarioResult.update({str(i+1), resullt})
 			PnLYearly.append(result["PnL"])
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
