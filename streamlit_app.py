@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-st.write( "Welcome to QS!" )
+st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Baseline Inputs")
@@ -45,14 +45,13 @@ def PnLEstimateforScenario(Scenario):
     ClaimReserve = round(TotalClaimAmount - ClaimInitial, 0)
     
     Expenses = Scenario["OperatingExpenses"] * TotalPremium
-    InvestmentAmount = TotalPremium - ClaimReserve - Expenses
-    if InvestmentAmount > 0:
-    	InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
-    else:
-        InvestmentIncome = 0
+    InvestmentAmount = np.Max(TotalPremium - ClaimReserve - Expenses, 0)    
+    InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
-    return PnL/1e6
+    return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium": TotalPremium, "NumClaims": NumClaims, "TotalClaimAmount":TotalClaimAmount,
+	     "ClaimInitial": ClaimInitial, "ClaimReserve", ClaimReserve, "Expenses", Expenses, "InvestmentAmount", InvestmentAmount, "InvestmentIncome", InvestmentIncome,
+	    "PnL", PnL }
 
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
@@ -69,6 +68,7 @@ Scenarios = {
 	    }
 
 PnLScenarios = {}
+results = {}
 if submitted:
 	for key in Scenarios:			
 		PnLYearly = []
@@ -76,10 +76,11 @@ if submitted:
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
-			PnL = PnLEstimateforScenario( Scenario)
-			PnLYearly.append(PnL)
+			result = PnLEstimateforScenario( Scenario)
+			PnLYearly.append(result["PnL"])
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
+		results.update({key:result})
 	
 	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 	df = pd.DataFrame.from_dict(PnLScenarios)
