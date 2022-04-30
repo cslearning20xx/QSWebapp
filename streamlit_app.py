@@ -56,13 +56,14 @@ def PnLEstimateforScenario(Scenario):
 	     "PnL": round(PnL/1e6,2) }
 
 def getClaimProbability(RiskModel):
-	if RiskModel = 'Catboost'
-		return 1.6/100.0
+	if RiskModel == 'Catboost'
+		claimprobability = 1.6/100.0
 	if RiskModel = 'GLM':
-		return 1.6/100.0
+		claimprobability = 1.6/100.0
 	else:
-		return 1.6/100.0
-	
+		claimprobability = 1.6/100.0
+	return claimprobability
+
 PnLScenarios = {}
 results = {}
 if submitted:
