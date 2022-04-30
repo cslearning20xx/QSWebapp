@@ -7,12 +7,12 @@ st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Baseline Inputs")
-    premium = st.number_input("Enter Premium amount", min_value=0, max_value=10000, value=1000, step = 10)
-    avgclaimsize = st.number_input("Enter Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
+    premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
+    avgclaimsize = st.number_input("Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
-    marketshare = st.slider('market share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
-    operatingexpenses = st.slider('Operating expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
-    investmentreturn = st.slider('investment return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
+    marketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
+    operatingexpenses = st.slider('Operating Expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
+    investmentreturn = st.slider('Investment Expected Return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
     marketgrowth = st.slider('Market Growth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
     marketsharegrowth = st.slider('Market Share Growth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
     higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
@@ -73,15 +73,17 @@ results = {}
 if submitted:
 	for key in Scenarios:			
 		PnLYearly = []
+		ScenarioResult = {}
 		for i in range(predictiontimeline):
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
 			result = PnLEstimateforScenario( Scenario)
+			ScenarioResult.update({i+1, resullt})
 			PnLYearly.append(result["PnL"])
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
-		results.update({key:result})
+		results.update({key:ScenarioResult})
 	st.write(results)
 	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 	df = pd.DataFrame.from_dict(PnLScenarios)
@@ -96,7 +98,7 @@ if submitted:
 		)
 	
 	kpi2.metric(
-    		label="Market Share",
+    		label="Policy Holders('000)",
     		value=round(results["Baseline"]["NumPolicyHolders"]),    		
 		)
 	
