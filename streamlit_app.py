@@ -58,7 +58,7 @@ def PnLEstimateforScenario(Scenario):
 def getClaimProbability(RiskModel):
 	if RiskModel == 'Catboost':
 		claimprobability = 1.6/100.0
-	if RiskModel = 'GLM':
+	if RiskModel == 'GLM':
 		claimprobability = 1.6/100.0
 	else:
 		claimprobability = 1.6/100.0
