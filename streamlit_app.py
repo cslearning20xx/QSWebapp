@@ -84,7 +84,7 @@ if submitted:
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
 		results.update({key:ScenarioResult})
-	st.write(results)
+	#st.write(results)
 	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
@@ -106,7 +106,7 @@ if submitted:
     		label="Loss Ratio",
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
-	fig, axs = plt.subplots(figsize=(20, 8))
+	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
 	st.pyplot(fig)
