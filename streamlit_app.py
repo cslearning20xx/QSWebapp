@@ -84,7 +84,7 @@ if submitted:
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
 		results.update({key:ScenarioResult})
-	st.write(results)
+	#st.write(results)
 	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
@@ -94,12 +94,12 @@ if submitted:
 	# fill in those three columns with respective metrics or KPIs
 	kpi1.metric(
     		label="GWP",
-    		value=round(results["Baseline"]["GWP"]),    		
+    		value=round(results["Baseline"][0]["GWP"]),    		
 		)
 	
 	kpi2.metric(
     		label="Policy Holders('000)",
-    		value=round(results["Baseline"]["NumPolicyHolders"]),    		
+    		value=round(results["Baseline"][0]["NumPolicyHolders"]),    		
 		)
 	
 	kpi3.metric(
