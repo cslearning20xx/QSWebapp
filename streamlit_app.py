@@ -32,7 +32,7 @@ def PnLEstimateforScenario(Scenario):
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
     
     TotalPremium = NewPremium * NewNumPolicyHolders
-    NumClaims = NewNumPolicyHolders * Scenario["ClaimProbability"]
+    NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
     TotalClaimAmount = NumClaims * Scenario['AvgClaimSize']
 	
     CL = [1.4259, 1.0426, 1.0270, 1.0137, 1.0115, 1.0075]
@@ -49,7 +49,7 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
-    return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium": TotalPremium, "NumClaims": NumClaims, "TotalClaimAmount":TotalClaimAmount,
+    return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":NewPremium, "GWP", TotalPremium, "NumClaims": NumClaims, "TotalClaimAmount":TotalClaimAmount,
 	     "ClaimInitial": ClaimInitial, "ClaimReserve": ClaimReserve, "Expenses": Expenses, "InvestmentAmount": InvestmentAmount, "InvestmentIncome": InvestmentIncome,
 	    "PnL": PnL }
 
@@ -91,7 +91,7 @@ if submitted:
 	# fill in those three columns with respective metrics or KPIs
 	kpi1.metric(
     		label="GWP",
-    		value=round(results["Baseline"]["TotalPremium"]),    		
+    		value=round(results["Baseline"]["GWP"]),    		
 		)
 	
 	kpi2.metric(
