@@ -45,7 +45,7 @@ def PnLEstimateforScenario(Scenario):
     ClaimReserve = round(TotalClaimAmount - ClaimInitial, 0)
     
     Expenses = Scenario["OperatingExpenses"] * TotalPremium
-    InvestmentAmount = np.maximum(TotalPremium - ClaimReserve - Expenses, 0)    
+    InvestmentAmount = np.maximum(TotalPremium - TotalClaimAmount - Expenses, 0)    
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = TotalPremium + InvestmentIncome - ClaimInitial - Expenses
     
