@@ -13,7 +13,7 @@ with st.sidebar.form(key='BaselineInputs'):
     marketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
     operatingexpenses = st.slider('Operating Expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
     investmentreturn = st.slider('Investment Expected Return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
-    marketgrowth = st.slider('Market Growth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
+    marketgrowth = st.slider('Market Growth (CAGR)', min_value = -10.0, max_value = 10.0, value = 2.0, step = 0.01 )
     marketsharegrowth = st.slider('Market Share Growth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
     higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
     lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
@@ -104,7 +104,7 @@ if submitted:
 	
 	kpi3.metric(
     		label="Loss Ratio",
-    		value=1
+    		value=round(results["Baseline"][0]["TotalClaimAmount"]) * 100 /round(results["Baseline"][0]["GWP"]),    		
 		)
 	fig, axs = plt.subplots(figsize=(20, 8))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
