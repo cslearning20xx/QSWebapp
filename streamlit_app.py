@@ -94,17 +94,17 @@ if submitted:
 	# fill in those three columns with respective metrics or KPIs
 	kpi1.metric(
     		label="GWP",
-    		value=round(results["Baseline"][0]["GWP"]),    		
+    		value=str(round(results["Baseline"][0]["GWP"])) + " $mn",    		
 		)
 	
 	kpi2.metric(
     		label="Policy Holders('000)",
-    		value=round(results["Baseline"][0]["NumPolicyHolders"]),    		
+    		value=round(results["Baseline"][0]["NumPolicyHolders"]/1000),    		
 		)
 	
 	kpi3.metric(
     		label="Loss Ratio",
-    		value=round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 2),    		
+    		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
 	fig, axs = plt.subplots(figsize=(20, 8))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
