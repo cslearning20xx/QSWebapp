@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='BaselineInputs'):
-    st.title("Baseline Inputs")
-    riskmodel = st.select('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)	
+    st.title("Input Parameters")
+    riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)	
     premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
