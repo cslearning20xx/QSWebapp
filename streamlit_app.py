@@ -84,7 +84,7 @@ if submitted:
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
 		results.update({key:ScenarioResult})
-	#st.write(results)
+	st.write(results)
 	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
