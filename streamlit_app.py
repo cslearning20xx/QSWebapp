@@ -85,7 +85,24 @@ if submitted:
 	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
+	
+	kpi1, kpi2, kpi3 = st.columns(3)
 
+	# fill in those three columns with respective metrics or KPIs
+	kpi1.metric(
+    		label="GWP",
+    		value=round(results["Baseline"]["TotalPremium"]),    		
+		)
+	
+	kpi2.metric(
+    		label="Market Share",
+    		value=round(results["Baseline"]["NumPolicyHolders"]),    		
+		)
+	
+	kpi3.metric(
+    		label="Loss Ratio",
+    		value=1
+		)
 	fig, axs = plt.subplots(figsize=(20, 8))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
