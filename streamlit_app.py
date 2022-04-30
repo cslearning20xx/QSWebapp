@@ -7,6 +7,7 @@ st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Baseline Inputs")
+    riskmodel = st.select('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)	
     premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
@@ -54,23 +55,31 @@ def PnLEstimateforScenario(Scenario):
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
 	     "PnL": round(PnL/1e6,2) }
 
-Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
+def getClaimProbability(RiskModel):
+	if RiskModel = 'Catboost'
+		return 1.6/100.0
+	if RiskModel = 'GLM':
+		return 1.6/100.0
+	else:
+		return 1.6/100.0
+	
+PnLScenarios = {}
+results = {}
+if submitted:
+	Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
-            "ClaimProbability": 1.6/100.0,
+            "ClaimProbability": getClaimProbability( riskmodel ),
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100
             }
 
-Scenarios = { 
+	Scenarios = { 
 	      "Baseline": {"PremiumChangePercentage": 0, "Gearing": 0 }, 
 	      "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gearing": higherpremiumgearingrange[0] }, 
 	      "Premium Higher Gearing Low": {"PremiumChangePercentage": 3, "Gearing": higherpremiumgearingrange[1] }, 
 	      "Premium Lower Gearing High": {"PremiumChangePercentage": -3, "Gearing": lowerpremiumgearingrange[0] }, 
 	      "Premium Lower Gearing Low": {"PremiumChangePercentage": -3, "Gearing": lowerpremiumgearingrange[1] }, 
 	    }
-
-PnLScenarios = {}
-results = {}
-if submitted:
+	
 	for key in Scenarios:			
 		PnLYearly = []
 		ScenarioResult = []
