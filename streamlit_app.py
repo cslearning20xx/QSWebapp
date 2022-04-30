@@ -50,8 +50,8 @@ def PnLEstimateforScenario(Scenario):
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
     return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium": TotalPremium, "NumClaims": NumClaims, "TotalClaimAmount":TotalClaimAmount,
-	     "ClaimInitial": ClaimInitial, "ClaimReserve", ClaimReserve, "Expenses", Expenses, "InvestmentAmount", InvestmentAmount, "InvestmentIncome", InvestmentIncome,
-	    "PnL", PnL }
+	     "ClaimInitial": ClaimInitial, "ClaimReserve": ClaimReserve, "Expenses": Expenses, "InvestmentAmount": InvestmentAmount, "InvestmentIncome": InvestmentIncome,
+	    "PnL": PnL }
 
 Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
@@ -77,7 +77,7 @@ if submitted:
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
 			result = PnLEstimateforScenario( Scenario)
-			PnLYearly.append(result["PnL"])
+			PnLYearly.append(result["PnL"]/1e6)
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
 		results.update({key:result})
