@@ -49,7 +49,7 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = InvestmentAmount + InvestmentIncome - ClaimInitial - Expenses
     
-    return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":NewPremium, "GWP", TotalPremium, "NumClaims": NumClaims, "TotalClaimAmount":TotalClaimAmount,
+    return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":NewPremium, "GWP": TotalPremium, "NumClaims": NumClaims, "TotalClaimAmount":TotalClaimAmount,
 	     "ClaimInitial": ClaimInitial, "ClaimReserve": ClaimReserve, "Expenses": Expenses, "InvestmentAmount": InvestmentAmount, "InvestmentIncome": InvestmentIncome,
 	    "PnL": PnL }
 
