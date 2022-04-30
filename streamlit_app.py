@@ -73,13 +73,13 @@ results = {}
 if submitted:
 	for key in Scenarios:			
 		PnLYearly = []
-		ScenarioResult = {}
+		ScenarioResult = []
 		for i in range(predictiontimeline):
 			Scenario = Scenarios[key]		
 			Scenario = {**Baseline, **Scenario}
 			Scenario.update({"TimeHorizon" : i })
 			result = PnLEstimateforScenario( Scenario)
-			ScenarioResult.update({str(i+1), resullt})
+			ScenarioResult.append(result)
 			PnLYearly.append(result["PnL"])
 			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
 		PnLScenarios.update({key:PnLYearly})
