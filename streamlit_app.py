@@ -7,9 +7,10 @@ st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
-    riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)	
+    riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
+    lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Chain Ladder', 'Bornhuetter-Fergusion', 'Cape-cod'), index = 0)	
     premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
-    avgclaimsize = st.number_input("Average Claim Amount", min_value=0, max_value=50000, value=21000, step = 100)
+    avgclaimsize = st.number_input("Average Claim Amount", min_value=0, max_value=50000, value=3000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
     marketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
     operatingexpenses = st.slider('Operating Expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
@@ -23,6 +24,7 @@ with st.sidebar.form(key='BaselineInputs'):
     Fraudloss = st.slider('Fraud loss', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
     #not used currently in calculation
     Competitivepricing = st.slider('Competitive Pricing', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
+    resinsuranceretentionratio = st.number_input("Enter Market Size of policyholders", min_value = 0, max_value = 1, value=0 )
     submitted = st.form_submit_button("Submit")
 	
 def PnLEstimateforScenario(Scenario):    
@@ -99,23 +101,43 @@ if submitted:
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
 	
-	kpi1, kpi2, kpi3 = st.columns(3)
+	kpi1, kpi2, kpi3, kpi4, kpi5, kpi6, kpi7 = st.columns(7)
 
 	# fill in those three columns with respective metrics or KPIs
 	kpi1.metric(
+    		label="Claim Frequency",
+    		value=0
+		)
+	kpi2.metric(
+    		label="Claim Severity",
+    		value=0
+		)
+	
+	kpi3.metric(
     		label="GWP",
     		value=str(round(results["Baseline"][0]["GWP"])) + " $mn",    		
 		)
 	
-	kpi2.metric(
+	kpi4.metric(
     		label="Policy Holders('000)",
     		value=round(results["Baseline"][0]["NumPolicyHolders"]/1000),    		
 		)
 	
-	kpi3.metric(
+	kpi5.metric(
     		label="Loss Ratio",
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
+	
+	kpi6.metric(
+    		label="Expense Ratio",
+    		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
+		)
+	
+	kpi7.metric(
+    		label="Underwriting Profit Ratio",
+    		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
+		)
+	
 	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
