@@ -10,7 +10,7 @@ with st.sidebar.form(key='BaselineInputs'):
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Chain Ladder', 'Bornhuetter-Fergusion', 'Cape-cod'), index = 0)	
     premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
-    avgclaimsize = st.number_input("Average Claim Severity", min_value=0, max_value=50000, value=3500, step = 100)
+    avgclaimsize = st.number_input("Average Claim Severity", min_value=0, max_value=50000, value=2100, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
     marketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
     operatingexpenses = st.slider('Operating Expenses', min_value = 0.0, max_value = 100.0, value = 35.0, step = 0.01 )
