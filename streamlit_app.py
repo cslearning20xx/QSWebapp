@@ -25,7 +25,7 @@ with st.sidebar.form(key='BaselineInputs'):
     Fraudloss = st.slider('Fraud loss', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
     #not used currently in calculation
     Competitivepricing = st.slider('Competitive Pricing', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
-    resinsuranceretentionratio = st.number_input("Enter Market Size of policyholders", min_value = 0, max_value = 1, value=0 )
+    resinsuranceretentionratio = st.number_input("Reinsurance Retention Ratio", min_value = 0, max_value = 1, value=0 )
     submitted = st.form_submit_button("Submit")
 	
 def PnLEstimateforScenario(Scenario):    
