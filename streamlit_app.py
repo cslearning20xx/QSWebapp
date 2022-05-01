@@ -10,13 +10,13 @@ with st.sidebar.form(key='BaselineInputs'):
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Chain Ladder', 'Bornhuetter-Fergusion', 'Cape-cod'), index = 0)	
     premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
-    avgclaimsize = st.number_input("Average Claim Amount", min_value=0, max_value=50000, value=3000, step = 100)
+    avgclaimsize = st.number_input("Average Claim Severity", min_value=0, max_value=50000, value=3500, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
     marketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
-    operatingexpenses = st.slider('Operating Expenses', min_value = 0.0, max_value = 100.0, value = 20.0, step = 0.01 )
+    operatingexpenses = st.slider('Operating Expenses', min_value = 0.0, max_value = 100.0, value = 35.0, step = 0.01 )
     investmentreturn = st.slider('Investment Expected Return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
-    marketgrowth = st.slider('Market Growth (CAGR)', min_value = -10.0, max_value = 10.0, value = 2.0, step = 0.01 )
-    marketsharegrowth = st.slider('Market Share Growth (CAGR)', min_value = -10.0, max_value = 10.0, value = 5.0, step = 0.01 )
+    marketgrowth = st.slider('Market Growth (CAGR)', min_value = -20.0, max_value = 20.0, value = 2.0, step = 0.01 )
+    marketsharegrowth = st.slider('Market Share Growth (CAGR)', min_value = -50.0, max_value = 50.0, value = 5.0, step = 0.01 )
     higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
     lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
     predictiontimeline = st.number_input("Prediction Timeline(years)", value=5)
@@ -106,11 +106,11 @@ if submitted:
 	# fill in those three columns with respective metrics or KPIs
 	kpi1.metric(
     		label="Claim Frequency",
-    		value=0
+    		value= round(getClaimProbability( riskmodel ) * 100)
 		)
 	kpi2.metric(
     		label="Claim Severity",
-    		value=0
+    		value= avgclaimsize
 		)
 	
 	kpi3.metric(
@@ -130,7 +130,7 @@ if submitted:
 	
 	kpi6.metric(
     		label="Expense Ratio",
-    		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
+    		value= str(round(results["Baseline"][0]["TotalClaimAmount"] * 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
 	
 	kpi7.metric(
