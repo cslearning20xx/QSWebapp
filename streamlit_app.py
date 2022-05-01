@@ -17,6 +17,7 @@ with st.sidebar.form(key='BaselineInputs'):
     investmentreturn = st.slider('Investment Expected Return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
     marketgrowth = st.slider('Market Growth (CAGR)', min_value = -20.0, max_value = 20.0, value = 2.0, step = 0.01 )
     marketsharegrowth = st.slider('Market Share Growth (CAGR)', min_value = -50.0, max_value = 50.0, value = 5.0, step = 0.01 )
+    premiumchangerange = st.slider('Premium high low scenario', min_value = -5.0, max_value = 5.0, value = (-3.0, 3.0))
     higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
     lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
     predictiontimeline = st.number_input("Prediction Timeline(years)", value=5)
@@ -77,10 +78,10 @@ if submitted:
 
 	Scenarios = { 
 	      "Baseline": {"PremiumChangePercentage": 0, "Gearing": 0 }, 
-	      "Premium Higher Gearing High": {"PremiumChangePercentage": 3, "Gearing": higherpremiumgearingrange[0] }, 
-	      "Premium Higher Gearing Low": {"PremiumChangePercentage": 3, "Gearing": higherpremiumgearingrange[1] }, 
-	      "Premium Lower Gearing High": {"PremiumChangePercentage": -3, "Gearing": lowerpremiumgearingrange[0] }, 
-	      "Premium Lower Gearing Low": {"PremiumChangePercentage": -3, "Gearing": lowerpremiumgearingrange[1] }, 
+	      "Premium Higher Gearing High": {"PremiumChangePercentage": premiumchangerange[1], "Gearing": higherpremiumgearingrange[0] }, 
+	      "Premium Higher Gearing Low": {"PremiumChangePercentage": premiumchangerange[1], "Gearing": higherpremiumgearingrange[1] }, 
+	      "Premium Lower Gearing High": {"PremiumChangePercentage": premiumchangerange[0], "Gearing": lowerpremiumgearingrange[0] }, 
+	      "Premium Lower Gearing Low": {"PremiumChangePercentage": premiumchangerange[0], "Gearing": lowerpremiumgearingrange[1] }, 
 	    }
 	
 	for key in Scenarios:			
