@@ -47,25 +47,25 @@ def getChainLadderOutput(model, development_average ):
 	transformed_triangle = dev.fit_transform(data)
 	if model == 'Standard Chain Ladder':
 		model = cl.Chainladder().fit(transformed_triangle)
-        	ibnr = model.ibnr_.to_frame()
-        	ultimate = model.ultimate_.to_frame()
-        	latest = model.latest_diagonal.to_frame()
-        	summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-        	summary.columns = ['Latest', 'IBNR', 'Ultimate']     
-    	elif model == "Mack Chain Ladder":
-        	model = cl.MackChainladder().fit(transformed_triangle)
-        	summary = model.summary_.to_frame()
-    	elif model == "Bornhuetter Ferguson":
-        	cl_ult = cl.Chainladder().fit(transformed_triangle).ultimate_
-        	sample_weight = cl_ult * 0 + (cl_ult.sum() / cl_ult.shape[2])  # Mean Chainladder Ultimate
-        	model = cl.BornhuetterFerguson(apriori=1).fit( X= transformed_triangle, sample_weight=sample_weight )
-        	ibnr = model.ibnr_.to_frame()
-        	ultimate = model.ultimate_.to_frame()
-        	latest = ultimate - ibnr
+		ibnr = model.ibnr_.to_frame()
+		ultimate = model.ultimate_.to_frame()
+		latest = model.latest_diagonal.to_frame()
+		summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
+		summary.columns = ['Latest', 'IBNR', 'Ultimate']
+	elif model == "Mack Chain Ladder":
+		model = cl.MackChainladder().fit(transformed_triangle)
+		summary = model.summary_.to_frame()
+	elif model == "Bornhuetter Ferguson":
+		cl_ult = cl.Chainladder().fit(transformed_triangle).ultimate_
+		sample_weight = cl_ult * 0 + (cl_ult.sum() / cl_ult.shape[2])  # Mean Chainladder Ultimate
+		model = cl.BornhuetterFerguson(apriori=1).fit( X= transformed_triangle, sample_weight=sample_weight )
+		ibnr = model.ibnr_.to_frame()
+		ultimate = model.ultimate_.to_frame()
+		latest = ultimate - ibnr
 		summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
         	summary.columns = ['Latest','IBNR', 'Ultimate']
-    	else:
-        	print("This model choice is not yet supported")
+	else:
+		print("This model choice is not yet supported")
         
     	LDF = model.ldf_.to_frame()
     	IDF = transformed_triangle.link_ratio
