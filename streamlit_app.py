@@ -183,8 +183,9 @@ if submitted:
 	
 	st.write("do ldf now")
 	st.write(results["Baseline"][0]["LDF"].T)
+	ldf = results["Baseline"][0]["LDF"].T 
 	fig, axs = plt.subplots(figsize=(30, 15))
-	results["Baseline"][0]["LDF"].T.plot.line(ax = axs, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
+	ldf.plot.line(ax = axs, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
 	
 	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
