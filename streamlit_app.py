@@ -66,11 +66,9 @@ def getChainLadderOutput(model, development_average ):
 		summary.columns = ['Latest','IBNR', 'Ultimate']
 	else:
 		print("This model choice is not yet supported")
-        
-    	LDF = model.ldf_.to_frame()
-    	IDF = transformed_triangle.link_ratio
-
-    	result = { "LDF": LDF, "Summary": summary, "IDF": IDF }
+	LDF = model.ldf_.to_frame()
+	IDF = transformed_triangle.link_ratio
+	result = { "LDF": LDF, "Summary": summary, "IDF": IDF }
 	return result
 	
 def PnLEstimateforScenario(Scenario):    
