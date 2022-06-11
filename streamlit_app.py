@@ -182,7 +182,7 @@ if submitted:
 		)
 	
 	ldf = results["Baseline"][0]["LDF"].T 
-	fig1, axs1 = plt.subplots(figsize=(30, 15))
+	fig1, axs1 = plt.subplots(figsize=(30, 10))
 	ldf.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
 	st.pyplot(fig1)
 	
