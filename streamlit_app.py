@@ -100,7 +100,8 @@ def PnLEstimateforScenario(Scenario):
     return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":NewPremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2) }
+	     "PnL": round(PnL/1e6,2), 
+	     "LDF", CLOutput['LDF'] }
 
 def getClaimProbability(RiskModel):
 	if RiskModel == 'Catboost':
@@ -183,6 +184,8 @@ if submitted:
     		label="Underwriting Profit Ratio",
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
+	
+	results["Baseline"][0]["LDF"].T.plot.line(marker= 'o')
 	
 	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
