@@ -118,7 +118,7 @@ if submitted:
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": getClaimProbability( riskmodel ),
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
-	    "lossreservingmodel", lossreservingmodel, "lossreservingdevelopment", lossreservingdevelopment
+	    "lossreservingmodel": lossreservingmodel, "lossreservingdevelopment": lossreservingdevelopment
             }
 
 	Scenarios = { 
