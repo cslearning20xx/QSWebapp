@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import chainladder as cl
 
 st.set_page_config(layout="wide")
 st.title( "Financial Modeling & Projections Dashboard" )
@@ -34,11 +35,7 @@ def getChainLadderOutput(model, development_average ):
 	origin_col = "Accident Year"
 	development_col = "Development Year"
 	value_col = "Claim"
-	iscumulative = False
-	
-	import chainladder as cl
-	import numpy as np
-	import pandas as pd
+	iscumulative = False	
 	df_raw = pd.read_csv('/home/ec2-user/qs/data/QSDataset/Claims CLDataset.csv')
 	traingle_data = cl.Triangle(data=df_raw,origin=origin_col,development=development_col,columns=value_col,cumulative=iscumulative)
 	traingle_data = traingle_data.incr_to_cum()
