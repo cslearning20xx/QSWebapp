@@ -10,7 +10,7 @@ st.title( "Financial Modeling & Projections Dashboard" )
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
-    lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
+    lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Standard Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
     lossreservingdevelopment = st.selectbox('Choose Loss Reserving Development Method', ('simple', 'volume' ), index = 0)	
     premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Average Claim Severity", min_value=0, max_value=50000, value=21000, step = 100)
@@ -62,7 +62,7 @@ def getChainLadderOutput(model, development_average ):
 		summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
 		summary.columns = ['Latest','IBNR', 'Ultimate']
 	else:
-		print("This model choice is not yet supported")
+		st.write("This model choice is not yet supported")
 	LDF = model.ldf_.to_frame()
 	IDF = transformed_triangle.link_ratio
 	result = { "LDF": LDF, "Summary": summary, "IDF": IDF }
