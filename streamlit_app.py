@@ -181,11 +181,9 @@ if submitted:
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
 	
-	st.write("do ldf now")
-	st.write(results["Baseline"][0]["LDF"].T)
 	ldf = results["Baseline"][0]["LDF"].T 
-	fig, axs = plt.subplots(figsize=(30, 15))
-	ldf.plot.line(ax = axs, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
+	fig1, axs1 = plt.subplots(figsize=(30, 15))
+	ldf.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
 	
 	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
