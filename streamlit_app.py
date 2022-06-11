@@ -63,7 +63,7 @@ def getChainLadderOutput(model, development_average ):
 		ultimate = model.ultimate_.to_frame()
 		latest = ultimate - ibnr
 		summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-        	summary.columns = ['Latest','IBNR', 'Ultimate']
+		summary.columns = ['Latest','IBNR', 'Ultimate']
 	else:
 		print("This model choice is not yet supported")
         
