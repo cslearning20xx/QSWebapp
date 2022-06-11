@@ -44,17 +44,17 @@ def getChainLadderOutput(model, development_average ):
 	traingle_data = traingle_data.incr_to_cum()
 	
 	dev = cl.Development(average=development_average)
-	transformed_triangle = dev.fit_transform(data)	
+	transformed_triangle = dev.fit_transform(data)
     	if model == 'Standard Chain Ladder':
 		model = cl.Chainladder().fit(transformed_triangle)
         	ibnr = model.ibnr_.to_frame()
         	ultimate = model.ultimate_.to_frame()
         	latest = model.latest_diagonal.to_frame()
         	summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-        	summary.columns = ['Latest', 'IBNR', 'Ultimate']            
+        	summary.columns = ['Latest', 'IBNR', 'Ultimate']     
     	elif model == "Mack Chain Ladder":
         	model = cl.MackChainladder().fit(transformed_triangle)
-        	summary = model.summary_.to_frame()        
+        	summary = model.summary_.to_frame()
     	elif model == "Bornhuetter Ferguson":
         	cl_ult = cl.Chainladder().fit(transformed_triangle).ultimate_
         	sample_weight = cl_ult * 0 + (cl_ult.sum() / cl_ult.shape[2])  # Mean Chainladder Ultimate
@@ -63,7 +63,7 @@ def getChainLadderOutput(model, development_average ):
         	ultimate = model.ultimate_.to_frame()
         	latest = ultimate - ibnr
 		summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-        	summary.columns = ['Latest','IBNR', 'Ultimate']        
+        	summary.columns = ['Latest','IBNR', 'Ultimate']
     	else:
         	print("This model choice is not yet supported")
         
@@ -71,6 +71,7 @@ def getChainLadderOutput(model, development_average ):
     	IDF = transformed_triangle.link_ratio
 
     	result = { "LDF": LDF, "Summary": summary, "IDF": IDF }
+	return result
 	
 def PnLEstimateforScenario(Scenario):    
     MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])        
