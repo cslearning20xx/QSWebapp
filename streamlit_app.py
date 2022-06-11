@@ -181,8 +181,8 @@ if submitted:
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
 	
-	results["Baseline"][0]["LDF"].T.plot.line(marker= 'o')
-	
+	st.write("do ldf now")
+	st.write(results["Baseline"][0]["LDF"].T)
 	fig, axs = plt.subplots(figsize=(30, 15))
 	results["Baseline"][0]["LDF"].T.plot.line(ax = axs, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
 	
