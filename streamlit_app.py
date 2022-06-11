@@ -39,8 +39,8 @@ def getChainLadderOutput(model, development_average ):
 	import chainladder as cl
 	import numpy as np
 	import pandas as pd
-	df_raw = pd.read_csv('/home/ec2-user/qs/data/QSDataset/Claims CLDataset.csv')	
-    	traingle_data = cl.Triangle( data=df_raw, origin=origin_col,development=development_col, columns=value_col, cumulative=iscumulative )
+	df_raw = pd.read_csv('/home/ec2-user/qs/data/QSDataset/Claims CLDataset.csv')
+    	traingle_data = cl.Triangle(data=df_raw, origin=origin_col, development=development_col, columns=value_col, cumulative=iscumulative )
 	traingle_data = traingle_data.incr_to_cum()
 	
 	dev = cl.Development(average=development_average)
@@ -52,21 +52,21 @@ def getChainLadderOutput(model, development_average ):
         	ultimate = model.ultimate_.to_frame()
         	latest = model.latest_diagonal.to_frame()
         	summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-        	summary.columns = ['Latest', 'IBNR', 'Ultimate']        
+        	summary.columns = ['Latest', 'IBNR', 'Ultimate']
             
     	elif model == "Mack Chain Ladder":
-        	model = cl.MackChainladder().fit(transformed_triangle)         
+        	model = cl.MackChainladder().fit(transformed_triangle)
         	summary = model.summary_.to_frame()
         
     	elif model == "Bornhuetter Ferguson":
-        	cl_ult = cl.Chainladder().fit(transformed_triangle).ultimate_  # Chainladder Ultimate        
+        	cl_ult = cl.Chainladder().fit(transformed_triangle).ultimate_
         	sample_weight = cl_ult * 0 + (cl_ult.sum() / cl_ult.shape[2])  # Mean Chainladder Ultimate
-        	model = cl.BornhuetterFerguson(apriori=1).fit( X= transformed_triangle, sample_weight=sample_weight )            
+        	model = cl.BornhuetterFerguson(apriori=1).fit( X= transformed_triangle, sample_weight=sample_weight )
         	ibnr = model.ibnr_.to_frame()
         	ultimate = model.ultimate_.to_frame()
         	latest = ultimate - ibnr
 		summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-        	summary.columns = ['Latest','IBNR', 'Ultimate']        
+        	summary.columns = ['Latest','IBNR', 'Ultimate']
         
     	else:
         	print("This model choice is not yet supported")
