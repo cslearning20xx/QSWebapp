@@ -186,7 +186,7 @@ if submitted:
 	fig1, axs1 = plt.subplots(figsize=(30, 10))
 	ldf.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
 	cl1.pyplot(fig1)
-	cl2.pyplot(fig1)
+	cl2.write(ldf)
 	
 	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
