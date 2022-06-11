@@ -36,7 +36,7 @@ def getChainLadderOutput(model, development_average ):
 	development_col = "Development Year"
 	value_col = "Claim"
 	iscumulative = False	
-	df_raw = pd.read_csv('/home/ec2-user/qs/data/QSDataset/Claims CLDataset.csv')
+	df_raw = pd.read_csv('Claims CLDataset.csv')
 	traingle_data = cl.Triangle(data=df_raw,origin=origin_col,development=development_col,columns=value_col,cumulative=iscumulative)
 	traingle_data = traingle_data.incr_to_cum()
 	
