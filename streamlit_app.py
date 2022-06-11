@@ -47,7 +47,7 @@ def getChainLadderOutput(model, development_average ):
 	transformed_triangle = dev.fit_transform(data)
 	
     	if model == "Standard Chain Ladder":
-        	model = cl.Chainladder().fit(transformed_triangle)
+		model = cl.Chainladder().fit(transformed_triangle)
         	ibnr = model.ibnr_.to_frame()
         	ultimate = model.ultimate_.to_frame()
         	latest = model.latest_diagonal.to_frame()
