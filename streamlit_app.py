@@ -182,9 +182,9 @@ if submitted:
 		)
 	
 	cl1, cl2 = st.columns(2)
-	ldf = results["Baseline"][0]["LDF"].T 
+	ldf = results["Baseline"][0]["LDF"]
 	fig1, axs1 = plt.subplots(figsize=(30, 10))
-	ldf.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
+	ldf.T.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
 	cl1.pyplot(fig1)
 	cl2.write(ldf)
 	
