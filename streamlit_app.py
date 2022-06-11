@@ -9,7 +9,8 @@ st.title( "Financial Modeling & Projections Dashboard" )
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
-    lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Chain Ladder', 'Bornhuetter-Fergusion', 'Cape-cod'), index = 0)	
+    lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
+    lossreservingdevelopment = st.selectbox('Choose Loss Reserving Development Method', ('simple', 'volume' ), index = 0)	
     premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Average Claim Severity", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
@@ -28,6 +29,53 @@ with st.sidebar.form(key='BaselineInputs'):
     Competitivepricing = st.slider('Competitive Pricing', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
     resinsuranceretentionratio = st.number_input("Reinsurance Retention Ratio", min_value = 0, max_value = 1, value=0 )
     submitted = st.form_submit_button("Submit")
+
+def getChainLadderOutput(model, development_average ):
+	import chainladder as cl
+	import numpy as np
+	import pandas as pd
+	df_raw = pd.read_csv('/home/ec2-user/qs/data/QSDataset/Claims CLDataset.csv')	
+    	traingle_data = cl.Triangle(
+        data=df_raw,
+        origin=origin_col,
+        development=development_col,
+        columns=value_col,
+        cumulative=iscumulative,
+        )
+	traingle_data = traingle_data.incr_to_cum()
+	
+	 dev = cl.Development(average=development_average)
+    	transformed_triangle = dev.fit_transform(data)
+    
+    	if model == "Standard Chain Ladder":
+        	model = cl.Chainladder().fit(transformed_triangle)
+        	ibnr = model.ibnr_.to_frame()
+        	ultimate = model.ultimate_.to_frame()
+        	latest = model.latest_diagonal.to_frame()
+        	summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
+        	summary.columns = ['Latest', 'IBNR', 'Ultimate']        
+            
+    	elif model == "Mack Chain Ladder":
+        	model = cl.MackChainladder().fit(transformed_triangle)         
+        	summary = model.summary_.to_frame()
+        
+    	elif model == "Bornhuetter Ferguson":
+        	cl_ult = cl.Chainladder().fit(transformed_triangle).ultimate_  # Chainladder Ultimate        
+        	sample_weight = cl_ult * 0 + (cl_ult.sum() / cl_ult.shape[2])  # Mean Chainladder Ultimate
+        	model = cl.BornhuetterFerguson(apriori=1).fit( X= transformed_triangle, sample_weight=sample_weight )            
+        	ibnr = model.ibnr_.to_frame()
+        	ultimate = model.ultimate_.to_frame()
+        	latest = ultimate - ibnr
+		summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
+        	summary.columns = ['Latest','IBNR', 'Ultimate']        
+        
+    	else:
+        	print("This model choice is not yet supported")
+        
+    	LDF = model.ldf_.to_frame()
+    	IDF = transformed_triangle.link_ratio
+
+    	result = { "LDF": LDF, "Summary": summary, "IDF": IDF }
 	
 def PnLEstimateforScenario(Scenario):    
     MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])        
@@ -40,7 +88,7 @@ def PnLEstimateforScenario(Scenario):
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
     TotalClaimAmount = NumClaims * Scenario['AvgClaimSize']
 	
-    CL = [1.4259, 1.0426, 1.0270, 1.0137, 1.0115, 1.0075]
+    CL = getChainLadderOutput(lossreservingmodel, lossreservingdevelopment) 
     CumulativeClaimRatios = [1]
     for i in range(1, len(CL)):
         CumulativeClaimRatios.append(CumulativeClaimRatios[i-1]*CL[i])
@@ -74,7 +122,8 @@ if submitted:
 	Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": getClaimProbability( riskmodel ),
-            "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100
+            "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
+	    "lossreservingmodel", lossreservingmodel, "lossreservingdevelopment", lossreservingdevelopment
             }
 
 	Scenarios = { 
