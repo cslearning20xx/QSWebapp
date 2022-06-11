@@ -31,6 +31,11 @@ with st.sidebar.form(key='BaselineInputs'):
     submitted = st.form_submit_button("Submit")
 
 def getChainLadderOutput(model, development_average ):
+	origin_col = "Accident Year"
+	development_col = "Development Year"
+	value_col = "Claim"
+	iscumulative = False
+	
 	import chainladder as cl
 	import numpy as np
 	import pandas as pd
@@ -44,7 +49,7 @@ def getChainLadderOutput(model, development_average ):
         )
 	traingle_data = traingle_data.incr_to_cum()
 	
-	 dev = cl.Development(average=development_average)
+	dev = cl.Development(average=development_average)
     	transformed_triangle = dev.fit_transform(data)
     
     	if model == "Standard Chain Ladder":
@@ -88,7 +93,8 @@ def PnLEstimateforScenario(Scenario):
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
     TotalClaimAmount = NumClaims * Scenario['AvgClaimSize']
 	
-    CL = getChainLadderOutput(lossreservingmodel, lossreservingdevelopment) 
+    CLOutput = getChainLadderOutput(lossreservingmodel, lossreservingdevelopment)
+    CL = CLOutput['LDF'].iloc[0].values
     CumulativeClaimRatios = [1]
     for i in range(1, len(CL)):
         CumulativeClaimRatios.append(CumulativeClaimRatios[i-1]*CL[i])
