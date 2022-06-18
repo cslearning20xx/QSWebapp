@@ -108,6 +108,10 @@ def getClaimProbability(RiskModel):
 		claimprobability = 1.6/100.0
 	return claimprobability
 
+def getfraudProbability(RiskModel):
+	fraudprobability = 0.01
+	return fraudprobability
+	
 PnLScenarios = {}
 results = {}
 if submitted:
@@ -144,6 +148,22 @@ if submitted:
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
 	
+	info1, info2, info3 = st.columns(3)
+	
+	info1.metric(
+    		label="Baselne Premium",
+    		value= Baseline['premium'] 
+		)
+	
+	info2.metric(
+    		label="Baselne Premium1",
+    		value= Baseline['premium'] 
+		)
+		
+	info3.metric(
+    		label="Baselne Premium2",
+    		value= Baseline['premium'] 
+		)
 	kpi1, kpi2, kpi3, kpi4, kpi5, kpi6, kpi7 = st.columns(7)
 
 	# fill in those three columns with respective metrics or KPIs
