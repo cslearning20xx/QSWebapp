@@ -158,7 +158,8 @@ if submitted:
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
 	
-	info1, info2, info3 = st.columns(3)
+	st.title( "Baseline") 
+	info1, info2 = st.columns(2)
 	
 	info1.metric(
     		label="Baseline Premium",
@@ -170,16 +171,12 @@ if submitted:
     		value= premium
 		)
 		
-	info3.metric(
-    		label="Baseline Premium2",
-    		value= Baseline['Premium'] 
-		)
 	kpi1, kpi2, kpi3, kpi4, kpi5, kpi6, kpi7 = st.columns(7)
 
 	# fill in those three columns with respective metrics or KPIs
 	kpi1.metric(
-    		label="Claim Frequency",
-    		value= round(getClaimProbability( riskmodel ) * 100)
+    		label="Claim Frequency (%)",
+    		value= round(getClaimProbability( riskmodel ) * 100, 2)
 		)
 	kpi2.metric(
     		label="Claim Severity",
@@ -218,6 +215,7 @@ if submitted:
 	cl1.pyplot(fig1)
 	cl2.write(ldf)
 	
+	st.title( "Projected PnL") 
 	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
