@@ -27,8 +27,8 @@ with st.sidebar.form(key='BaselineInputs'):
     investmentreturn = st.slider('Investment Expected Return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
     marketgrowth = st.slider('Market Growth (CAGR)', min_value = -20.0, max_value = 20.0, value = 2.0, step = 0.01 )
     marketsharegrowth = st.slider('Market Share Growth (CAGR)', min_value = -50.0, max_value = 50.0, value = 5.0, step = 0.01 )
-    premiumchange = st.number_input("Premium Change %", value=0, step = 0.01)
-    gearing = st.number_input("Gearing", value=1, step = 0.1)
+    premiumchange = st.number_input("Premium Change %", value=0.0, step = 0.01)
+    gearing = st.number_input("Gearing", value=1.0, step = 0.1)
     predictiontimeline = st.number_input("Prediction Timeline(years)", value=5)
     #not used currently in calculation
     Fraudloss = st.slider('Fraud loss', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
