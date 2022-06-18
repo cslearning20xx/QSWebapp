@@ -145,7 +145,7 @@ if submitted:
 	
 	filename = scenarioname + ".txt"
 	with open(filename, 'w') as convert_file:
-		convert_file.write(json.dumps(details))
+		convert_file.write(json.dumps(Scenario))
 	
 if loadscenarios:
 	
