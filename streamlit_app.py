@@ -152,17 +152,17 @@ if submitted:
 	
 	info1.metric(
     		label="Baselne Premium",
-    		value= Baseline['premium'] 
+    		value= Baseline['Premium'] 
 		)
 	
 	info2.metric(
     		label="Baselne Premium1",
-    		value= Baseline['premium'] 
+    		value= Baseline['Premium'] 
 		)
 		
 	info3.metric(
     		label="Baselne Premium2",
-    		value= Baseline['premium'] 
+    		value= Baseline['Premium'] 
 		)
 	kpi1, kpi2, kpi3, kpi4, kpi5, kpi6, kpi7 = st.columns(7)
 
