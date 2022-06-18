@@ -122,7 +122,7 @@ if submitted:
 	claimcount = claimprobability * marketsize
 	claimcountwithfraud = round( claimcount * ( 1 + fraudprobability))
 	
-	lossratio = (claimprobability * avgclaimsize) / premium
+	lossratio = (claimprobability * avgclaimsize) / baselinepremium
 	premium = (claimcountwithfraud * avgclaimsize)/lossratio
 	
 	Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
