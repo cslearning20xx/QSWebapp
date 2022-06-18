@@ -16,7 +16,7 @@ with st.sidebar.form(key='LoadScenarios'):
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
-    fraudmodel = st.selectbox('Choose Fraud Model', ('Support Vector Classifier', 'CatBoost', 'KNN'), index = 1)
+    fraudmodel = st.selectbox('Choose Fraud Model', ('None','Support Vector Classifier', 'CatBoost', 'KNN'), index = 1)
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Standard Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
     lossreservingdevelopment = st.selectbox('Choose Loss Reserving Development Method', ('simple', 'volume' ), index = 0)	
     baselinepremium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
@@ -116,7 +116,7 @@ def getClaimProbability(RiskModel):
 	return claimprobability
 
 def getFraudProbability(FraudModel):
-	if FraudModel = 'None':
+	if FraudModel == 'None':
 		fraudprobability = 0
 	else
 		fraudprobability = 0.005
