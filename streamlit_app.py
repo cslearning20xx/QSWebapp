@@ -10,9 +10,10 @@ st.title( "Financial Modeling & Projections Dashboard" )
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
+    fraudmodel = st.selectbox('Choose Fraud Model', ('Support Vector Classifier', 'CatBoost', 'KNN'), index = 1)
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Standard Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
     lossreservingdevelopment = st.selectbox('Choose Loss Reserving Development Method', ('simple', 'volume' ), index = 0)	
-    premium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
+    baselinepremium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Average Claim Severity", min_value=0, max_value=50000, value=21000, step = 100)
     marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
     marketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
@@ -108,16 +109,25 @@ def getClaimProbability(RiskModel):
 		claimprobability = 1.6/100.0
 	return claimprobability
 
-def getfraudProbability(RiskModel):
-	fraudprobability = 0.01
+def getFraudProbability(FraudModel):
+	fraudprobability = 0.005
 	return fraudprobability
 	
 PnLScenarios = {}
 results = {}
 if submitted:
+	
+	claimprobability = getClaimProbability( riskmodel )
+	fraudprobability = getFraudProbability( fraudmodel )
+	claimcount = claimprobability * marketsize
+	claimcountwithfraud = round( claimcount * ( 1 + fraudprobability))
+	
+	lr = claimprobability * avgclaimsize / premium
+	premium = (claimcountwithfraud * avgclaimsize)/lr
+	
 	Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
-            "ClaimProbability": getClaimProbability( riskmodel ),
+            "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
 	    "lossreservingmodel": lossreservingmodel, "lossreservingdevelopment": lossreservingdevelopment
             }
@@ -151,17 +161,17 @@ if submitted:
 	info1, info2, info3 = st.columns(3)
 	
 	info1.metric(
-    		label="Baselne Premium",
-    		value= Baseline['Premium'] 
+    		label="Baseline Premium",
+    		value= baselinepremium
 		)
 	
 	info2.metric(
-    		label="Baselne Premium1",
-    		value= Baseline['Premium'] 
+    		label="Premium considering Fraud",
+    		value= premium
 		)
 		
 	info3.metric(
-    		label="Baselne Premium2",
+    		label="Baseline Premium2",
     		value= Baseline['Premium'] 
 		)
 	kpi1, kpi2, kpi3, kpi4, kpi5, kpi6, kpi7 = st.columns(7)
