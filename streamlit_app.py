@@ -7,6 +7,12 @@ import chainladder as cl
 st.set_page_config(layout="wide")
 st.title( "Financial Modeling & Projections Dashboard" )
 
+with st.sidebar.form(key='LoadScenarios'):
+	st.title("Load Existing Scenarios")
+	options = st.multiselect('Load Existsing Scenarios(s)', ['Baseline', 'Baseline with Fraud', 'Baseline with Premium Gearing'],
+				['Baseline', 'Baseline with Fraud'])
+	loadscenarios = st.form_submit_button("Load")
+	
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
@@ -21,15 +27,15 @@ with st.sidebar.form(key='BaselineInputs'):
     investmentreturn = st.slider('Investment Expected Return', min_value = -20.0, max_value = 20.0, value = 5.0, step = 0.01 )
     marketgrowth = st.slider('Market Growth (CAGR)', min_value = -20.0, max_value = 20.0, value = 2.0, step = 0.01 )
     marketsharegrowth = st.slider('Market Share Growth (CAGR)', min_value = -50.0, max_value = 50.0, value = 5.0, step = 0.01 )
-    premiumchangerange = st.slider('Premium high low scenario', min_value = -5.0, max_value = 5.0, value = (-3.0, 3.0))
-    higherpremiumgearingrange = st.slider('Gearing Range for higher premium', min_value = 1.0, max_value = 5.0, value = (2.0, 2.5))
-    lowerpremiumgearingrange = st.slider('Gearing Range for lower premium', min_value = 1.0, max_value = 5.0, value = (1.5, 1.0) )
+    premiumchange = st.number_input("Premium Change %", value=0, step = 0.01)
+    gearing = st.number_input("Gearing", value=1, step = 0.1)
     predictiontimeline = st.number_input("Prediction Timeline(years)", value=5)
     #not used currently in calculation
     Fraudloss = st.slider('Fraud loss', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
     #not used currently in calculation
     Competitivepricing = st.slider('Competitive Pricing', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
     resinsuranceretentionratio = st.number_input("Reinsurance Retention Ratio", min_value = 0, max_value = 1, value=0 )
+    scenarioname = st.text("Write Scenario name")
     submitted = st.form_submit_button("Submit")
 
 def getChainLadderOutput(model, development_average ):
@@ -110,7 +116,10 @@ def getClaimProbability(RiskModel):
 	return claimprobability
 
 def getFraudProbability(FraudModel):
-	fraudprobability = 0.005
+	if FraudModel = 'None':
+		fraudprobability = 0
+	else
+		fraudprobability = 0.005
 	return fraudprobability
 	
 PnLScenarios = {}
@@ -125,20 +134,19 @@ if submitted:
 	lossratio = (claimprobability * avgclaimsize) / baselinepremium
 	premium = round((claimcountwithfraud * avgclaimsize)/(lossratio * marketsize))
 	
-	Baseline = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
+	Scenario = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
-	    "lossreservingmodel": lossreservingmodel, "lossreservingdevelopment": lossreservingdevelopment
+	    "lossreservingmodel": lossreservingmodel, "lossreservingdevelopment": lossreservingdevelopment,
+	    "PremiumChangePercentage":premiumchange, "Gearing": gearing,	   
             }
-
-	Scenarios = { 
-	      "Baseline": {"PremiumChangePercentage": 0, "Gearing": 0 }, 
-	      "Premium Higher Gearing High": {"PremiumChangePercentage": premiumchangerange[1], "Gearing": higherpremiumgearingrange[0] }, 
-	      "Premium Higher Gearing Low": {"PremiumChangePercentage": premiumchangerange[1], "Gearing": higherpremiumgearingrange[1] }, 
-	      "Premium Lower Gearing High": {"PremiumChangePercentage": premiumchangerange[0], "Gearing": lowerpremiumgearingrange[0] }, 
-	      "Premium Lower Gearing Low": {"PremiumChangePercentage": premiumchangerange[0], "Gearing": lowerpremiumgearingrange[1] }, 
-	    }
+	
+	filename = scenarioname + ".txt"
+	with open(filename, 'w') as convert_file:
+     	convert_file.write(json.dumps(details))
+	
+if loadscenarios:
 	
 	for key in Scenarios:			
 		PnLYearly = []
