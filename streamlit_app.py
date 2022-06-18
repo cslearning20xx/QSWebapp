@@ -159,7 +159,7 @@ if submitted:
 	df.set_index('Year', inplace=True)  
 	
 	st.header( "Baseline") 
-	info1, info2 = st.columns(2)
+	info1, info2, info3, info4, info5 = st.columns(5)
 	
 	info1.metric(
     		label="Baseline Premium",
@@ -170,40 +170,42 @@ if submitted:
     		label="Premium considering Fraud",
     		value= premium
 		)
-		
-	kpi1, kpi2, kpi3, kpi4, kpi5, kpi6, kpi7 = st.columns(7)
-
-	# fill in those three columns with respective metrics or KPIs
-	kpi1.metric(
+	info3.metric(
     		label="Claim Frequency (%)",
     		value= round(getClaimProbability( riskmodel ) * 100, 2)
 		)
-	kpi2.metric(
+	
+	info4.metric(
     		label="Claim Severity",
     		value= avgclaimsize
 		)
 	
-	kpi3.metric(
-    		label="GWP",
-    		value=str(round(results["Baseline"][0]["GWP"])) + " $mn",    		
-		)
-	
-	kpi4.metric(
+	info5.metric(
     		label="Policy Holders('000)",
     		value=round(results["Baseline"][0]["NumPolicyHolders"]/1000),    		
 		)
 	
-	kpi5.metric(
+	kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+
+	# fill in those three columns with respective metrics or KPIs
+	
+	kpi1.metric(
+    		label="GWP",
+    		value=str(round(results["Baseline"][0]["GWP"])) + " $mn",    		
+		)
+	
+	
+	kpi2.metric(
     		label="Loss Ratio",
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
 	
-	kpi6.metric(
+	kpi3.metric(
     		label="Expense Ratio",
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"] * 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
 	
-	kpi7.metric(
+	kpi4.metric(
     		label="Underwriting Profit Ratio",
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
