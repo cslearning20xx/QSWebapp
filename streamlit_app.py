@@ -158,7 +158,7 @@ if submitted:
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
 	
-	st.title( "Baseline") 
+	st.header( "Baseline") 
 	info1, info2 = st.columns(2)
 	
 	info1.metric(
@@ -208,6 +208,7 @@ if submitted:
     		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
 		)
 	
+	st.header( "Loss Reserving") 
 	cl1, cl2 = st.columns(2)
 	ldf = results["Baseline"][0]["LDF"]
 	fig1, axs1 = plt.subplots(figsize=(30, 10))
@@ -215,7 +216,7 @@ if submitted:
 	cl1.pyplot(fig1)
 	cl2.write(ldf)
 	
-	st.title( "Projected PnL") 
+	st.header( "Projected PnL") 
 	fig, axs = plt.subplots(figsize=(30, 15))
 	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
