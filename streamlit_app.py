@@ -118,7 +118,7 @@ def getClaimProbability(RiskModel):
 def getFraudProbability(FraudModel):
 	if FraudModel == 'None':
 		fraudprobability = 0
-	else
+	else:
 		fraudprobability = 0.005
 	return fraudprobability
 	
