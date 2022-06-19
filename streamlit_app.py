@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import chainladder as cl
 import json
+import os
 
 st.set_page_config(layout="wide")
 st.title( "Financial Modeling & Projections Dashboard" )
@@ -126,7 +127,7 @@ def getFraudProbability(FraudModel):
 PnLScenarios = {}
 results = {}
 if submitted:
-	
+	st.write(os.getcwd())
 	claimprobability = getClaimProbability( riskmodel )
 	fraudprobability = getFraudProbability( fraudmodel )
 	claimcount = claimprobability * marketsize
