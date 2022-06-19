@@ -164,8 +164,8 @@ if submitted:
             }
 	
 	filename = "qs-streamlit/" + scenarioname + ".txt"
-	with open(filename, 'w') as convert_file:
-		convert_file.write(json.dumps(Scenario))
+	with fs.open(filename) as f:
+		f.write(json.dumps(Scenario))
 	
 if loadscenarios:
 	
