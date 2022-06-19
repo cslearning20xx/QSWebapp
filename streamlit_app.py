@@ -163,7 +163,7 @@ if submitted:
 	    "PremiumChangePercentage":premiumchange, "Gearing": gearing,	   
             }
 	
-	filename = scenarioname + ".txt"
+	filename = "qs-streamlit/" + scenarioname + ".txt"
 	with open(filename, 'w') as convert_file:
 		convert_file.write(json.dumps(Scenario))
 	
