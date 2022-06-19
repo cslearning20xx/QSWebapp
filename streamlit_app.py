@@ -25,7 +25,6 @@ for line in content.strip().split("\n"):
     name, pet = line.split(",")
     st.write(f"{name} has a :{pet}:")
 	
-st.set_page_config(layout="wide")
 st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='LoadScenarios'):
