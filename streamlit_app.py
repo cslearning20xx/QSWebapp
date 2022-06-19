@@ -128,6 +128,7 @@ PnLScenarios = {}
 results = {}
 if submitted:
 	st.write(os.getcwd())
+	st.write(os.path.abspath(__file__))
 	claimprobability = getClaimProbability( riskmodel )
 	fraudprobability = getFraudProbability( fraudmodel )
 	claimcount = claimprobability * marketsize
