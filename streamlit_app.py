@@ -34,8 +34,7 @@ with st.sidebar.form(key='LoadScenarios'):
 	st.title("Load Existing Scenarios")
 	files = fs.ls('qs-streamlit')
 	st.write(files)
-	options = st.multiselect('Load Existsing Scenarios(s)', ['Baseline', 'Baseline with Fraud', 'Baseline with Premium Gearing'],
-				[])
+	options = st.multiselect('Load Existsing Scenarios(s)', files, [] )				
 	loadscenarios = st.form_submit_button("Load")
 	
 with st.sidebar.form(key='BaselineInputs'):
