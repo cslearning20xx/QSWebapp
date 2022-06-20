@@ -41,6 +41,9 @@ with st.sidebar.form(key='TriggerLoadScenarios'):
 	
 if loadscenarios:
 	st.session_state.loadexistingscenarios = true
+else:
+	st.session_state.loadexistingscenarios = false
+
 
 with st.sidebar.form(key='LoadScenarios'):
 	files = []
