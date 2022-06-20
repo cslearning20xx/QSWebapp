@@ -46,7 +46,7 @@ else:
 
 with st.sidebar.form(key='LoadScenarios'):
 	files = []
-	if st.session_state.loadexistingscenarios == true:
+	if st.session_state.loadexistingscenarios == True:
 		files = fs.ls('qs-streamlit')
 	options = st.multiselect('Load Existsing Scenarios(s)', files, [] )
 	selectscenarios = st.form_submit_button("Select Scenarios")
