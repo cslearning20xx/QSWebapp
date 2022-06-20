@@ -25,7 +25,7 @@ for line in content.strip().split("\n"):
     name, pet = line.split(",")
     st.write(f"{name} has a :{pet}:")
 
-st.write(fs.ls())
+st.write(fs.ls('qs-streamlit'))
 with fs.open('qs-streamlit/abc.txt', 'rb') as f:
 	data = json.load(f)
 	st.write(data)
