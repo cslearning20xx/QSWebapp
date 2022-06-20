@@ -24,7 +24,11 @@ content = read_file("qs-streamlit/myfile.csv")
 for line in content.strip().split("\n"):
     name, pet = line.split(",")
     st.write(f"{name} has a :{pet}:")
-	
+
+with fs.open('qs-streamlit/abc.txt', 'rb') as f:
+	data = json.load(f)
+	st.write(data)
+    
 st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='LoadScenarios'):
