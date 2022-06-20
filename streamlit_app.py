@@ -38,18 +38,27 @@ with st.sidebar.form(key='TriggerLoadScenarios'):
 	#st.write(files)
 	#options = st.multiselect('Load Existsing Scenarios(s)', files, [] )				
 	#loadscenarios = st.form_submit_button("Load")
+
+with st.sidebar.form(key='TriggerDeleteScenarios'):
+	deletescenarios = st.form_submit_button("Delete Existing Scenarios")
 	
 if loadscenarios:
 	st.session_state.loadexistingscenarios = True
 else:
 	st.session_state.loadexistingscenarios = False
 
+if deletescenarios:
+	files = fs.ls('qs-streamlit')
+	for file in files:
+		fs.delete(file)	
+	st.session_state.loadexistingscenarios = False
+	
 with st.sidebar.form(key='LoadScenarios'):
 	files = []
 	if st.session_state.loadexistingscenarios == True:
 		files = fs.ls('qs-streamlit')
 	options = st.multiselect('Load Existsing Scenarios(s)', files, [] )
-	selectscenarios = st.form_submit_button("Select Scenarios")
+	showscenarios = st.form_submit_button("Show Scenarios")
 		
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
@@ -184,8 +193,7 @@ if submitted:
 	filename = "qs-streamlit/" + scenarioname + ".txt"
 	json.dump(Scenario, fs.open( filename,'w'))
 
-if loadscenarios:
-	
+if showscenarios:	
 	for key in Scenarios:			
 		PnLYearly = []
 		ScenarioResult = []
