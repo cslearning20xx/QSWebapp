@@ -40,9 +40,9 @@ with st.sidebar.form(key='TriggerLoadScenarios'):
 	#loadscenarios = st.form_submit_button("Load")
 	
 if loadscenarios:
-	st.session_state.loadexistingscenarios = true
+	st.session_state.loadexistingscenarios = True
 else:
-	st.session_state.loadexistingscenarios = false
+	st.session_state.loadexistingscenarios = False
 
 with st.sidebar.form(key='LoadScenarios'):
 	files = []
