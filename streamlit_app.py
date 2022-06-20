@@ -18,14 +18,12 @@ def read_file(filename):
     with fs.open(filename) as f:
         return f.read().decode("utf-8")
 
-content = read_file("qs-streamlit/myfile.csv")
 
-# Print results.
-for line in content.strip().split("\n"):
-    name, pet = line.split(",")
-    st.write(f"{name} has a :{pet}:")
-
-st.write(fs.ls('qs-streamlit'))
+files = fs.ls('qs-streamlit')
+for file in files:
+	fs.delete(file)
+	st.write('deleted file')
+		  
 with fs.open('qs-streamlit/abc.txt', 'rb') as f:
 	data = json.load(f)
 	st.write(data)
