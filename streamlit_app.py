@@ -19,21 +19,23 @@ def read_file(filename):
         return f.read().decode("utf-8")
 
 
-files = fs.ls('qs-streamlit')
-for file in files:
-	fs.delete(file)
-	st.write('deleted file')
+#files = fs.ls('qs-streamlit')
+#for file in files:
+	#fs.delete(file)
+	#st.write('deleted file')
 		  
-with fs.open('qs-streamlit/abc.txt', 'rb') as f:
-	data = json.load(f)
-	st.write(data)
+#with fs.open('qs-streamlit/abc.txt', 'rb') as f:
+	#data = json.load(f)
+	#st.write(data)
     
 st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='LoadScenarios'):
 	st.title("Load Existing Scenarios")
+	files = fs.ls('qs-streamlit')
+	st.write(files)
 	options = st.multiselect('Load Existsing Scenarios(s)', ['Baseline', 'Baseline with Fraud', 'Baseline with Premium Gearing'],
-				['Baseline', 'Baseline with Fraud'])
+				[])
 	loadscenarios = st.form_submit_button("Load")
 	
 with st.sidebar.form(key='BaselineInputs'):
