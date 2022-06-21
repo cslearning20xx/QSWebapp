@@ -33,12 +33,6 @@ st.title( "Financial Modeling & Projections Dashboard" )
 with st.sidebar.form(key='TriggerLoadScenarios'):
 	loadscenarios = st.form_submit_button("Load Existing Scenarios")
 	
-	#st.title("Load Existing Scenarios")
-	#files = fs.ls('qs-streamlit')
-	#st.write(files)
-	#options = st.multiselect('Load Existsing Scenarios(s)', files, [] )				
-	#loadscenarios = st.form_submit_button("Load")
-
 with st.sidebar.form(key='TriggerDeleteScenarios'):
 	deletescenarios = st.form_submit_button("Delete Existing Scenarios")
 	
@@ -58,7 +52,7 @@ with st.sidebar.form(key='LoadScenarios'):
 	if st.session_state.loadexistingscenarios == True:
 		files = fs.ls('qs-streamlit')
 		files = [ x.split("/")[1].split(".")[0] for x in files ]
-	options = st.multiselect('Scenario Choices(s)', files, [] )
+	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
 	showscenarios = st.form_submit_button("Show Scenarios")
 		
 with st.sidebar.form(key='BaselineInputs'):
@@ -194,13 +188,17 @@ if submitted:
 	filename = "qs-streamlit/" + scenarioname + ".txt"
 	json.dump(Scenario, fs.open( filename,'w'))
 
+def readscenario(scenario)
+	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
+	return json.load(f)
+	
 if showscenarios:	
-	for key in Scenarios:			
+	for key in scenariooptions:
 		PnLYearly = []
 		ScenarioResult = []
 		for i in range(predictiontimeline):
-			Scenario = Scenarios[key]		
-			Scenario = {**Baseline, **Scenario}
+			Scenario = readscenario(key)
+			st.write(Scenario)
 			Scenario.update({"TimeHorizon" : i })
 			result = PnLEstimateforScenario( Scenario)
 			ScenarioResult.append(result)
