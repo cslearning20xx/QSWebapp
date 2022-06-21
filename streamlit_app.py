@@ -188,7 +188,7 @@ if submitted:
 	filename = "qs-streamlit/" + scenarioname + ".txt"
 	json.dump(Scenario, fs.open( filename,'w'))
 
-def readscenario(scenario)
+def readscenario(scenario):
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
 	return json.load(f)
 	
