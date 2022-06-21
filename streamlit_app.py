@@ -194,7 +194,8 @@ def readscenario(scenario):
 		st.write(json.load(f))
 		return json.load(f)
 	
-if showscenarios:	
+if showscenarios:
+	st.write(scenariooptions)
 	for key in scenariooptions:
 		PnLYearly = []
 		ScenarioResult = []
