@@ -190,7 +190,7 @@ if submitted:
 
 def readscenario(scenario):
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
-	return json.load(f)
+		return json.load(f)
 	
 if showscenarios:	
 	for key in scenariooptions:
