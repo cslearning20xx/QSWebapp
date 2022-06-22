@@ -53,6 +53,7 @@ with st.sidebar.form(key='LoadScenarios'):
 		files = fs.ls('qs-streamlit')
 		files = [ x.split("/")[1].split(".")[0] for x in files ]
 	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
+	st.write(scenariooptions)
 	showscenarios = st.form_submit_button("Show Scenarios")
 		
 with st.sidebar.form(key='BaselineInputs'):
