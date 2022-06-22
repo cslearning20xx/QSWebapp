@@ -206,76 +206,25 @@ if showscenarios:
 			result = PnLEstimateforScenario( Scenario)
 			ScenarioResult.append(result)
 			PnLYearly.append(result["PnL"])
-			#st.write( key + " Year " + str(i+1) + " : " +'${:,.0f}'.format(PnL))
+			
 		PnLScenarios.update({key:PnLYearly})
 		results.update({key:ScenarioResult})
-	#st.write(results)
+	
 	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 	df = pd.DataFrame.from_dict(PnLScenarios)
 	df.set_index('Year', inplace=True)  
 	
-	st.header( "Baseline") 
-	info1, info2, info3, info4, info5 = st.columns(5)
+	#st.header( "Loss Reserving") 
+	#cl1, cl2 = st.columns(2)
+	#ldf = results["Baseline"][0]["LDF"]
+	#fig1, axs1 = plt.subplots(figsize=(30, 10))
+	#ldf.T.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
+	#cl1.pyplot(fig1)
+	#cl2.write(ldf)
 	
-	info1.metric(
-    		label="Baseline Premium",
-    		value= baselinepremium
-		)
-	
-	info2.metric(
-    		label="Premium considering Fraud",
-    		value= premium
-		)
-	info3.metric(
-    		label="Claim Frequency (%)",
-    		value= round(getClaimProbability( riskmodel ) * 100, 2)
-		)
-	
-	info4.metric(
-    		label="Claim Severity",
-    		value= avgclaimsize
-		)
-	
-	info5.metric(
-    		label="Policy Holders('000)",
-    		value=round(results["Baseline"][0]["NumPolicyHolders"]/1000),    		
-		)
-	
-	kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+	#st.header( "Projected PnL") 
+	#fig, axs = plt.subplots(figsize=(30, 15))
+	#df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
-	# fill in those three columns with respective metrics or KPIs
+	#st.pyplot(fig)
 	
-	kpi1.metric(
-    		label="GWP",
-    		value=str(round(results["Baseline"][0]["GWP"])) + " $mn",    		
-		)
-	
-	
-	kpi2.metric(
-    		label="Loss Ratio",
-    		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
-		)
-	
-	kpi3.metric(
-    		label="Expense Ratio",
-    		value= str(round(results["Baseline"][0]["TotalClaimAmount"] * 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
-		)
-	
-	kpi4.metric(
-    		label="Underwriting Profit Ratio",
-    		value= str(round(results["Baseline"][0]["TotalClaimAmount"]* 100/results["Baseline"][0]["GWP"], 0)) + " %",    		
-		)
-	
-	st.header( "Loss Reserving") 
-	cl1, cl2 = st.columns(2)
-	ldf = results["Baseline"][0]["LDF"]
-	fig1, axs1 = plt.subplots(figsize=(30, 10))
-	ldf.T.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
-	cl1.pyplot(fig1)
-	cl2.write(ldf)
-	
-	st.header( "Projected PnL") 
-	fig, axs = plt.subplots(figsize=(30, 15))
-	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
-
-	st.pyplot(fig)
