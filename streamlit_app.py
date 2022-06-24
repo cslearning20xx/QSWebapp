@@ -30,28 +30,17 @@ def read_file(filename):
     
 st.title( "Financial Modeling & Projections Dashboard" )
 
-with st.sidebar.form(key='TriggerLoadScenarios'):
-	loadscenarios = st.form_submit_button("Load Existing Scenarios")
-	
 with st.sidebar.form(key='TriggerDeleteScenarios'):
 	deletescenarios = st.form_submit_button("Delete Existing Scenarios")
 	
-if loadscenarios:
-	st.session_state.loadexistingscenarios = True
-else:
-	st.session_state.loadexistingscenarios = False
-
 if deletescenarios:
 	files = fs.ls('qs-streamlit')
 	for file in files:
 		fs.delete(file)	
-	st.session_state.loadexistingscenarios = False
 	
 with st.sidebar.form(key='LoadScenarios'):
-	files = []
-	if st.session_state.loadexistingscenarios == True:
-		files = fs.ls('qs-streamlit')
-		files = [ x.split("/")[1].split(".")[0] for x in files ]
+	files = fs.ls('qs-streamlit')
+	files = [ x.split("/")[1].split(".")[0] for x in files ]
 	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
 	st.write(scenariooptions)
 	showscenarios = st.form_submit_button("Show Scenarios")
