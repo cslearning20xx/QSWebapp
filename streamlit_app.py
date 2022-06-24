@@ -179,7 +179,6 @@ if submitted:
 	json.dump(Scenario, fs.open( filename,'w'))
 
 def readscenario(scenario):
-	st.wrte(scenario)
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
 		st.write(json.load(f))
 		return json.load(f)
