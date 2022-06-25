@@ -157,8 +157,7 @@ def getFraudProbability(FraudModel):
 PnLScenarios = {}
 results = {}
 if submitted:
-	st.write(os.getcwd())
-	st.write(os.path.abspath(__file__))
+
 	claimprobability = getClaimProbability( riskmodel )
 	fraudprobability = getFraudProbability( fraudmodel )
 	claimcount = claimprobability * marketsize
@@ -186,7 +185,9 @@ def readscenario(scenario):
 	
 if showscenarios:
 	st.write(scenariooptions)
-	for key in scenariooptions.values():
+	st.write(type(scenariooptions))
+	for key in scenariooptions:
+		st.write(key)
 		PnLYearly = []
 		ScenarioResult = []
 		for i in range(predictiontimeline):
