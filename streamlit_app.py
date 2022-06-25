@@ -186,9 +186,7 @@ def readscenario(scenario):
 	return data
 	
 if showscenarios:
-	st.write(scenariooptions)
 	for key in scenariooptions:
-		st.write(key)
 		PnLYearly = []
 		ScenarioResult = []
 		Scenario = readscenario(key)
