@@ -30,6 +30,20 @@ def read_file(filename):
     
 st.title( "Financial Modeling & Projections Dashboard" )
 
+with st.sidebar.form(key='LoadScenarios'):
+	files = fs.ls('qs-streamlit')
+	files = [ x.split("/")[1].split(".")[0] for x in files ]
+	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
+	showscenarios = st.form_submit_button("Show Scenarios")
+
+	
+with st.sidebar.form(key='RefreshScenarios'):
+	refreshscenarios = st.form_submit_button("Refresh Scenario List")
+
+if deletescenarios:
+	files = fs.ls('qs-streamlit')
+	for file in files:
+		fs.delete(file)	
 with st.sidebar.form(key='TriggerDeleteScenarios'):
 	deletescenarios = st.form_submit_button("Delete Existing Scenarios")
 	
@@ -37,13 +51,6 @@ if deletescenarios:
 	files = fs.ls('qs-streamlit')
 	for file in files:
 		fs.delete(file)	
-	
-with st.sidebar.form(key='LoadScenarios'):
-	files = fs.ls('qs-streamlit')
-	files = [ x.split("/")[1].split(".")[0] for x in files ]
-	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
-	showscenarios = st.form_submit_button("Show Scenarios")
-		
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
