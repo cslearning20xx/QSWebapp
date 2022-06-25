@@ -69,8 +69,7 @@ with st.sidebar.form(key='BaselineInputs'):
     #not used currently in calculation
     Competitivepricing = st.slider('Competitive Pricing', min_value = -100.0, max_value = 100.0, value = 0.0, step = 0.01 )
     resinsuranceretentionratio = st.number_input("Reinsurance Retention Ratio", min_value = 0, max_value = 100, value=100 )
-    scenarioname = st.text_input("Write Scenario name", help= "Ex: Scenario_Baseline, Scenario_BestCase, Scenario_WorstCase, Scenario_Pandemic",
-				placeholder = "Scenario_Baseline")
+    scenarioname = st.text_input("Write Scenario name", help= "Ex: Scenario_Baseline, Scenario_BestCase, Scenario_WorstCase, Scenario_Pandemic")
     submitted = st.form_submit_button("Save Scenario")
 
 def getChainLadderOutput(model, development_average ):
