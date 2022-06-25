@@ -179,9 +179,7 @@ if submitted:
 
 def readscenario(scenario):
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
-		st.write("reading now")
 		data = json.load(f)
-		st.write("finished reading")
 	return data
 	
 if showscenarios:
