@@ -180,12 +180,13 @@ if submitted:
 
 def readscenario(scenario):
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
+		st.write("reading now")
 		st.write(json.load(f))
 		return json.load(f)
 	
 if showscenarios:
 	st.write(scenariooptions)
-	for key in scenariooptions:
+	for key in scenariooptions.values():
 		PnLYearly = []
 		ScenarioResult = []
 		for i in range(predictiontimeline):
