@@ -67,11 +67,9 @@ with st.sidebar.form(key='BaselineInputs'):
     gearing = st.number_input("Gearing", value=1.0, step = 0.1)
     predictiontimeline = st.number_input("Prediction Timeline(years)", value=5)
     #not used currently in calculation
-    Fraudloss = st.slider('Fraud loss', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01 )
-    #not used currently in calculation
     Competitivepricing = st.slider('Competitive Pricing', min_value = -100.0, max_value = 100.0, value = 0.0, step = 0.01 )
     resinsuranceretentionratio = st.number_input("Reinsurance Retention Ratio", min_value = 0, max_value = 100, value=100 )
-    scenarioname = st.text_input("Write Scenario name")
+    scenarioname = st.text_input("Write Scenario name", help= "abc" )
     submitted = st.form_submit_button("Save Scenario")
 
 def getChainLadderOutput(model, development_average ):
