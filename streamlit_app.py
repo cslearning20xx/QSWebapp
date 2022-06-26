@@ -174,7 +174,7 @@ if submitted:
             "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
 	    "lossreservingmodel": lossreservingmodel, "lossreservingdevelopment": lossreservingdevelopment,
-	    "PremiumChangePercentage":premiumchange, "Gearing": gearing,	   
+	    "PremiumChangePercentage":premiumchange, "Gearing": gearing, "scenarioname": scenarioname,	   
             }
 	
 	filename = "qs-streamlit/" + scenarioname + ".txt"
@@ -186,10 +186,12 @@ def readscenario(scenario):
 	return data
 	
 if showscenarios:
+	Scenariolist =[]
 	for key in scenariooptions:
 		PnLYearly = []
 		ScenarioResult = []
 		Scenario = readscenario(key)
+		Scenariolist.append(Scenario)
 		for i in range(predictiontimeline):
 			Scenario.update({"TimeHorizon" : i })
 			result = PnLEstimateforScenario( Scenario)
@@ -205,6 +207,11 @@ if showscenarios:
 	
 	st.write(df)
 	
+	df1 = pd.DataFrame.from_dict(Scenariolist)
+	df1.set_index('scenarioname', inplace=True)  
+	
+	st.write(df1)
+	
 	#st.header( "Loss Reserving") 
 	#cl1, cl2 = st.columns(2)
 	#ldf = results["Baseline"][0]["LDF"]
@@ -213,9 +220,9 @@ if showscenarios:
 	#cl1.pyplot(fig1)
 	#cl2.write(ldf)
 	
-	#st.header( "Projected PnL") 
-	#fig, axs = plt.subplots(figsize=(30, 15))
-	#df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
+	st.header( "Projected PnL") 
+	fig, axs = plt.subplots(figsize=(30, 15))
+	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
-	#st.pyplot(fig)
+	st.pyplot(fig)
 	
