@@ -55,10 +55,10 @@ with st.sidebar.form(key='BaselineInputs'):
     fraudloss = st.slider('Fraud loss probability adjustment', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01, help = "Manual adjutment to model produced fraud probability" )
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Standard Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
     lossreservingdevelopment = st.selectbox('Choose Loss Reserving Development Method', ('simple', 'volume' ), index = 0)	
-    baselinepremium = st.number_input("Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
+    baselinepremium = st.number_input("Baseline Premium Amount", min_value=0, max_value=10000, value=1000, step = 10)
     avgclaimsize = st.number_input("Average Claim Severity", min_value=0, max_value=50000, value=21000, step = 100)
-    marketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
-    marketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
+    baselinemarketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
+    baselinemarketshare = st.slider('Company Market Share', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
     operatingexpenses = st.slider('Operating Expenses', min_value = 0.0, max_value = 100.0, value = 30.0, step = 0.01 )
     investmentreturn = st.slider('Investment Expected Return', min_value = -20.0, max_value = 20.0, value = 6.0, step = 0.01 )
     marketgrowth = st.slider('Market Growth (CAGR)', min_value = -100.0, max_value = 100.0, value = 10.0, step = 0.01 )
@@ -110,7 +110,7 @@ def getChainLadderOutput(model, development_average ):
 	return result
 	
 def PnLEstimateforScenario(Scenario):    
-    MarketSize = Scenario["MarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])        
+    MarketSize = Scenario["BaselineMarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])        
     NumPolicyHolders = MarketSize * Scenario["MarketShare"]
     NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )        
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
@@ -135,10 +135,13 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = TotalPremium + InvestmentIncome - ClaimInitial - Expenses
     
-    return { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":NewPremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
+    output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":NewPremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'] }
+	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'],
+	      }
+    output.update(Scenario)
+    return output
 
 def getClaimProbability(RiskModel):
 	if RiskModel == 'Catboost':
@@ -169,7 +172,7 @@ if submitted:
 	lossratio = (claimprobability * avgclaimsize) / baselinepremium
 	premium = round((claimcountwithfraud * avgclaimsize)/(lossratio * marketsize))
 	
-	Scenario = {"Premium": premium, 'AvgClaimSize': avgclaimsize, "MarketSize": marketsize, "MarketShare": marketshare/100, 
+	Scenario = {"BaselinePremium": baselinepremium, 'AvgClaimSize': avgclaimsize, "BaselineMarketSize": marketsize, "MarketShare": marketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
