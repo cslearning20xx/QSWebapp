@@ -112,7 +112,7 @@ def getChainLadderOutput(model, development_average ):
 def PnLEstimateforScenario(Scenario):    
     MarketSize = Scenario["BaselineMarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])        
     NumPolicyHolders = MarketSize * Scenario["BaselineMarketShare"]
-    NewPremium = Scenario['Premium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )        
+    NewPremium = Scenario['BaselinePremium'] * ( 1 + Scenario['PremiumChangePercentage']/100 )        
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
     
