@@ -212,7 +212,7 @@ if showscenarios:
 	
 	df1 = pd.DataFrame.from_dict(Scenariolist)
 	df1.set_index('scenarioname', inplace=True)  
-	
+	df1 = df1.T
 	st.write(df1)
 	
 	#st.header( "Loss Reserving") 
