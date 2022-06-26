@@ -166,7 +166,7 @@ if submitted:
 
 	claimprobability = getClaimProbability( riskmodel )
 	fraudprobability = getFraudProbability( fraudmodel, fraudloss )
-	claimcount = claimprobability * marketsize
+	claimcount = claimprobability * baselinemarketsize
 	claimcountwithfraud = round( claimcount * ( 1 + fraudprobability))
 	
 	lossratio = (claimprobability * avgclaimsize) / baselinepremium
