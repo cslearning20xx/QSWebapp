@@ -30,23 +30,16 @@ def read_file(filename):
     
 st.title( "Financial Modeling & Projections Dashboard" )
 
-with st.sidebar.form(key='LoadScenarios'):
+with st.sidebar.form(key='ChooseAction')
 	files = fs.ls('qs-streamlit')
 	files = [ x.split("/")[1].split(".")[0] for x in files ]
 	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
-	showscenarios = st.form_submit_button("Run Scenarios")
+	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
+	scenarioaction = st.form_submit_button("Submit")
 
-	
+
 with st.sidebar.form(key='RefreshScenarios'):
 	refreshscenarios = st.form_submit_button("Refresh Scenario List")
-
-with st.sidebar.form(key='TriggerDeleteScenarios'):
-	deletescenarios = st.form_submit_button("Delete Existing Scenarios")
-	
-if deletescenarios:
-	files = fs.ls('qs-streamlit')
-	for file in files:
-		fs.delete(file)	
 		
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
@@ -188,45 +181,51 @@ def readscenario(scenario):
 		data = json.load(f)
 	return data
 	
-if showscenarios:
-	Scenariolist =[]
-	for key in scenariooptions:
-		PnLYearly = []
-		ScenarioResult = []
-		Scenario = readscenario(key)
-		Scenariolist.append(Scenario)
-		for i in range(predictiontimeline):
-			Scenario.update({"TimeHorizon" : i })
-			result = PnLEstimateforScenario( Scenario)
-			ScenarioResult.append(result)
-			PnLYearly.append(result["PnL"])
-			
-		PnLScenarios.update({key:PnLYearly})
-		results.update({key:ScenarioResult})
-	
-	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
-	df = pd.DataFrame.from_dict(PnLScenarios)
-	df.set_index('Year', inplace=True)  
-	
-	st.write(df)
-	
-	df1 = pd.DataFrame.from_dict(Scenariolist)
-	df1.set_index('scenarioname', inplace=True)
-	df1 = df1.apply(lambda x: x.astype(str), axis=1)
-	df1 = df1.T
-	st.write(df1)
-	
-	#st.header( "Loss Reserving") 
-	#cl1, cl2 = st.columns(2)
-	#ldf = results["Baseline"][0]["LDF"]
-	#fig1, axs1 = plt.subplots(figsize=(30, 10))
-	#ldf.T.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
-	#cl1.pyplot(fig1)
-	#cl2.write(ldf)
-	
-	st.header( "Projected PnL") 
-	fig, axs = plt.subplots(figsize=(30, 15))
-	df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 
-	st.pyplot(fig)
+if scenarioaction:
+	if action == "Delete":
+		for key in scenariooptions:
+			file = 'qs-streamlit/' + scenario + '.txt'
+			fs.delete(file)	
+
+	if action == "Run":
+		Scenariolist =[]
+		for key in scenariooptions:
+			PnLYearly = []
+			ScenarioResult = []
+			Scenario = readscenario(key)
+			Scenariolist.append(Scenario)
+			for i in range(predictiontimeline):
+				Scenario.update({"TimeHorizon" : i })
+				result = PnLEstimateforScenario( Scenario)
+				ScenarioResult.append(result)
+				PnLYearly.append(result["PnL"])
+			
+			PnLScenarios.update({key:PnLYearly})
+			results.update({key:ScenarioResult})
 	
+		PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
+		df = pd.DataFrame.from_dict(PnLScenarios)
+		df.set_index('Year', inplace=True)  
+	
+		st.write(df)
+	
+		df1 = pd.DataFrame.from_dict(Scenariolist)
+		df1.set_index('scenarioname', inplace=True)
+		df1 = df1.apply(lambda x: x.astype(str), axis=1)
+		df1 = df1.T
+		st.write(df1)
+	
+		#st.header( "Loss Reserving") 
+		#cl1, cl2 = st.columns(2)
+		#ldf = results["Baseline"][0]["LDF"]
+		#fig1, axs1 = plt.subplots(figsize=(30, 10))
+		#ldf.T.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
+		#cl1.pyplot(fig1)
+		#cl2.write(ldf)
+	
+		st.header( "Projected PnL") 
+		fig, axs = plt.subplots(figsize=(30, 15))
+		df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
+
+		st.pyplot(fig)
