@@ -30,7 +30,7 @@ def read_file(filename):
     
 st.title( "Financial Modeling & Projections Dashboard" )
 
-with st.sidebar.form(key='ChooseAction')
+with st.sidebar.form(key='ChooseAction'):
 	files = fs.ls('qs-streamlit')
 	files = [ x.split("/")[1].split(".")[0] for x in files ]
 	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
