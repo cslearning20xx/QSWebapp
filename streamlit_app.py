@@ -7,6 +7,8 @@ import json
 import os
 import s3fs
 
+pd.set_option('display.max_columns', None)
+
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
 fs = s3fs.S3FileSystem(anon=False)
