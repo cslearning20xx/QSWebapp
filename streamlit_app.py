@@ -203,12 +203,15 @@ if scenarioaction:
 		for key in scenariooptions:
 			PnLYearly = []
 			ScenarioResult = []
+			ScenarioResultY0 = []
 			Scenario = readscenario(key)
 			Scenariolist.append(Scenario)
 			for i in range(predictiontimeline):
 				Scenario.update({"TimeHorizon" : i })
 				result = PnLEstimateforScenario( Scenario)
 				ScenarioResult.append(result)
+				if i == 0:
+					ScenarioResultY0.append(result)
 				PnLYearly.append(result["PnL"])
 			
 			PnLScenarios.update({key:PnLYearly})
@@ -219,6 +222,10 @@ if scenarioaction:
 		df.set_index('Year', inplace=True)
 		df.index.name = 'Year'
 	
+		output = pd.DataFrame.from_dict(ScenarioResultY0)
+		output.set_index('scenarioname', inplace=True)
+		output.index.name = 'Scenario Name'
+		st.write(output)
 	
 		#st.header( "Loss Reserving") 
 		#cl1, cl2 = st.columns(2)
