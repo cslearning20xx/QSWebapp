@@ -39,6 +39,13 @@ with st.sidebar.form(key='ChooseAction'):
 	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
 	scenarioaction = st.form_submit_button("Submit")
 	
+with st.sidebar.form(key='KeyMetrics')
+	metricsoptions = st.multiselect('Select Key Metric(s)', [ "Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
+								 "ClaimReserve", "Expenses", "PnL"], 
+					["Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
+								 "ClaimReserve", "Expenses", "InvestmentAmout","InvestmentIncome", "PnL"] )
+	displaykeymetrics = st.form_submit_button("Submit")
+	    
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
