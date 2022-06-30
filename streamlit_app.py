@@ -220,9 +220,9 @@ if scenarioaction:
 	
 		PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
 		df = pd.DataFrame.from_dict(PnLScenarios)
-		df.set_index('Year', inplace=True)  
+		df.set_index('Year', inplace=True)
+		df.index.name = 'Year'
 	
-		st.write(df)
 	
 		#st.header( "Loss Reserving") 
 		#cl1, cl2 = st.columns(2)
@@ -233,7 +233,13 @@ if scenarioaction:
 		#cl2.write(ldf)
 	
 		st.header( "Projected PnL") 
-		fig, axs = plt.subplots(figsize=(30, 15))
-		df.plot.line( ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
-
-		st.pyplot(fig)
+		
+		col1,col2 = st.columns(2)
+		
+		with col1:
+			fig, axs = plt.subplots(figsize=(30, 15))
+			df.plot.line(ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
+			st.pyplot(fig)
+			
+		with col2:
+			st.write(df)
