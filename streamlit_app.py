@@ -185,7 +185,7 @@ def readscenario(scenario):
 if scenarioaction:
 	if action == "Delete":
 		for key in scenariooptions:
-			file = 'qs-streamlit/' + scenario + '.txt'
+			file = 'qs-streamlit/' + key + '.txt'
 			fs.delete(file)	
 
 	if action == "Run":
