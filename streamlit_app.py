@@ -224,12 +224,6 @@ if scenarioaction:
 	
 		st.write(df)
 	
-		df1 = pd.DataFrame.from_dict(Scenariolist)
-		df1.set_index('scenarioname', inplace=True)
-		df1 = df1.apply(lambda x: x.astype(str), axis=1)
-		df1 = df1.T
-		st.write(df1)
-	
 		#st.header( "Loss Reserving") 
 		#cl1, cl2 = st.columns(2)
 		#ldf = results["Baseline"][0]["LDF"]
