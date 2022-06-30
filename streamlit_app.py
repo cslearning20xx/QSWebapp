@@ -41,9 +41,9 @@ with st.sidebar.form(key='ChooseAction'):
 	
 with st.sidebar.form(key='KeyMetrics'):
 	metricsoptions = st.multiselect('Select Key Metric(s)', [ "Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
-								 "ClaimReserve", "Expenses", "PnL"], 
+								 "ClaimReserve", "Expenses", "InvestmentAmout","InvestmentIncome", "PnL"], 
 					["Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
-								 "ClaimReserve", "Expenses", "InvestmentAmout","InvestmentIncome", "PnL"] )
+								 "ClaimReserve", "Expenses", "PnL"] )
 	displaykeymetrics = st.form_submit_button("Submit")
 	    
 with st.sidebar.form(key='BaselineInputs'):
