@@ -40,9 +40,9 @@ with st.sidebar.form(key='ChooseAction'):
 	scenarioaction = st.form_submit_button("Submit")
 	
 with st.sidebar.form(key='KeyMetrics'):
-	metricsoptions = st.multiselect('Select Key Metric(s)', [ "Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
+	metricsoptions = st.multiselect('Select Key Metric(s)', [ "Premium", "GWP", "TotalClaimAmount",
 								 "ClaimReserve", "Expenses", "InvestmentAmout","InvestmentIncome", "PnL"], 
-					["Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
+					["Premium", "GWP", "TotalClaimAmount",
 								 "ClaimReserve", "Expenses", "PnL"] )
 	displaykeymetrics = st.form_submit_button("Submit")
 	    
@@ -207,10 +207,10 @@ if scenarioaction:
 		
 	if action == "Run":
 		Scenariolist =[]
+		ScenarioResultY0 = []
 		for key in scenariooptions:
 			PnLYearly = []
-			ScenarioResult = []
-			ScenarioResultY0 = []
+			ScenarioResult = []			
 			Scenario = readscenario(key)
 			Scenariolist.append(Scenario)
 			for i in range(predictiontimeline):
