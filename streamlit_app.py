@@ -39,7 +39,7 @@ with st.sidebar.form(key='ChooseAction'):
 	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
 	scenarioaction = st.form_submit_button("Submit")
 	
-with st.sidebar.form(key='KeyMetrics')
+with st.sidebar.form(key='KeyMetrics'):
 	metricsoptions = st.multiselect('Select Key Metric(s)', [ "Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
 								 "ClaimReserve", "Expenses", "PnL"], 
 					["Premium", "GWP", "ClaimProbability", "FraudProbability", "TotalClaimAmount",
