@@ -38,11 +38,7 @@ with st.sidebar.form(key='ChooseAction'):
 	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
 	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
 	scenarioaction = st.form_submit_button("Submit")
-
-
-with st.sidebar.form(key='RefreshScenarios'):
-	refreshscenarios = st.form_submit_button("Refresh Scenario List")
-		
+	
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
@@ -237,7 +233,7 @@ if scenarioaction:
 		col1,col2 = st.columns(2)
 		
 		with col1:
-			fig, axs = plt.subplots(figsize=(30, 15))
+			fig, axs = plt.subplots(figsize=(30, 20))
 			df.plot.line(ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", marker='o', xticks = range(1, predictiontimeline + 1) )
 			st.pyplot(fig)
 			
