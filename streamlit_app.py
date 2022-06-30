@@ -232,6 +232,7 @@ if scenarioaction:
 		output = pd.DataFrame.from_dict(ScenarioResultY0)
 		output.set_index('scenarioname', inplace=True)
 		output.index.name = 'Scenario Name'
+		output = output[metricsoptions]
 		output = output.apply(lambda x: x.astype(str), axis=1)
 		st.write(output)
 	
