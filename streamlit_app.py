@@ -188,6 +188,18 @@ if scenarioaction:
 			file = 'qs-streamlit/' + key + '.txt'
 			fs.delete(file)	
 
+	if action == "Show Parameters":
+		Scenariolist =[]
+		for key in scenariooptions:
+			Scenariolist.append(readscenario(key))
+			
+		df1 = pd.DataFrame.from_dict(Scenariolist)
+		df1.set_index('scenarioname', inplace=True)
+		df1 = df1.apply(lambda x: x.astype(str), axis=1)
+		df1 = df1.T
+		st.header("Selected Paramters for Scenarios")
+		st.write(df1)
+		
 	if action == "Run":
 		Scenariolist =[]
 		for key in scenariooptions:
