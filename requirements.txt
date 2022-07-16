@@ -4,3 +4,4 @@ numpy
 matplotlib
 chainladder
 s3fs
+requests
