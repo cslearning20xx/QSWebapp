@@ -6,6 +6,7 @@ import chainladder as cl
 import json
 import os
 import s3fs
+import requests
 
 pd.set_option('display.max_columns', None)
 
@@ -20,6 +21,10 @@ def read_file(filename):
     with fs.open(filename) as f:
         return f.read().decode("utf-8")
 
+
+#api_url = "https://jsonplaceholder.typicode.com/todos/1"
+#response = requests.get(api_url)
+#response = response.json()
 
 #files = fs.ls('qs-streamlit')
 #for file in files:
