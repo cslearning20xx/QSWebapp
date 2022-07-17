@@ -25,15 +25,6 @@ def read_file(filename):
 #api_url = "https://jsonplaceholder.typicode.com/todos/1"
 #response = requests.get(api_url)
 #response = response.json()
-
-#files = fs.ls('qs-streamlit')
-#for file in files:
-	#fs.delete(file)
-	#st.write('deleted file')
-		  
-#with fs.open('qs-streamlit/abc.txt', 'rb') as f:
-	#data = json.load(f)
-	#st.write(data)
     
 st.title( "Financial Modeling & Projections Dashboard" )
 
@@ -122,9 +113,18 @@ def PnLEstimateforScenario(Scenario):
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
     
+    for ncd in Scenario['noclaimdiscounts']:
+	if ncd != 'None':
+		[noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')
+		st.write(noclaimpopulationpercentage)
+		st.write(noclaimdiscount)
+
     TotalPremium = NewPremium * NewNumPolicyHolders
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
-    TotalClaimAmount = NumClaims * Scenario['AvgClaimSize']
+	
+    largelossclaim = NumClaims * (Scenario['largeloss']/100 ) * Scenario['largelossseverity']
+    usualclaim = NumClaims * ( 1- Scenario['largeloss']/100) * Scenario['AvgClaimSize']
+    TotalClaimAmount = usualclaim + largelossclaim
 	
     CLOutput = getChainLadderOutput(lossreservingmodel, lossreservingdevelopment)
     CL = CLOutput['LDF'].iloc[0].values
