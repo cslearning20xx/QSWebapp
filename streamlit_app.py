@@ -115,7 +115,7 @@ def PnLEstimateforScenario(Scenario):
     
     for ncd in Scenario['noclaimdiscounts']:
         if ncd != 'None':
-	    [noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')
+            [noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')
 	    st.write(noclaimpopulationpercentage)
 	    st.write(noclaimdiscount)
 
