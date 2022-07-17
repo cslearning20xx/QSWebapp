@@ -118,10 +118,10 @@ def PnLEstimateforScenario(Scenario):
 
     for ncd in Scenario['noclaimdiscounts']:
         if ncd != 'None':
-            [noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')
-            st.write(noclaimpopulationpercentage, noclaimdiscount)
-            ncd_policyholders = NewNumPolicyHolders * (noclaimpopulationpercentage/100 )
-            ncd_premium = NewPremium * ( 1 - noclaimdiscount/100)
+            ncd = ncd.replace('%', '')
+            [noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')            
+            ncd_policyholders = NewNumPolicyHolders * (float(noclaimpopulationpercentage)/100 )
+            ncd_premium = NewPremium * ( 1 - float(noclaimdiscount)/100)
             TotalPremium = ncd_premium * ncd_policyholders
             remainingpolicyholders = remainingpolicyholders - ncd_policyholders
 		
