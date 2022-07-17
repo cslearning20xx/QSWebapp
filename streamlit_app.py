@@ -113,15 +113,21 @@ def PnLEstimateforScenario(Scenario):
     DemandChange = Scenario['PremiumChangePercentage'] * Scenario['Gearing']
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
     
+    remainingpolicyholders = NewNumPolicyHolders 
+    TotalPremium = 0
+
     for ncd in Scenario['noclaimdiscounts']:
         if ncd != 'None':
             [noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')
-	    st.write(noclaimpopulationpercentage)
-	    st.write(noclaimdiscount)
-
-    TotalPremium = NewPremium * NewNumPolicyHolders
-    NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
+	    ncd_policyholders = NewNumPolicyHolders * (noclaimpopulationpercentage/100 )
+	    ncd_premium = NewPremium * ( 1 - noclaimdiscount/100)
+	    TotalPremium = ncd_premium * ncd_policyholders
+	    remainingpolicyholders = remainingpolicyholders - ncd_policyholders
+		
+    TotalPremium = TotalPremium + NewPremium * remainingpolicyholders
+    avgpremium = TotalPremium/NewNumPolicyHolders
 	
+    NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])	
     largelossclaim = NumClaims * (Scenario['largeloss']/100 ) * Scenario['largelossseverity']
     usualclaim = NumClaims * ( 1- Scenario['largeloss']/100) * Scenario['AvgClaimSize']
     TotalClaimAmount = usualclaim + largelossclaim
@@ -141,7 +147,7 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = TotalPremium + InvestmentIncome - ClaimInitial - Expenses
     
-    output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":NewPremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
+    output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
 	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'],
