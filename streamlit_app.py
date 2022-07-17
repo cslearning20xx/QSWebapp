@@ -183,7 +183,8 @@ if submitted:
             "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
             "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
 	    "lossreservingmodel": lossreservingmodel, "lossreservingdevelopment": lossreservingdevelopment,
-	    "PremiumChangePercentage":premiumchange, "Gearing": gearing, "scenarioname": scenarioname,	   
+	    "PremiumChangePercentage":premiumchange, "Gearing": gearing, "largeloss", largeloss, "largelossseverity", largelossseverity,
+	    "noclaimdiscounts", noclaimdiscounts, "scenarioname": scenarioname,	   
             }
 	
 	filename = "qs-streamlit/" + scenarioname + ".txt"
