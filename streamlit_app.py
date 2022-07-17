@@ -114,10 +114,10 @@ def PnLEstimateforScenario(Scenario):
     NewNumPolicyHolders = ( 1- DemandChange/100) * NumPolicyHolders
     
     for ncd in Scenario['noclaimdiscounts']:
-	if ncd != 'None':
-		[noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')
-		st.write(noclaimpopulationpercentage)
-		st.write(noclaimdiscount)
+        if ncd != 'None':
+	    [noclaimpopulationpercentage, noclaimdiscount] = ncd.split('@')
+	    st.write(noclaimpopulationpercentage)
+	    st.write(noclaimdiscount)
 
     TotalPremium = NewPremium * NewNumPolicyHolders
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
