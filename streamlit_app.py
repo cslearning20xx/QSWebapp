@@ -163,7 +163,7 @@ def getClaimProbability(RiskModel):
 	num = matrix[0][1] + matrix[1][1]
 	den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
 	claimprobability = num/den
-	
+	st.write(claimprobability)
 	#if RiskModel == 'Catboost':
 		#claimprobability = 1.6/100.0
 	#if RiskModel == 'GLM':
