@@ -22,7 +22,8 @@ def read_file(filename):
         return f.read().decode("utf-8")
   
 
-ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
+ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"
+RiskModel = "GLM"
 api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
 response = requests.get(api_url)
 response = response.json()
