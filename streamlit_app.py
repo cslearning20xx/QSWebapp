@@ -22,6 +22,17 @@ def read_file(filename):
         return f.read().decode("utf-8")
   
 
+ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
+api_url = "http://" + ip + "/modelMatrix?modelName=" + "Catboost"
+response = requests.get(api_url)
+response = response.json()
+	
+matrix = response["confusion_matrix"]
+num = matrix[0][1] + matrix[1][1]
+den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
+claimprobability = num/den
+st.write(claimprobability)
+	
 st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='ChooseAction'):
