@@ -54,7 +54,7 @@ with st.sidebar.form(key='KeyMetrics'):
 	    
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
-    riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'CatBoost', 'TPOT'), index = 1)
+    riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'Catboost', 'TPOT'), index = 1)
     fraudmodel = st.selectbox('Choose Fraud Model', ('None','Support Vector Classifier', 'CatBoost', 'KNN'), index = 1)
     fraudloss = st.slider('Fraud loss probability adjustment', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01, help = "Manual adjutment to model produced fraud probability" )
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Standard Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
