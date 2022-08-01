@@ -20,14 +20,14 @@ fs = s3fs.S3FileSystem(anon=False)
 def read_file(filename):
     with fs.open(filename) as f:
         return f.read().decode("utf-8")
+  
 
-
-ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"
-api_url = "http://" + ip + "/list-tables"
+ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
+api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
 response = requests.get(api_url)
 response = response.json()
-st.write(response)
-    
+st.write(response["confusion_matrix"])
+	
 st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='ChooseAction'):
@@ -159,6 +159,13 @@ def PnLEstimateforScenario(Scenario):
     return output
 
 def getClaimProbability(RiskModel):
+	
+	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
+	api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
+	response = requests.get(api_url)
+	response = response.json()
+	st.write(response)
+	
 	if RiskModel == 'Catboost':
 		claimprobability = 1.6/100.0
 	if RiskModel == 'GLM':
