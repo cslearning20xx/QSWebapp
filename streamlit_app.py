@@ -27,7 +27,10 @@ RiskModel = "GLM"
 api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
 response = requests.get(api_url)
 response = response.json()
-st.write(response["confusion_matrix"])
+matrix = response["confusion_matrix"]
+num = matrix[0][1] + matrix[1][1]
+den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
+st.write( num * 100/den)
 	
 st.title( "Financial Modeling & Projections Dashboard" )
 
