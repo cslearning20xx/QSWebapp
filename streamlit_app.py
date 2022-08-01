@@ -22,16 +22,6 @@ def read_file(filename):
         return f.read().decode("utf-8")
   
 
-ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"
-RiskModel = "GLM"
-api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
-response = requests.get(api_url)
-response = response.json()
-matrix = response["confusion_matrix"]
-num = matrix[0][1] + matrix[1][1]
-den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
-st.write( num * 100/den)
-	
 st.title( "Financial Modeling & Projections Dashboard" )
 
 with st.sidebar.form(key='ChooseAction'):
@@ -168,14 +158,18 @@ def getClaimProbability(RiskModel):
 	api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
 	response = requests.get(api_url)
 	response = response.json()
-	st.write(response)
 	
-	if RiskModel == 'Catboost':
-		claimprobability = 1.6/100.0
-	if RiskModel == 'GLM':
-		claimprobability = 1.6/100.0
-	else:
-		claimprobability = 1.6/100.0
+	matrix = response["confusion_matrix"]
+	num = matrix[0][1] + matrix[1][1]
+	den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
+	claimprobability = num/den
+	
+	#if RiskModel == 'Catboost':
+		#claimprobability = 1.6/100.0
+	#if RiskModel == 'GLM':
+		#claimprobability = 1.6/100.0
+	#else:
+		#claimprobability = 1.6/100.0
 	return claimprobability
 
 def getFraudProbability(FraudModel, fraudloss):
