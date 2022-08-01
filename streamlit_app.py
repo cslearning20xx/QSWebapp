@@ -24,7 +24,10 @@ def read_file(filename):
 
 ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
 api_url = "http://" + ip + "/modelMatrix?modelName=" + "Catboost"
+st.write(api_url)
 response = requests.get(api_url)
+st.write("outside func")		
+st.write(response)
 response = response.json()
 	
 matrix = response["confusion_matrix"]
@@ -167,7 +170,10 @@ def getClaimProbability(RiskModel):
 	
 	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
 	api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
+	st.write(api_url)
 	response = requests.get(api_url)
+	st.write("inside func")		
+	st.write(response)
 	response = response.json()
 	
 	matrix = response["confusion_matrix"]
