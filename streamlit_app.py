@@ -151,7 +151,7 @@ def PnLEstimateforScenario(Scenario):
 def getClaimProbability( RiskModel, riskprobadjustment):	
 	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
 	api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
-	st.write(api_url)
+	
 	response = requests.get(api_url)	
 	response = response.json()
 	
