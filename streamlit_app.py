@@ -62,6 +62,17 @@ with st.sidebar.form(key='BaselineInputs'):
     submitted = st.form_submit_button("Save Scenario")
 
 def getChainLadderOutput(model, development_average ):
+	
+	#ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com:5000"
+	#model = model.replace(" ", "%20")
+	#api_url = "http://" + ip + "/chainLadder?modelName=" + model + "&developmentAverage=" + development_average
+		
+	#response = requests.get(api_url)	
+	#response = response.json()	
+	#LDF = reponse["LDF"]
+	
+	#result = { "LDF": LDF }
+	
 	origin_col = "Accident Year"
 	development_col = "Development Year"
 	value_col = "Claim"
