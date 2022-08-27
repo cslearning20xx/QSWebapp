@@ -70,12 +70,11 @@ def getChainLadderOutput(model, development_average ):
 	response = requests.get(api_url)	
 	response = response.json()
 	st.write(response)	
-	LDF = reponse["LDF"]
+	
+	dict = json.loads(response["LDF"])
+	LDF = json_normalize(dict) 
 	st.write(LDF)
-	dict = json.loads(LDF)
-	df2 = json_normalize(dict) 
-	st.write(df2)
-	#result = { "LDF": LDF }
+	result = { "LDF": LDF }
 	
 	origin_col = "Accident Year"
 	development_col = "Development Year"
