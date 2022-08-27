@@ -57,7 +57,7 @@ with st.sidebar.form(key='BaselineInputs'):
     resinsuranceretentionratio = st.number_input("Reinsurance Retention Ratio", min_value = 0, max_value = 100, value=100 )
     largeloss = st.slider('Large Loss(% policies)', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01, help = "% of policies impacted by large/catastrophic evenets" )
     largelossseverity = st.number_input("Large Loss Severity($)", min_value=0, max_value=50000, value=50000, step = 100, help = "Severity for catastrophic events" )
-    noclaimdiscounts = st.text_input( "Choose no claim discount mix", '0%@0%', help = "%discount@%policies, 20%@5%;10%@2% implies 20% discount for 5% of policies and 10% discount for 2% of policies" )
+    noclaimdiscounts = st.text_input( "Provide No Claim Discount Mix", '0%@0%', help = "%discount@%policies, 20%@5%;10%@2% implies 20% discount for 5% of policies and 10% discount for 2% of policies" )
     scenarioname = st.text_input("Write Scenario name", help= "Ex: Scenario_Baseline, Scenario_BestCase, Scenario_WorstCase, Scenario_Pandemic")
     submitted = st.form_submit_button("Save Scenario")
 
