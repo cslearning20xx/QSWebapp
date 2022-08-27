@@ -31,7 +31,7 @@ with st.sidebar.form(key='ChooseAction'):
 	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
 	scenarioaction = st.form_submit_button("Submit")
 	
-metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", ]					
+metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", "FraudProbability" ]					
 	    
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
@@ -154,7 +154,7 @@ def PnLEstimateforScenario(Scenario):
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability", Scenario["FraudProbability"]
+	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": Scenario["FraudProbability"],
 	      }
     output.update(Scenario)
     return output
