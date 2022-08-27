@@ -66,10 +66,11 @@ def getChainLadderOutput(model, development_average ):
 	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com:5000"
 	model = model.replace(" ", "%20")
 	api_url = "http://" + ip + "/chainLadder?modelName=" + model + "&developmentAverage=" + development_average
-		
+	st.write(api_url)		
 	response = requests.get(api_url)	
 	response = response.json()	
 	LDF = reponse["LDF"]
+	st.write(LDF)
 	dict = json.loads(LDF)
 	df2 = json_normalize(dict) 
 	st.write(df2)
