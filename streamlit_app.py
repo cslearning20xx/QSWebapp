@@ -70,9 +70,8 @@ def getChainLadderOutput(model, development_average ):
 	response = requests.get(api_url)	
 	response = response.json()
 	st.write(response)	
-	
-	dict = json.loads(response["LDF"])
-	LDF = json_normalize(dict) 
+		
+	LDF = json_normalize(response["LDF"]) 
 	st.write(LDF)
 	result = { "LDF": LDF }
 	
