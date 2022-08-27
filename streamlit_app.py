@@ -250,6 +250,7 @@ if scenarioaction:
 		df.set_index('Year', inplace=True)
 		df.index.name = 'Year'
 	
+		st.header( "Key KPIs") 
 		output = pd.DataFrame.from_dict(ScenarioResultY0)
 		output.set_index('scenarioname', inplace=True)
 		output.index.name = 'Scenario Name'
