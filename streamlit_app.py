@@ -154,7 +154,7 @@ def PnLEstimateforScenario(Scenario):
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'],
+	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability", Scenario["FraudProbability"]
 	      }
     output.update(Scenario)
     return output
@@ -189,10 +189,7 @@ if submitted:
 	fraudprobability = getFraudProbability( fraudmodel, fraudloss )
 	claimcount = claimprobability * baselinemarketsize
 	claimcountwithfraud = round( claimcount * ( 1 + fraudprobability))
-	
-	lossratio = (claimprobability * avgclaimsize) / baselinepremium
-	premium = round((claimcountwithfraud * avgclaimsize)/(lossratio * baselinemarketsize))
-	
+			
 	Scenario = {"BaselinePremium": baselinepremium, 'AvgClaimSize': avgclaimsize, "BaselineMarketSize": baselinemarketsize, "BaselineMarketShare": baselinemarketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
