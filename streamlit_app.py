@@ -31,7 +31,7 @@ with st.sidebar.form(key='ChooseAction'):
 	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
 	scenarioaction = st.form_submit_button("Submit")
 	
-metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "PnL"]					
+metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", ]					
 	    
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
