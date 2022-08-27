@@ -48,7 +48,7 @@ with st.sidebar.form(key='BaselineInputs'):
     operatingexpenses = st.slider('Operating Expenses(%)', min_value = 0.0, max_value = 100.0, value = 30.0, step = 0.01, help ="operating expenses as % of GWP" )
     investmentreturn = st.slider('Investment Expected Return (%)', min_value = -20.0, max_value = 20.0, value = 6.0, step = 0.01, help = "expected return on inbestments done in financial portfolio consisting of stocks, bonds etc." )
     marketgrowth = st.slider('Market Growth (CAGR)(%)', min_value = -100.0, max_value = 100.0, value = 10.0, step = 0.01, help = "expectation of overall industry/segment growth")
-    marketsharegrowth = st.slider('Market Share Growth (CAGR)(%)', min_value = -100.0, max_value = 100.0, value = 15.0, step = 0.01, "expectation of company's growth in upcoming years" )
+    marketsharegrowth = st.slider('Market Share Growth (CAGR)(%)', min_value = -100.0, max_value = 100.0, value = 15.0, step = 0.01, help = "expectation of company's growth in upcoming years" )
     premiumchange = st.slider("Premium Change %", min_value = -20.0, max_value = 20.0, value=0.0, step = 0.01, help = "% change in premium amount in upcoming years for scenario analysis")
     gearing = st.number_input("Gearing", value=1.0, step = 0.1, help="Gearing factor represents the ratio of the proportionate change in volume to the proportionate deviation of the company premium from the market level. They are opposite signs, i.e., the volume falls more if the premium charged is higher")
     predictiontimeline = st.number_input("Prediction Timeline(years)", value=5, help= "time horizon to project P&L" )
