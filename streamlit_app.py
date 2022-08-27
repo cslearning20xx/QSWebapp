@@ -36,8 +36,9 @@ metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "PnL"]
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Input Parameters")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'Catboost', 'TPOT'), index = 1)
+    riskprobadjustment = st.slider('Risk probability adjustment', min_value = -5.0, max_value = 5.0, value = 0.0, step = 0.01, help = "Manual adjutment to model produced risk probability" )
     fraudmodel = st.selectbox('Choose Fraud Model', ('None','Support Vector Classifier', 'CatBoost', 'KNN'), index = 1)
-    fraudloss = st.slider('Fraud loss probability adjustment', min_value = 0.0, max_value = 5.0, value = 0.0, step = 0.01, help = "Manual adjutment to model produced fraud probability" )
+    fraudloss = st.slider('Fraud loss probability adjustment', min_value = -5.0, max_value = 5.0, value = 0.0, step = 0.01, help = "Manual adjutment to model produced fraud probability" )
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Standard Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
     lossreservingdevelopment = st.selectbox('Choose Loss Reserving Development Method', ('simple', 'volume' ), index = 0)	
     baselinepremium = st.number_input("Premium Amount ($)", min_value=0, max_value=10000, value=1000, step = 10)
@@ -147,27 +148,18 @@ def PnLEstimateforScenario(Scenario):
     output.update(Scenario)
     return output
 
-def getClaimProbability(RiskModel):
-	
+def getClaimProbability( RiskModel, riskprobadjustment):	
 	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
 	api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
 	st.write(api_url)
-	response = requests.get(api_url)
-	st.write("inside func")		
-	st.write(response)
+	response = requests.get(api_url)	
 	response = response.json()
 	
 	matrix = response["confusion_matrix"]
 	num = matrix[0][1] + matrix[1][1]
 	den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
 	claimprobability = num/den
-	st.write(claimprobability)
-	#if RiskModel == 'Catboost':
-		#claimprobability = 1.6/100.0
-	#if RiskModel == 'GLM':
-		#claimprobability = 1.6/100.0
-	#else:
-		#claimprobability = 1.6/100.0
+	claimprobability = claimprobability + riskprobadjustment
 	return claimprobability
 
 def getFraudProbability(FraudModel, fraudloss):
@@ -182,7 +174,7 @@ PnLScenarios = {}
 results = {}
 if submitted:
 
-	claimprobability = getClaimProbability( riskmodel )
+	claimprobability = getClaimProbability( riskmodel, riskprobadjustment )
 	fraudprobability = getFraudProbability( fraudmodel, fraudloss )
 	claimcount = claimprobability * baselinemarketsize
 	claimcountwithfraud = round( claimcount * ( 1 + fraudprobability))
