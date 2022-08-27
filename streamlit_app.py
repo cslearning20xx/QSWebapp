@@ -42,7 +42,7 @@ with st.sidebar.form(key='BaselineInputs'):
     lossreservingmodel = st.selectbox('Choose Loss Reserving Model', ('Standard Chain Ladder', 'Mack Chain Ladder', 'Bornhuetter Ferguson' ), index = 0)	
     lossreservingdevelopment = st.selectbox('Choose Loss Reserving Development Method', ('simple', 'volume' ), index = 0)	
     baselinepremium = st.number_input("Premium Amount ($)", min_value=0, max_value=10000, value=1000, step = 10)
-    avgclaimsize = st.number_input("Average Claim Severity ($)", min_value=0, max_value=50000, value=21000, step = 100)
+    avgclaimsize = st.number_input("Average Claim Severity ($)", min_value=0, max_value=50000, value=8500, step = 100)
     baselinemarketsize = st.number_input("Enter Market Size of policyholders", value=1000000, step = 1000)
     baselinemarketshare = st.slider('Company Market Share(%)', min_value = 0.0, max_value = 100.0, value = 10.0, step = 0.01 )
     operatingexpenses = st.slider('Operating Expenses(%)', min_value = 0.0, max_value = 100.0, value = 30.0, step = 0.01, help ="operating expenses as % of GWP" )
