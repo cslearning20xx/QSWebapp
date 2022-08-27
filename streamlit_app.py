@@ -69,9 +69,7 @@ def getChainLadderOutput(model, development_average ):
 	st.write(api_url)		
 	response = requests.get(api_url)	
 	response = response.json()
-	st.write(response)	
-		
-	LDF = json_normalize(response["LDF"]) 
+	LDF = pd.DataFrame.from_dict(response['LDF'])
 	st.write(LDF)
 	result = { "LDF": LDF }
 	
