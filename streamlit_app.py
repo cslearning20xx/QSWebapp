@@ -63,14 +63,16 @@ with st.sidebar.form(key='BaselineInputs'):
 
 def getChainLadderOutput(model, development_average ):
 	
-	#ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com:5000"
-	#model = model.replace(" ", "%20")
-	#api_url = "http://" + ip + "/chainLadder?modelName=" + model + "&developmentAverage=" + development_average
+	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com:5000"
+	model = model.replace(" ", "%20")
+	api_url = "http://" + ip + "/chainLadder?modelName=" + model + "&developmentAverage=" + development_average
 		
-	#response = requests.get(api_url)	
-	#response = response.json()	
-	#LDF = reponse["LDF"]
-	
+	response = requests.get(api_url)	
+	response = response.json()	
+	LDF = reponse["LDF"]
+	dict = json.loads(LDF)
+	df2 = json_normalize(dict) 
+	st.write(df2)
 	#result = { "LDF": LDF }
 	
 	origin_col = "Accident Year"
