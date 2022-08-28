@@ -217,10 +217,12 @@ if basescenario:
 	paramfilename = "qs-streamlit-params/params.txt"	
 	with fs.open(paramfilename, 'rb') as f:
 		data = json.load(f)
+	claimprobability = getClaimProbability( data['riskmodel'], data['riskprobadjustment'] )
+	fraudprobability = getFraudProbability( data['fraudmodel'], data['fraudloss'] )
 	
 	Scenario = {"BaselinePremium": data['baselinepremium'], 'AvgClaimSize': data['avgclaimsize'], "BaselineMarketSize": data['baselinemarketsize'], 
 		    "BaselineMarketShare": data['baselinemarketshare']/100, "ReturnRate": data['investmentreturn']/100,             
-            		"ClaimProbability": data['claimprobability'], "FraudProbability": data['fraudprobability'], 
+            		"ClaimProbability": claimprobability, "FraudProbability": fraudprobability,
             		"MarketGrowth": data['marketgrowth']/100, "OperatingExpenses": data['operatingexpenses']/100,
 	    		"lossreservingmodel": data['lossreservingmodel'], "lossreservingdevelopment": data['lossreservingdevelopment'],
 	    		"PremiumChangePercentage":data['premiumchange'], "Gearing": data['gearing'], "largeloss": data['largeloss'],
