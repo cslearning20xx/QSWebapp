@@ -213,6 +213,12 @@ if submitted:
 	filename = "qs-streamlit/" + scenarioname + ".txt"
 	json.dump(Scenario, fs.open( filename,'w'))
 
+if basescenario:
+	paramfilename = "qs-streamlit-params/params.txt"
+	with fs.open(paramfilename, 'rb') as f:
+		data = json.load(f)
+	st.write(data)
+	
 def readscenario(scenario):
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
 		data = json.load(f)
@@ -229,7 +235,7 @@ if basescenarioparams:
 	df1 = df1.T
 	st.header("Selected Parameters for Scenarios")
 	st.write(df1)
-		
+	
 if scenarioaction:
 	if action == "Delete":
 		for key in scenariooptions:
