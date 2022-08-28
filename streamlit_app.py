@@ -297,8 +297,10 @@ if scenarioaction:
 		
 		with col1:
 			fig, axs = plt.subplots(figsize=(30, 20))
-			df.plot.line(ax = axs, xlabel = "Year", ylabel = "Profit ($mn)", title ="Development of Mean Overall Profit", 
-				     fontsize = 40, linewidth=5, marker='o', xticks = range(1, predictiontimeline + 1) )
+			axs.set_ylabel( "Profit ($mn)",fontdict={'fontsize':40})
+			axs.set_xlabel( "Year",fontdict={'fontsize':40})
+			axs.set_title( "Development of Mean Overall Profit",pad=20, fontdict={'fontsize':40})
+			df.plot.line(ax = axs,fontsize = 40, linewidth=5, marker='o', xticks = range(1, predictiontimeline + 1) )				     
 			st.pyplot(fig)
 			
 		with col2:
