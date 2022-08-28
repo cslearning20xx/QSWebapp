@@ -249,7 +249,7 @@ if basescenarioparams:
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
 	st.header("Selected Parameters for Scenarios")
-	st.dataframe(df1)
+	st.dataframe(df1,50, 50)
 	st.write(df1)
 	
 if scenarioaction:
