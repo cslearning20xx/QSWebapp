@@ -214,7 +214,33 @@ if submitted:
 	json.dump(Scenario, fs.open( filename,'w'))
 
 if basescenario:
-	paramfilename = "qs-streamlit-params/params.txt"
+	output = {'riskmodel':'Catboost',
+	'riskprobadjustment':0.0, 
+	'fraudmodel': 'Support Vector Classifier',
+	'fraudloss' : 0.0,
+	'lossreservingmodel':'Standard Chain Ladder',
+	'lossreservingdevelopment': 'simple',
+	'baselinepremium':1000,
+	'avgclaimsize': 8500,
+	'baselinemarketsize': 1000000, 
+	'baselinemarketshare': 10.0,
+	'operatingexpenses': 30.0,
+	'investmentreturn': 6.0,
+	'marketgrowth': 10.0,
+	'marketsharegrowth': 15.0,
+	'premiumchange': 0.0,
+	'gearing':1.0,
+	'predictiontimeline': 5,  
+	'Competitivepricing': 0.0,
+	'resinsuranceretentionratio':100,
+	'largeloss: 0,
+	'largelossseverity: 50000,
+	'noclaimdiscounts': '0%@0%'}
+	st.write(output)
+	
+	paramfilename = "qs-streamlit-params/params.txt"	
+	json.dump(output, fs.open( paramfilename,'w'))
+		
 	with fs.open(paramfilename, 'rb') as f:
 		data = json.load(f)
 	st.write(data)
