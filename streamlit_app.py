@@ -300,7 +300,7 @@ if scenarioaction:
 			axs.set_ylabel( "Profit ($mn)",fontdict={'fontsize':40})
 			axs.set_xlabel( "Year",fontdict={'fontsize':40})
 			axs.set_title( "Development of Mean Overall Profit",pad=20, fontdict={'fontsize':40})
-			axs.legend(loc=1,fontsize=40);
+			axs.legend(loc = "upper left",fontsize = 40)
 			df.plot.line(ax = axs,fontsize = 40, linewidth=5, marker='o', xticks = range(1, predictiontimeline + 1), markersize = 30 )				     
 			st.pyplot(fig)
 			
