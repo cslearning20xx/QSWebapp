@@ -201,7 +201,8 @@ if submitted:
 	claimcount = claimprobability * baselinemarketsize
 	claimcountwithfraud = round( claimcount * ( 1 + fraudprobability))
 			
-	Scenario = {"BaselinePremium": baselinepremium, 'AvgClaimSize': avgclaimsize, "BaselineMarketSize": baselinemarketsize, "BaselineMarketShare": baselinemarketshare/100, 
+	Scenario = { "RiskModel", riskmodel, "FraudModel", fraudmodel, "BaselinePremium": baselinepremium, 'AvgClaimSize': avgclaimsize, 
+		    "BaselineMarketSize": baselinemarketsize, "BaselineMarketShare": baselinemarketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
             "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
@@ -220,7 +221,7 @@ if basescenario:
 	claimprobability = getClaimProbability( data['riskmodel'], data['riskprobadjustment'] )
 	fraudprobability = getFraudProbability( data['fraudmodel'], data['fraudloss'] )
 	
-	Scenario = {"BaselinePremium": data['baselinepremium'], 'AvgClaimSize': data['avgclaimsize'], "BaselineMarketSize": data['baselinemarketsize'], 
+	Scenario = { "RiskModel", riskmodel, "FraudModel", fraudmodel, "BaselinePremium": data['baselinepremium'], 'AvgClaimSize': data['avgclaimsize'], "BaselineMarketSize": data['baselinemarketsize'], 
 		    "BaselineMarketShare": data['baselinemarketshare']/100, "ReturnRate": data['investmentreturn']/100,             
             		"ClaimProbability": claimprobability, "FraudProbability": fraudprobability,
             		"MarketGrowth": data['marketgrowth']/100, "OperatingExpenses": data['operatingexpenses']/100,
