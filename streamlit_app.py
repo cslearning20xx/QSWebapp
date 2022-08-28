@@ -157,7 +157,7 @@ def PnLEstimateforScenario(Scenario):
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": Scenario["FraudProbability"] * 100, "LossRatio": LossRatio,
+	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": Scenario["FraudProbability"] * 100, "LossRatio": round(LossRatio *100,2) ,
 	      }
     output.update(Scenario)
     return output
@@ -260,7 +260,7 @@ if scenarioaction:
 		output = output[metricsoptions]
 		output = output.apply(lambda x: x.astype(str), axis=1)
 		output = output.rename( columns = {'GWP': 'GWP ($m)', 'TotalClaimAmout': 'Total Claim Amoutn ($m)', 'ClaimReserve': 'Claim Reserve ($m)',
-						   'PnL': 'PnL ($m)', 'FraudProbability': 'Fraud Probability (%)'
+						   'PnL': 'PnL ($m)', 'FraudProbability': 'Fraud Probability (%)', 'Premium', 'Premium ($)'
 						  })
 		st.write(output)
 	
