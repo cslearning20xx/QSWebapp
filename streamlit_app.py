@@ -126,9 +126,8 @@ def PnLEstimateforScenario(Scenario):
     
     remainingpolicyholders = NewNumPolicyHolders 
     TotalPremium = 0
-    st.write(Scenario['noclaimdiscounts'])
-
-    ncdlist = Scenario['noclaimdiscounts'].split(';')
+    
+    ncdlist = Scenario['noclaimdiscounts'].split(',')
     for ncd in ncdlist:
         if ncd != 'None':
             ncd = ncd.replace('%', '')
