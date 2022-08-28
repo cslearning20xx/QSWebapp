@@ -230,7 +230,7 @@ if basescenario:
 	    		"noclaimdiscounts": data['noclaimdiscounts'], "scenarioname": 'BaselineNew',	   
             		}
 	
-	filename = "qs-streamlit/BaselineNew.txt"
+	filename = "qs-streamlit/Baseline.txt"
 	json.dump(Scenario, fs.open( filename,'w'))
 	
 def readscenario(scenario):
