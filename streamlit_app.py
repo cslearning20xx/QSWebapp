@@ -266,8 +266,7 @@ if scenarioaction:
 		df1.set_index('scenarioname', inplace=True)
 		df1 = df1.apply(lambda x: x.astype(str), axis=1)
 		df1 = df1.T
-		st.header("Selected Paramters for Scenarios")
-		st.dataframe(df1, 300,300)
+		st.header("Selected Paramters for Scenarios")		
 		st.write(df1)
 		
 	if action == "Run":
