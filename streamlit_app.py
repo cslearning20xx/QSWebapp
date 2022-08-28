@@ -30,6 +30,9 @@ with st.sidebar.form(key='GenerateBaseScenario'):
 	st.title("Baseline Scenario")
 	basescenario = st.form_submit_button("Generate Base Scenario")
 
+with st.sidebar.form(key='ShowBaselineparams'):		
+	basescenarioparams = st.form_submit_button("Show Baseline Parameters")
+
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Generate New Scenarios")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'Catboost', 'TPOT'), index = 1)
