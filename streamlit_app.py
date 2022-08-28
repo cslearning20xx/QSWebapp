@@ -9,6 +9,7 @@ import s3fs
 import requests
 
 pd.set_option('display.max_columns', None)
+st. set_page_config(layout="wide")
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
