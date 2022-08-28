@@ -304,6 +304,5 @@ if scenarioaction:
 			plt.legend(loc='upper left',fontsize = 40)			
 			st.pyplot(fig)
 			
-		with col2:
-			st.dataframe(df, 300, 300)
+		with col2:			
 			st.write(df)
