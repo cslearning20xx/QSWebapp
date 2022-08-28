@@ -237,7 +237,7 @@ if basescenario:
 	'largelossseverity': 50000,
 	'noclaimdiscounts': '0%@0%'}
 	
-	paramfilename = "qs-streamlit/params.txt"
+	paramfilename = "qs-streamlit-params/params.txt"
 	json.dump(output, fs.open( paramfilename,'w'))
 
 	with fs.open(paramfilename, 'rb') as f:
