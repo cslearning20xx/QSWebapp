@@ -214,11 +214,10 @@ if submitted:
 	json.dump(Scenario, fs.open( filename,'w'))
 
 if basescenario:
-
 	paramfilename = "qs-streamlit-params/params.txt"	
 	with fs.open(paramfilename, 'rb') as f:
-		data1 = json.load(f)
-	st.write(data1)
+		data = json.load(f)
+	st.write(data)
 	
 def readscenario(scenario):
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
