@@ -24,13 +24,6 @@ def read_file(filename):
 
 st.title( "Financial Modeling & Projections Dashboard" )
 
-with st.sidebar.form(key='ChooseAction'):
-	files = fs.ls('qs-streamlit')
-	files = [ x.split("/")[1].split(".")[0] for x in files ]
-	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
-	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
-	scenarioaction = st.form_submit_button("Submit")
-	
 metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", "FraudProbability", "LossRatio" ]					
 	    
 with st.sidebar.form(key='BaselineInputs'):
@@ -61,6 +54,13 @@ with st.sidebar.form(key='BaselineInputs'):
     scenarioname = st.text_input("Write Scenario name", help= "Ex: Scenario_Baseline, Scenario_BestCase, Scenario_WorstCase, Scenario_Pandemic")
     submitted = st.form_submit_button("Save Scenario")
 
+with st.sidebar.form(key='ChooseAction'):
+	files = fs.ls('qs-streamlit')
+	files = [ x.split("/")[1].split(".")[0] for x in files ]
+	scenariooptions = st.multiselect('Scenario Choices(s)', files, [] )
+	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0 )
+	scenarioaction = st.form_submit_button("Submit")
+	
 def getChainLadderOutput(model, development_average ):
 	
 	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"
