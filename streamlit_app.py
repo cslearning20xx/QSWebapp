@@ -305,4 +305,5 @@ if scenarioaction:
 			st.pyplot(fig)
 			
 		with col2:
+			st.dataframe(df, 300, 300)
 			st.write(df)
