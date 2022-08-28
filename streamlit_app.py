@@ -204,7 +204,7 @@ if submitted:
 	Scenario = {"BaselinePremium": baselinepremium, 'AvgClaimSize': avgclaimsize, "BaselineMarketSize": baselinemarketsize, "BaselineMarketShare": baselinemarketshare/100, 
             "ReturnRate": investmentreturn/100,             
             "ClaimProbability": claimprobability, "FraudProbability": fraudprobability, 
-            "PremiumChangePercentage": 0.0, "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
+            "MarketGrowth": marketgrowth/100, "OperatingExpenses": operatingexpenses/100,
 	    "lossreservingmodel": lossreservingmodel, "lossreservingdevelopment": lossreservingdevelopment,
 	    "PremiumChangePercentage":premiumchange, "Gearing": gearing, "largeloss": largeloss, "largelossseverity": largelossseverity,
 	    "noclaimdiscounts": noclaimdiscounts, "scenarioname": scenarioname,	   
@@ -216,8 +216,20 @@ if submitted:
 if basescenario:
 	paramfilename = "qs-streamlit-params/params.txt"	
 	with fs.open(paramfilename, 'rb') as f:
-		data1 = json.load(f)
-	st.write(data1)
+		data = json.load(f)
+	
+	Scenario = {"BaselinePremium": data['baselinepremium'], 'AvgClaimSize': data['avgclaimsize'], "BaselineMarketSize": data['baselinemarketsize'], 
+		    "BaselineMarketShare": data['baselinemarketshare']/100, "ReturnRate": data['investmentreturn']/100,             
+            		"ClaimProbability": data['claimprobability'], "FraudProbability": data['fraudprobability'], 
+            		"MarketGrowth": data['marketgrowth']/100, "OperatingExpenses": data['operatingexpenses']/100,
+	    		"lossreservingmodel": data['lossreservingmodel'], "lossreservingdevelopment": data['lossreservingdevelopment'],
+	    		"PremiumChangePercentage":data['premiumchange'], "Gearing": data['gearing'], "largeloss": data['largeloss'],
+		    	"largelossseverity": data['largelossseverity'],
+	    		"noclaimdiscounts": data['noclaimdiscounts'], "scenarioname": 'BaselineNew',	   
+            		}
+	
+	filename = "qs-streamlit/BaselineNew.txt"
+	json.dump(Scenario, fs.open( filename,'w'))
 	
 def readscenario(scenario):
 	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
