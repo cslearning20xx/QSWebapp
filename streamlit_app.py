@@ -227,7 +227,7 @@ if basescenarioparams:
 	df1.set_index('scenarioname', inplace=True)
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
-	st.header("Selected Paramters for Scenarios")
+	st.header("Selected Parameters for Scenarios")
 	st.write(df1)
 		
 if scenarioaction:
