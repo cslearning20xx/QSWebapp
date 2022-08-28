@@ -34,7 +34,7 @@ with st.sidebar.form(key='ChooseAction'):
 metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", "FraudProbability", "LossRatio" ]					
 	    
 with st.sidebar.form(key='BaselineInputs'):
-    st.title("Input Parameters")
+    st.title("Generate New Scenarios")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'Catboost', 'TPOT'), index = 1)
     riskprobadjustment = st.slider('Risk probability adjustment', min_value = -5.0, max_value = 5.0, value = 0.0, step = 0.01, help = "Manual adjutment to model produced risk probability" )
     fraudmodel = st.selectbox('Choose Fraud Model', ('None','Support Vector Classifier', 'CatBoost', 'KNN'), index = 1)
@@ -260,7 +260,7 @@ if scenarioaction:
 		output = output[metricsoptions]
 		output = output.apply(lambda x: x.astype(str), axis=1)
 		output = output.rename( columns = {'GWP': 'GWP ($m)', 'TotalClaimAmout': 'Total Claim Amoutn ($m)', 'ClaimReserve': 'Claim Reserve ($m)',
-						   'PnL': 'PnL ($m)', 'FraudProbability': 'Fraud Probability (%)', 'Premium', 'Premium ($)'
+						   'PnL': 'PnL ($m)', 'FraudProbability': 'Fraud Probability (%)', 'Premium':'Premium ($)'
 						  })
 		st.write(output)
 	
