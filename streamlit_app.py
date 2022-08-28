@@ -27,6 +27,7 @@ st.title( "Financial Modeling & Projections Dashboard" )
 metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", "FraudProbability", "LossRatio" ]					
 
 with st.sidebar.form(key='GenerateBaseScenario'):	
+	st.title("Baseline Scenario")
 	basescenario = st.form_submit_button("Generate Base Scenario")
 
 with st.sidebar.form(key='BaselineInputs'):
