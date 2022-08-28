@@ -233,8 +233,8 @@ if basescenario:
 	'predictiontimeline': 5,  
 	'Competitivepricing': 0.0,
 	'resinsuranceretentionratio':100,
-	'largeloss: 0,
-	'largelossseverity: 50000,
+	'largeloss': 0,
+	'largelossseverity': 50000,
 	'noclaimdiscounts': '0%@0%'}
 	st.write(output)
 	
