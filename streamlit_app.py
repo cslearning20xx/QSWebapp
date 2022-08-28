@@ -215,7 +215,7 @@ if submitted:
 
 if basescenario:
 
-	paramfilename = "qs-streamlit-params/params.txt"		
+	paramfilename = "qs-streamlit/params.txt"		
 	with fs.open(paramfilename, 'rb') as f:
 		data = json.load(f)
 	st.write(data)
