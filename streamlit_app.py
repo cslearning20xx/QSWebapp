@@ -25,7 +25,10 @@ def read_file(filename):
 st.title( "Financial Modeling & Projections Dashboard" )
 
 metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", "FraudProbability", "LossRatio" ]					
-	    
+
+with st.sidebar.form(key='GenerateBaseScenario'):	
+	basescenario = st.form_submit_button("Generate Base Scenario")
+
 with st.sidebar.form(key='BaselineInputs'):
     st.title("Generate New Scenarios")
     riskmodel = st.selectbox('Choose Risk Model', ('GLM', 'Catboost', 'TPOT'), index = 1)
