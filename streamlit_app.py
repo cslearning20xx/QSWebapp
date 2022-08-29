@@ -228,7 +228,7 @@ if basescenario:
 	    		"lossreservingmodel": data['lossreservingmodel'], "lossreservingdevelopment": data['lossreservingdevelopment'],
 	    		"PremiumChangePercentage":data['premiumchange'], "Gearing": data['gearing'], "largeloss": data['largeloss'],
 		    	"largelossseverity": data['largelossseverity'],
-	    		"noclaimdiscounts": data['noclaimdiscounts'], "scenarioname": 'BaselineNew',	   
+	    		"noclaimdiscounts": data['noclaimdiscounts'], "scenarioname": 'Baseline',	   
             		}
 	
 	filename = "qs-streamlit/Baseline.txt"
