@@ -299,19 +299,12 @@ if scenarioaction:
 		output.index.name = 'Scenario Name'
 		output = output[metricsoptions]
 		output = output.apply(lambda x: x.astype(str), axis=1)
-		output = output.rename( columns = {'GWP': 'GWP ($m)', 'TotalClaimAmout': 'Total Claim Amoutn ($m)', 'ClaimReserve': 'Claim Reserve ($m)',
-						   'PnL': 'PnL ($m)', 'FraudProbability': 'Fraud Probability (%)', 'Premium':'Premium ($)'
+		output = output.rename( columns = {'GWP': 'GWP ($m)', 'TotalClaimAmount': 'Total Claim Amount ($m)', 'ClaimReserve': 'Claim Reserve ($m)',
+						   'PnL': 'PnL ($m)', 'FraudProbability': 'Fraud Probability (%)', 'Premium':'Premium ($)',
+						   'Expenses': 'Expenses ($m)'
 						  })
 		st.write(output)
-	
-		#st.header( "Loss Reserving") 
-		#cl1, cl2 = st.columns(2)
-		#ldf = results["Baseline"][0]["LDF"]
-		#fig1, axs1 = plt.subplots(figsize=(30, 10))
-		#ldf.T.plot.line(ax = axs1, marker= 'o', xlabel ="Year", ylabel = "Loss Development Factor", title ="Loss Development Factors" )
-		#cl1.pyplot(fig1)
-		#cl2.write(ldf)
-	
+		
 		st.header( "Projected PnL") 
 		
 		col1,col2 = st.columns(2)
