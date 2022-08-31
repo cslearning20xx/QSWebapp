@@ -164,10 +164,9 @@ def PnLEstimateforScenario(Scenario):
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": round(Scenario["FraudProbability"] * 100,2 ),
-	      "ClaimProbability": round(Scenario["ClaimProbability"] * 100,2 ),
+	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": round(Scenario["FraudProbability"] * 100,4 ),
+	      "ClaimProbability": round(Scenario["ClaimProbability"] * 100,4 ),
 	      "LossRatio": round(LossRatio *100,2), "AverageClaimSize": AverageClaimSize
-	      
 	      }
     output.update(Scenario)
     return output
