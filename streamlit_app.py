@@ -25,8 +25,6 @@ def read_file(filename):
 
 st.title( "Financial Modeling & Projections Dashboard" )
 
-metricsoptions = [ "Premium", "GWP", "TotalClaimAmount", "ClaimReserve", "Expenses", "PnL", "FraudProbability", "LossRatio" ]					
-
 with st.sidebar.form(key='GenerateBaseScenario'):	
 	st.title("Baseline Scenario")
 	basescenario = st.form_submit_button("Generate Base Scenario")
@@ -144,6 +142,7 @@ def PnLEstimateforScenario(Scenario):
     largelossclaim = NumClaims * (Scenario['largeloss']/100 ) * Scenario['largelossseverity']
     usualclaim = NumClaims * ( 1- Scenario['largeloss']/100) * Scenario['AvgClaimSize']
     TotalClaimAmount = usualclaim + largelossclaim
+    AverageClaimSize = TotalClaimAmount/NumClaims
 	
     LossRatio = TotalClaimAmount/TotalPremium
 
@@ -165,7 +164,10 @@ def PnLEstimateforScenario(Scenario):
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": round(Scenario["FraudProbability"] * 100,2 ), "LossRatio": round(LossRatio *100,2) ,
+	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": round(Scenario["FraudProbability"] * 100,2 ),
+	      "ClaimProbability": round(Scenario["ClaimProbability"] * 100,2 ),
+	      "LossRatio": round(LossRatio *100,2), "AverageClaimSize", AverageClaimSize
+	      
 	      }
     output.update(Scenario)
     return output
@@ -266,7 +268,7 @@ if scenarioaction:
 		df1.set_index('scenarioname', inplace=True)
 		df1 = df1.apply(lambda x: x.astype(str), axis=1)
 		df1 = df1.T
-		st.header("Selected Paramters for Scenarios")		
+		st.header("Selected Parameters for Scenarios")		
 		st.write(df1)
 		
 	if action == "Run":
@@ -297,11 +299,12 @@ if scenarioaction:
 		output = pd.DataFrame.from_dict(ScenarioResultY0)
 		output.set_index('scenarioname', inplace=True)
 		output.index.name = 'Scenario Name'
-		output = output[metricsoptions]
+		
 		output = output.apply(lambda x: x.astype(str), axis=1)
-		oldcols = [ 'TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL' ]
-		newcols = [ 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)' ]
-		st.write(output)
+		oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', ]
+		newcols = [ 'Frequency', 'Avg Severity ($)', 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)',
+			  'Loss Ratio' ]
+		
 		output = output[oldcols]
 		columnmap = dict(zip(oldcols, newcols))
 		output = output.rename( columns = columnmap )
