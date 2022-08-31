@@ -161,8 +161,10 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = TotalPremium + InvestmentIncome - ClaimInitial - Expenses
     
-    st.write( Scenario["ClaimProbability"] )
+  
     st.write( round(Scenario["ClaimProbability"] * 100,4 ))
+    f= round(Scenario["ClaimProbability"] * 100,4 )
+    st.write(f)
 	     
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
