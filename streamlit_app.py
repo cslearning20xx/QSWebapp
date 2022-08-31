@@ -301,6 +301,7 @@ if scenarioaction:
 		output = output.apply(lambda x: x.astype(str), axis=1)
 		oldcols = [ 'TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL' ]
 		newcols = [ 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)' ]
+		st.write(output)
 		output = output[oldcols]
 		columnmap = dict(zip(oldcols, newcols))
 		output = output.rename( columns = columnmap )
