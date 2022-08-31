@@ -301,7 +301,7 @@ if scenarioaction:
 		output = pd.DataFrame.from_dict(ScenarioResultY0)
 		output.set_index('scenarioname', inplace=True)
 		output.index.name = 'Scenario Name'
-		
+		st.write(output)
 		output = output.apply(lambda x: x.astype(str), axis=1)
 		oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', ]
 		newcols = [ 'Frequency', 'Avg Severity ($)', 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)',
