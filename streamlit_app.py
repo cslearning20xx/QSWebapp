@@ -299,10 +299,12 @@ if scenarioaction:
 		output.index.name = 'Scenario Name'
 		output = output[metricsoptions]
 		output = output.apply(lambda x: x.astype(str), axis=1)
-		output = output.rename( columns = {'GWP': 'GWP ($m)', 'TotalClaimAmount': 'Total Claim Amount ($m)', 'ClaimReserve': 'Claim Reserve ($m)',
-						   'PnL': 'PnL ($m)', 'FraudProbability': 'Fraud Probability (%)', 'Premium':'Premium ($)',
-						   'Expenses': 'Expenses ($m)'
-						  })
+		oldcols = [ 'TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL' ]
+		newcols = [ 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)' ]
+		output = output[cols]
+		columnmap = dict(zip(oldcols, newcols))
+		output = output.rename( columns = columnmap )
+		
 		st.write(output)
 		
 		st.header( "Projected PnL") 
