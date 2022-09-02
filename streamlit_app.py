@@ -145,6 +145,7 @@ def PnLEstimateforScenario(Scenario):
     AverageClaimSize = TotalClaimAmount/NumClaims
 	
     LossRatio = TotalClaimAmount/TotalPremium
+    Expenses = Scenario["OperatingExpenses"] * TotalPremium
     CombinedRatio = (TotalClaimAmount + Expenses)/TotalPremium
 
     CLOutput = getChainLadderOutput(lossreservingmodel, lossreservingdevelopment)
@@ -155,17 +156,11 @@ def PnLEstimateforScenario(Scenario):
 	
     # this is really reverse engineering, probably there is a better way to do
     ClaimInitial = round(TotalClaimAmount/CumulativeClaimRatios[-1],0)
-    ClaimReserve = round(TotalClaimAmount - ClaimInitial, 0)
+    ClaimReserve = round(TotalClaimAmount - ClaimInitial, 0)    
     
-    Expenses = Scenario["OperatingExpenses"] * TotalPremium
     InvestmentAmount = np.maximum(TotalPremium - TotalClaimAmount - Expenses, 0)    
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
-    PnL = TotalPremium + InvestmentIncome - ClaimInitial - Expenses
-    
-  
-    st.write( round(Scenario["ClaimProbability"] * 100,4 ))
-    f= round(Scenario["ClaimProbability"] * 100,4 )
-    st.write(f)
+    PnL = TotalPremium + InvestmentIncome - ClaimInitial - Expenses    
 	     
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
