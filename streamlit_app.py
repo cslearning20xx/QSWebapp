@@ -190,7 +190,17 @@ def getFraudProbability(FraudModel, fraudloss):
 	if FraudModel == 'None':
 		fraudprobability = 0
 	else:
-		fraudprobability = 0.005
+		ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
+		api_url = "http://" + ip + "/fraudModel"
+	
+		response = requests.get(api_url)	
+		response = response.json()
+	
+		matrix = response["confusion_matrix"]
+		num = matrix[0][1] + matrix[1][1]
+		den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
+		fraudprobability = num/den
+				
 	fraudprobability = fraudprobability + fraudloss/100
 	return fraudprobability
 	
@@ -301,7 +311,7 @@ if scenarioaction:
 		output.index.name = 'Scenario Name'
 		
 		output = output.apply(lambda x: x.astype(str), axis=1)
-		st.write(output)
+	
 		oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', 'CombinedRatio' ]
 		newcols = [ 'Frequency', 'Avg Severity ($)', 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)',
 			  'Loss Ratio', 'Combined Ratio' ]
