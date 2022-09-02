@@ -200,10 +200,9 @@ def getFraudProbability(FraudModel, fraudloss):
 		num = matrix[0][1] + matrix[1][1]
 		den = matrix[0][0] + matrix[0][1] + matrix[1][0] + matrix[1][1]
 		fraudprobability = num/den
-		st.write(fraudprobability)
-				
+						
 	fraudprobability = fraudprobability + fraudloss/100
-	st.write(fraudprobability)
+	
 	return fraudprobability
 	
 PnLScenarios = {}
