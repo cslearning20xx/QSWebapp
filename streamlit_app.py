@@ -145,6 +145,7 @@ def PnLEstimateforScenario(Scenario):
     AverageClaimSize = TotalClaimAmount/NumClaims
 	
     LossRatio = TotalClaimAmount/TotalPremium
+    CombinedRatio = (TotalClaimAmount + Expenses)/TotalPremium
 
     CLOutput = getChainLadderOutput(lossreservingmodel, lossreservingdevelopment)
     CL = CLOutput['LDF'].iloc[0].values
@@ -171,7 +172,7 @@ def PnLEstimateforScenario(Scenario):
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
 	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": round(Scenario["FraudProbability"] * 100,4 ),
 	      "ClaimProbability": round(Scenario["ClaimProbability"] * 100,4 ),
-	      "LossRatio": round(LossRatio *100,2), "AverageClaimSize": AverageClaimSize
+	      "LossRatio": round(LossRatio *100,2), "CombinedRatio": round(CombinedRatio *100,2), "AverageClaimSize": AverageClaimSize
 	      }
     output.update(Scenario)
     return output
@@ -306,9 +307,9 @@ if scenarioaction:
 		
 		output = output.apply(lambda x: x.astype(str), axis=1)
 		st.write(output)
-		oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', ]
+		oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', 'CombinedRatio' ]
 		newcols = [ 'Frequency', 'Avg Severity ($)', 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)',
-			  'Loss Ratio' ]
+			  'Loss Ratio', 'Combined Ratio' ]
 		
 		output = output[oldcols]
 		columnmap = dict(zip(oldcols, newcols))
