@@ -285,7 +285,7 @@ def ShowParams(	scenariooptions ):
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
 	st.header("Selected Parameters for Scenarios")		
-	st.dataframe(df1, 30)
+	st.dataframe(df1, 200)
 	
 if basescenarioparams:
 	ShowParams(['Baseline'])	
