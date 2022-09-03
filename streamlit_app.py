@@ -67,6 +67,10 @@ with st.sidebar.form(key='ChooseAction'):
 	action = st.selectbox('Choose action for scenarios', ["Run", "Delete", "Refresh Scenario List","Show Parameters"], index = 0, help = 'You can perform Run, Delete, Refresh and Show Parameters' )
 	scenarioaction = st.form_submit_button("Submit")
 	
+def readscenario(scenario):
+	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
+		data = json.load(f)
+	return data	
 def getChainLadderOutput(model, development_average ):
 	
 	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"
@@ -271,12 +275,6 @@ if basescenario:
 	
 	performRun(['Baseline']
 	
-
-		
-def readscenario(scenario):
-	with fs.open('qs-streamlit/' + scenario + '.txt', 'rb') as f:
-		data = json.load(f)
-	return data
 	
 if basescenarioparams:
 	Scenariolist =[]	
