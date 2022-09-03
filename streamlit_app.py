@@ -303,4 +303,6 @@ if scenarioaction:
 		ShowParams(scenariooptions)
 		
 	if action == "Run":
+		if 'Baseline' not in scenariooptions:
+			scenariooptions.append('Baseline')
 		performRun(scenariooptions)		
