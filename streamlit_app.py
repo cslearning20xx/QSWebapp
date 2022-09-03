@@ -274,6 +274,7 @@ if scenarioaction:
 		output.set_index('scenarioname', inplace=True)
 		output.index.name = 'Scenario Name'
 		output['FraudProbability'] = round(output['FraudProbability']*100,4)
+		output['ClaimProbability'] = round(output['ClaimProbability']*100,4)
 		output = output.apply(lambda x: x.astype(str), axis=1)
 	
 		oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', 'CombinedRatio' ]
