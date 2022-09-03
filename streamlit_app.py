@@ -7,6 +7,7 @@ import json
 import os
 import s3fs
 import requests
+from st_aggrid import AgGrid
 
 pd.set_option('display.max_columns', None)
 st. set_page_config(layout="wide")
@@ -285,7 +286,7 @@ def ShowParams(	scenariooptions ):
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
 	st.header("Selected Parameters for Scenarios")		
-	st.dataframe(df1, 400)
+	AgGrid(df1, height=500, fit_columns_on_grid_load=True)
 	
 if basescenarioparams:
 	ShowParams(['Baseline'])	
