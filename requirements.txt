@@ -5,3 +5,4 @@ matplotlib
 chainladder
 s3fs
 requests
+streamlit-aggrid
