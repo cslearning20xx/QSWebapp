@@ -274,18 +274,21 @@ if basescenario:
 	json.dump(Scenario, fs.open( filename,'w'))
 	
 	performRun(['Baseline'])
-		
-if basescenarioparams:
-	Scenariolist =[]	
-	for key in ['Baseline']:
+
+def ShowParams(	scenariooptions ):
+	Scenariolist =[]
+	for key in scenariooptions:
 		Scenariolist.append(readscenario(key))
 			
 	df1 = pd.DataFrame.from_dict(Scenariolist)
 	df1.set_index('scenarioname', inplace=True)
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
-	st.header("Selected Parameters for Scenarios")
+	st.header("Selected Parameters for Scenarios")		
 	st.write(df1)
+	
+if basescenarioparams:
+	ShowParams(['Baseline'])	
 	
 if scenarioaction:
 	if action == "Delete":
@@ -294,16 +297,10 @@ if scenarioaction:
 			fs.delete(file)	
 
 	if action == "Show Parameters":
-		Scenariolist =[]
-		for key in scenariooptions:
-			Scenariolist.append(readscenario(key))
-			
-		df1 = pd.DataFrame.from_dict(Scenariolist)
-		df1.set_index('scenarioname', inplace=True)
-		df1 = df1.apply(lambda x: x.astype(str), axis=1)
-		df1 = df1.T
-		st.header("Selected Parameters for Scenarios")		
-		st.write(df1)
+		if 'Baseline' not in scenariooptions:
+			scenariooptions.append('Baseline')
+		
+		ShowParams(scenariooptions)
 		
 	if action == "Run":
 		performRun(scenariooptions)		
