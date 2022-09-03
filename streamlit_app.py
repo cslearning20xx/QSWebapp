@@ -128,14 +128,10 @@ def PnLEstimateforScenario(Scenario):
     InvestmentIncome = InvestmentAmount * np.exp(Scenario["ReturnRate"]) - InvestmentAmount
     PnL = TotalPremium + InvestmentIncome - ClaimInitial - Expenses    
 	 
-    fraudprobability = Scenario['FraudProbability'] *100
-    st.write(fraudprobability)
-	
     output = { "MarketSize" : MarketSize, "NumPolicyHolders" : NewNumPolicyHolders, "Premium":avgpremium, "GWP": round(TotalPremium/1e6,2), "NumClaims": NumClaims, 
 	     "TotalClaimAmount":round(TotalClaimAmount/1e6,2),"ClaimInitial": round(ClaimInitial/1e6,2), "ClaimReserve": round(ClaimReserve/1e6,2), "Expenses": round(Expenses/1e6,2),
 	     "InvestmentAmount": round(InvestmentAmount/1e6), "InvestmentIncome": round(InvestmentIncome/1e6,2),
-	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], "FraudProbability": fraudprobability,
-	      "ClaimProbability": Scenario["ClaimProbability"]/100,
+	     "PnL": round(PnL/1e6,2), "LDF": CLOutput['LDF'], 	      
 	      "LossRatio": round(LossRatio *100,2), "CombinedRatio": round(CombinedRatio *100,2), "AverageClaimSize": AverageClaimSize
 	      }
     output.update(Scenario)
@@ -277,7 +273,7 @@ if scenarioaction:
 		output = pd.DataFrame.from_dict(ScenarioResultY0)
 		output.set_index('scenarioname', inplace=True)
 		output.index.name = 'Scenario Name'
-		
+		output['FraudProbability'] = round(output['FraudProbability']*100,4)
 		output = output.apply(lambda x: x.astype(str), axis=1)
 	
 		oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', 'CombinedRatio' ]
