@@ -273,9 +273,8 @@ if basescenario:
 	filename = "qs-streamlit/Baseline.txt"
 	json.dump(Scenario, fs.open( filename,'w'))
 	
-	performRun(['Baseline']
-	
-	
+	performRun(['Baseline'])
+		
 if basescenarioparams:
 	Scenariolist =[]	
 	for key in ['Baseline']:
