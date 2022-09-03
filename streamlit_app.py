@@ -80,7 +80,66 @@ def getChainLadderOutput(model, development_average ):
 	result = { "LDF": LDF }
 	
 	return result
+
+def performRun(scenariooptions):
+	Scenariolist =[]
+	ScenarioResultY0 = []
+	for key in scenariooptions:
+		PnLYearly = []
+		ScenarioResult = []			
+		Scenario = readscenario(key)
+		Scenariolist.append(Scenario)
+		for i in range(predictiontimeline):
+			Scenario.update({"TimeHorizon" : i })
+			result = PnLEstimateforScenario( Scenario)
+			ScenarioResult.append(result)
+			if i == 0:
+				ScenarioResultY0.append(result)
+			PnLYearly.append(result["PnL"])
+			
+		PnLScenarios.update({key:PnLYearly})
+		results.update({key:ScenarioResult})
 	
+	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
+	df = pd.DataFrame.from_dict(PnLScenarios)
+	df.set_index('Year', inplace=True)
+	df.index.name = 'Year'
+	
+	st.header( "Key KPIs") 
+	output = pd.DataFrame.from_dict(ScenarioResultY0)
+	output.set_index('scenarioname', inplace=True)
+	output.index.name = 'Scenario Name'
+	output['FraudProbability'] = round(output['FraudProbability']*100,4)
+	output['ClaimProbability'] = round(output['ClaimProbability']*100,4)
+	output = output.apply(lambda x: x.astype(str), axis=1)
+		
+	oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', 'CombinedRatio' ]
+	newcols = [ 'Frequency', 'Avg Severity ($)', 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)',
+		  'Loss Ratio', 'Combined Ratio' ]
+		
+	output = output[oldcols]
+	columnmap = dict(zip(oldcols, newcols))
+	output = output.rename( columns = columnmap )
+		
+	st.write(output)
+		
+	st.header( "Projected PnL") 
+		
+	col1,col2 = st.columns(2)
+		
+	with col1:
+		fig, axs = plt.subplots(figsize=(30, 20))
+		axs.set_ylabel( "Profit ($mn)",fontdict={'fontsize':40})
+		axs.set_xlabel( "Year",fontdict={'fontsize':40})
+		axs.set_title( "Development of Overall Profit",pad=20, fontdict={'fontsize':40})
+			
+		df.plot.line(ax = axs,fontsize = 40, linewidth=5, marker='o', xticks = range(1, predictiontimeline + 1), markersize = 30 )				     
+		plt.legend(loc='upper left',fontsize = 40)
+		st.pyplot(fig)
+			
+	with col2:			
+		st.write(df)
+
 def PnLEstimateforScenario(Scenario):    
     MarketSize = Scenario["BaselineMarketSize"] * np.power((1+ Scenario["MarketGrowth"]), Scenario["TimeHorizon"])        
     NumPolicyHolders = MarketSize * Scenario["BaselineMarketShare"]
@@ -212,64 +271,6 @@ if basescenario:
 	
 	performRun(['Baseline']
 	
-def performRun(scenariooptions):
-	Scenariolist =[]
-	ScenarioResultY0 = []
-	for key in scenariooptions:
-		PnLYearly = []
-		ScenarioResult = []			
-		Scenario = readscenario(key)
-		Scenariolist.append(Scenario)
-		for i in range(predictiontimeline):
-			Scenario.update({"TimeHorizon" : i })
-			result = PnLEstimateforScenario( Scenario)
-			ScenarioResult.append(result)
-			if i == 0:
-				ScenarioResultY0.append(result)
-			PnLYearly.append(result["PnL"])
-			
-		PnLScenarios.update({key:PnLYearly})
-		results.update({key:ScenarioResult})
-	
-	PnLScenarios.update({"Year": range(1, predictiontimeline +1 ) })
-	df = pd.DataFrame.from_dict(PnLScenarios)
-	df.set_index('Year', inplace=True)
-	df.index.name = 'Year'
-	
-	st.header( "Key KPIs") 
-	output = pd.DataFrame.from_dict(ScenarioResultY0)
-	output.set_index('scenarioname', inplace=True)
-	output.index.name = 'Scenario Name'
-	output['FraudProbability'] = round(output['FraudProbability']*100,4)
-	output['ClaimProbability'] = round(output['ClaimProbability']*100,4)
-	output = output.apply(lambda x: x.astype(str), axis=1)
-		
-	oldcols = [ 'ClaimProbability', 'AverageClaimSize','TotalClaimAmount', 'GWP',  'Premium', 'Expenses', 'FraudProbability',  'ClaimReserve', 'PnL', 'LossRatio', 'CombinedRatio' ]
-	newcols = [ 'Frequency', 'Avg Severity ($)', 'Total Claim Amount ($m)', 'GWP ($m)','Premium Per Policy ($)', 'Expenses ($m)', 'Fraud Probability (%)', 'Claim Reserve ($m)', 'PnL ($m)',
-		  'Loss Ratio', 'Combined Ratio' ]
-		
-	output = output[oldcols]
-	columnmap = dict(zip(oldcols, newcols))
-	output = output.rename( columns = columnmap )
-		
-	st.write(output)
-		
-	st.header( "Projected PnL") 
-		
-	col1,col2 = st.columns(2)
-		
-	with col1:
-		fig, axs = plt.subplots(figsize=(30, 20))
-		axs.set_ylabel( "Profit ($mn)",fontdict={'fontsize':40})
-		axs.set_xlabel( "Year",fontdict={'fontsize':40})
-		axs.set_title( "Development of Overall Profit",pad=20, fontdict={'fontsize':40})
-			
-		df.plot.line(ax = axs,fontsize = 40, linewidth=5, marker='o', xticks = range(1, predictiontimeline + 1), markersize = 30 )				     
-		plt.legend(loc='upper left',fontsize = 40)
-		st.pyplot(fig)
-			
-	with col2:			
-		st.write(df)
 
 		
 def readscenario(scenario):
