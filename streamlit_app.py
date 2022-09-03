@@ -79,40 +79,6 @@ def getChainLadderOutput(model, development_average ):
 	
 	result = { "LDF": LDF }
 	
-	#origin_col = "Accident Year"
-	#development_col = "Development Year"
-	#value_col = "Claim"
-	#iscumulative = False	
-	#df_raw = pd.read_csv('Claims CLDataset.csv')
-	#traingle_data = cl.Triangle(data=df_raw,origin=origin_col,development=development_col,columns=value_col,cumulative=iscumulative)
-	#traingle_data = traingle_data.incr_to_cum()
-	
-	#dev = cl.Development(average=development_average)
-	#transformed_triangle = dev.fit_transform(traingle_data)
-	#if model == 'Standard Chain Ladder':
-	#	model = cl.Chainladder().fit(transformed_triangle)
-	#	ibnr = model.ibnr_.to_frame()
-	#	ultimate = model.ultimate_.to_frame()
-	#	latest = model.latest_diagonal.to_frame()
-	#	summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-	#	summary.columns = ['Latest', 'IBNR', 'Ultimate']
-	#elif model == "Mack Chain Ladder":
-	#	model = cl.MackChainladder().fit(transformed_triangle)
-	#	summary = model.summary_.to_frame()
-	#elif model == "Bornhuetter Ferguson":
-	#	cl_ult = cl.Chainladder().fit(transformed_triangle).ultimate_
-	#	sample_weight = cl_ult * 0 + (cl_ult.sum() / cl_ult.shape[2])  # Mean Chainladder Ultimate
-	#	model = cl.BornhuetterFerguson(apriori=1).fit( X= transformed_triangle, sample_weight=sample_weight )
-	#	ibnr = model.ibnr_.to_frame()
-	#	ultimate = model.ultimate_.to_frame()
-	#	latest = ultimate - ibnr
-	#	summary = pd.concat([ latest, ibnr, ultimate ], axis=1)
-	#	summary.columns = ['Latest','IBNR', 'Ultimate']
-	#else:
-	#	st.write("This model choice is not yet supported")
-	#LDF = model.ldf_.to_frame()
-	#IDF = transformed_triangle.link_ratio
-	#result = { "LDF": LDF, "Summary": summary, "IDF": IDF }
 	return result
 	
 def PnLEstimateforScenario(Scenario):    
@@ -139,8 +105,8 @@ def PnLEstimateforScenario(Scenario):
     avgpremium = TotalPremium/NewNumPolicyHolders
 	
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])	
-    NumClaims = round( 	NumClaims * ( 1 + Scenario["FraudProbability"])	
-	
+    NumClaims = round( 	NumClaims * ( 1 + Scenario["FraudProbability"])
+
     largelossclaim = NumClaims * (Scenario['largeloss']/100 ) * Scenario['largelossseverity']
     usualclaim = NumClaims * ( 1- Scenario['largeloss']/100) * Scenario['AvgClaimSize']
     TotalClaimAmount = usualclaim + largelossclaim
