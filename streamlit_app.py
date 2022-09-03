@@ -103,10 +103,9 @@ def PnLEstimateforScenario(Scenario):
 		
     TotalPremium = TotalPremium + NewPremium * remainingpolicyholders
     avgpremium = TotalPremium/NewNumPolicyHolders
-	
+
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
     NumClaims = round( 	NumClaims * ( 1 + Scenario["FraudProbability"])
-
     largelossclaim = NumClaims * (Scenario['largeloss']/100 ) * Scenario['largelossseverity']
     usualclaim = NumClaims * ( 1- Scenario['largeloss']/100) * Scenario['AvgClaimSize']
     TotalClaimAmount = usualclaim + largelossclaim
