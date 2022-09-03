@@ -139,6 +139,8 @@ def PnLEstimateforScenario(Scenario):
     avgpremium = TotalPremium/NewNumPolicyHolders
 	
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])	
+    NumClaims = round( 	NumClaims * ( 1 + Scenario["FraudProbability"])	
+	
     largelossclaim = NumClaims * (Scenario['largeloss']/100 ) * Scenario['largelossseverity']
     usualclaim = NumClaims * ( 1- Scenario['largeloss']/100) * Scenario['AvgClaimSize']
     TotalClaimAmount = usualclaim + largelossclaim
@@ -211,8 +213,6 @@ if submitted:
 
 	claimprobability = getClaimProbability( riskmodel, riskprobadjustment )
 	fraudprobability = getFraudProbability( fraudmodel, fraudloss )
-	claimcount = claimprobability * baselinemarketsize
-	claimcountwithfraud = round( claimcount * ( 1 + fraudprobability))
 			
 	Scenario = { "RiskModel": riskmodel, "FraudModel": fraudmodel, "BaselinePremium": baselinepremium, 'AvgClaimSize': avgclaimsize, 
 		    "BaselineMarketSize": baselinemarketsize, "BaselineMarketShare": baselinemarketshare/100, 
