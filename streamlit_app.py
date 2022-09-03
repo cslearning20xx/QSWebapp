@@ -285,7 +285,7 @@ def ShowParams(	scenariooptions ):
 	df1.set_index('scenarioname', inplace=True)
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
-	df1.reset_index()
+	df1.reset_index(inplace = True )
 	st.header("Selected Parameters for Scenarios")		
 	AgGrid(df1, height=500, fit_columns_on_grid_load=True)
 	
