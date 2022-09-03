@@ -105,7 +105,7 @@ def PnLEstimateforScenario(Scenario):
     avgpremium = TotalPremium/NewNumPolicyHolders
 
     NumClaims = round(NewNumPolicyHolders * Scenario["ClaimProbability"])
-    NumClaims = round( 	NumClaims * ( 1 + Scenario["FraudProbability"])
+    NumClaims = round(NumClaims * ( 1 + Scenario["FraudProbability"]))
     largelossclaim = NumClaims * (Scenario['largeloss']/100 ) * Scenario['largelossseverity']
     usualclaim = NumClaims * ( 1- Scenario['largeloss']/100) * Scenario['AvgClaimSize']
     TotalClaimAmount = usualclaim + largelossclaim
@@ -121,7 +121,6 @@ def PnLEstimateforScenario(Scenario):
     for i in range(1, len(CL)):
         CumulativeClaimRatios.append(CumulativeClaimRatios[i-1]*CL[i])
 	
-    # this is really reverse engineering, probably there is a better way to do
     ClaimInitial = round(TotalClaimAmount/CumulativeClaimRatios[-1],0)
     ClaimReserve = round(TotalClaimAmount - ClaimInitial, 0)    
     
