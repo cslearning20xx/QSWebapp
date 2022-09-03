@@ -287,7 +287,7 @@ def ShowParams(	scenariooptions ):
 	df1 = df1.T
 	df1.reset_index(inplace = True )
 	st.header("Selected Parameters for Scenarios")		
-	AgGrid(df1, height=700, fit_columns_on_grid_load=True)
+	AgGrid(df1, height=550, fit_columns_on_grid_load=True)
 	
 if basescenarioparams:
 	ShowParams(['Baseline'])	
