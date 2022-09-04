@@ -297,11 +297,11 @@ def ShowParams(	scenariooptions ):
 	columnmap = dict(zip(oldcols, newcols))
 	df1 = df1.rename( columns = columnmap )	
 	
-	df1.set_index('scenarioname', inplace=True)
-	df1.index.name = 'Scenario Name'
+	df1.set_index('scenarioname', inplace=True)	
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
 	df1.reset_index(inplace = True )
+	df1.rename( columns = {'index': 'Scenario Name'})
 	st.header("Selected Parameters for Scenarios")		
 	AgGrid(df1, height=550, fit_columns_on_grid_load=True)
 	
