@@ -288,10 +288,10 @@ def ShowParams(	scenariooptions ):
 	
 	oldcols = [ 'RiskModel', 'FraudModel', 'BaselinePremium', 'AvgClaimSize', 'BaselineMarketSize', 'BaselineMarketShare', 'ReturnRate', 
 		    'ClaimProbability', 'FraudProbability', 'MarketGrowth', 'OperatingExpenses', 'lossreservingmodel', 'lossreservingdevelopment', 
-		  'PremiumChangePercentage', 'Gearing', 'largeloss', 'largelossseverity', 'noclaimdiscounts']
+		  'PremiumChangePercentage', 'Gearing', 'largeloss', 'largelossseverity', 'noclaimdiscounts', 'scenarioname']
 	newcols = [ 'Risk Model', 'Fraud Model', 'Premium($)', 'Average Severity($)', 'Market Size', 'Market Share', 'Investment Return Rate(%)', 
 			'Claim Probability (%)', 'Fraud Probability (%)', 'Market Growth (%)', 'Operating Expenses', 'Loss Reserving Model', 'Loss Reserving Development',
-		  'Premium Change (%)', 'Gearing', 'Large Loss', 'Large Loss Severity($)', 'No Claim Discount Mix']
+		  'Premium Change (%)', 'Gearing', 'Large Loss', 'Large Loss Severity($)', 'No Claim Discount Mix', 'scenarioname' ]
 		
 	df1 = df1[oldcols]
 	columnmap = dict(zip(oldcols, newcols))
