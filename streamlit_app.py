@@ -282,6 +282,21 @@ def ShowParams(	scenariooptions ):
 		Scenariolist.append(readscenario(key))
 			
 	df1 = pd.DataFrame.from_dict(Scenariolist)
+	
+	df1['FraudProbability'] = round(df1['FraudProbability']*100,4)
+	df1['ClaimProbability'] = round(df1['ClaimProbability']*100,4)
+	
+	oldcols = [ 'RiskModel', 'FraudModel', 'BaselinePremium', 'AvgClaimSize', 'BaselineMarketSize', 'BaselineMarketShare', 'ReturnRate', 
+		    'ClaimProbability', 'FraudProbability', 'MarketGrowth', 'OperatingExpenses', 'lossreservingmodel', 'lossreservingdevelopment', 
+		  'PremiumChangePercentage', 'Gearing', 'largeloss', 'largelossseverity', 'noclaimdiscounts']
+	newcols = [ 'Risk Model', 'Fraud Model', 'Premium($)', 'Average Severity($)', 'Market Size', 'Market Share', 'Investment Return Rate(%)', 
+			'Claim Probability (%)', 'Fraud Probability (%)', 'Market Growth (%)', 'Operating Expenses', 'Loss Reserving Model', 'Loss Reserving Development',
+		  'Premium Change (%)', 'Gearing', 'Large Loss', 'Large Loss Severity($)', 'No Claim Discount Mix']
+		
+	df1 = df1[oldcols]
+	columnmap = dict(zip(oldcols, newcols))
+	df1 = df1.rename( columns = columnmap )	
+	
 	df1.set_index('scenarioname', inplace=True)
 	df1 = df1.apply(lambda x: x.astype(str), axis=1)
 	df1 = df1.T
