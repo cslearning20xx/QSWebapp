@@ -23,6 +23,7 @@ def read_file(filename):
     with fs.open(filename) as f:
         return f.read().decode("utf-8")
   
+ip = "ec2-43-204-34-187.ap-south-1.compute.amazonaws.com"
 
 st.title( "Financial Modeling & Projections Dashboard" )
 
@@ -73,8 +74,7 @@ def readscenario(scenario):
 		data = json.load(f)
 	return data	
 def getChainLadderOutput(model, development_average ):
-	
-	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"
+		
 	model = model.replace(" ", "%20")
 	api_url = "http://" + ip + "/chainLadder?modelName=" + model + "&developmentAverage=" + development_average
 	
@@ -202,7 +202,7 @@ def PnLEstimateforScenario(Scenario):
     return output
 
 def getClaimProbability( RiskModel, riskprobadjustment):	
-	ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
+	
 	api_url = "http://" + ip + "/modelMatrix?modelName=" + RiskModel
 	
 	response = requests.get(api_url)	
@@ -218,8 +218,7 @@ def getClaimProbability( RiskModel, riskprobadjustment):
 def getFraudProbability(FraudModel, fraudloss):
 	if FraudModel == 'None':
 		fraudprobability = 0
-	else:
-		ip = "ec2-65-1-110-35.ap-south-1.compute.amazonaws.com"	
+	else:		
 		api_url = "http://" + ip + "/fraudModel"
 	
 		response = requests.get(api_url)	
